@@ -16,6 +16,9 @@ const rif = z.object({
   punto: z.string().min(1),
 });
 
+/** Giorno dell'anno senza l'anno: "04-01" è il 1° aprile. */
+const giorno = z.string().regex(/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, 'Data nel formato MM-GG, es. "04-01" per il 1° aprile');
+
 /** Solo le strutture che interessano agli host privati: niente alberghi. */
 export const CATEGORIE = ['locazione_turistica', 'casa_vacanze', 'bnb', 'affittacamere'] as const;
 
@@ -34,6 +37,21 @@ export const schemaImposta = z
     /** Solo i comuni "verificato" diventano pagine del sito. */
     stato: z.enum(['bozza', 'verificato']),
 
+    /**
+     * Facoltativo: solo se le tariffe cambiano durante l'anno.
+     * Ogni stagione ha uno o più intervalli di date; un intervallo può scavalcare l'anno (es. dal 11-01 al 03-31).
+     */
+    stagioni: z
+      .array(
+        z.object({
+          /** Es. alta, bassa. Le tariffe la richiamano con "stagione". */
+          nome: z.string().min(1),
+          periodi: z.array(z.object({ dal: giorno, al: giorno })).min(1),
+          rif,
+        }),
+      )
+      .default([]),
+
     /** Le fonti del file, per nome. Servono almeno la pagina del comune e la delibera o il regolamento. */
     fonti: z.record(z.string(), fonte),
 
@@ -45,8 +63,8 @@ export const schemaImposta = z
           nome_nel_documento: z.string().min(1),
           /** Euro per persona per notte. */
           importo: z.number().min(0).max(50),
-          /** Facoltativo: es. alta stagione, da aprile a ottobre. */
-          periodo: z.string().optional(),
+          /** Il nome di una delle "stagioni", se la tariffa vale solo in un periodo dell'anno. */
+          stagione: z.string().optional(),
           /** Facoltativo: es. centro storico. */
           zona: z.string().optional(),
           rif,
@@ -120,7 +138,23 @@ export const schemaImposta = z
         ctx.addIssue({ code: 'custom', path: [...path, 'rif', 'fonte'], message: `La fonte "${r.fonte}" non è tra le fonti del file` });
       }
     };
-    d.tariffe.forEach((t, i) => controlla(t.rif, ['tariffe', i]));
+    d.stagioni.forEach((st, i) => controlla(st.rif, ['stagioni', i]));
+    const nomiStagioni = d.stagioni.map((st) => st.nome);
+    if (new Set(nomiStagioni).size !== nomiStagioni.length) {
+      ctx.addIssue({ code: 'custom', path: ['stagioni'], message: 'Due stagioni con lo stesso nome' });
+    }
+    d.tariffe.forEach((t, i) => {
+      controlla(t.rif, ['tariffe', i]);
+      if (t.stagione && !nomiStagioni.includes(t.stagione)) {
+        ctx.addIssue({ code: 'custom', path: ['tariffe', i, 'stagione'], message: `La stagione "${t.stagione}" non è tra le stagioni del file` });
+      }
+    });
+    // Se ci sono stagioni, ogni tariffa deve dire a quale si riferisce: niente tariffe ambigue.
+    if (d.stagioni.length > 0) {
+      d.tariffe.forEach((t, i) => {
+        if (!t.stagione) ctx.addIssue({ code: 'custom', path: ['tariffe', i, 'stagione'], message: 'Il comune ha più stagioni: indica a quale si riferisce la tariffa' });
+      });
+    }
     if (d.notti_massime.valore === 'non_trovato') {
       if (d.stato === 'verificato') {
         ctx.addIssue({ code: 'custom', path: ['notti_massime'], message: 'Un comune verificato non può avere le notti massime "non_trovato"' });

@@ -31,6 +31,12 @@ inventati, non copiarne nessun valore.
    - **Tariffe**: solo locazioni turistiche, case vacanza, B&B e affittacamere, niente
      alberghi. In `nome_nel_documento` copia il nome usato dalla delibera. Se la tariffa non è
      in euro per persona per notte (es. una percentuale), non convertirla: scrivilo in `note`.
+   - **Stagioni**: controlla sempre se le tariffe cambiano tra alta e bassa stagione (o altri
+     periodi). Se sì, compila `stagioni` con il nome e le date esatte di ogni periodo
+     (formato MM-GG, es. "04-01"), e indica in ogni tariffa a quale stagione si riferisce.
+     Se le date cambiano ogni anno o non sono scritte, dillo in `note`.
+   - **Notti massime**: cerca sempre il numero massimo di notti consecutive tassate; di
+     solito è nel regolamento.
    - **Ogni valore ha un `rif`**: la voce di `fonti` da cui viene e il punto preciso
      (articolo, comma, pagina del PDF).
 4. **Se un dato manca o due fonti non coincidono, NON scegliere.**

@@ -91,6 +91,31 @@ describe('lo schema blocca gli errori', () => {
     expect(errori(d).join('\n')).toContain('Serve il rif');
   });
 
+  test('una tariffa che richiama una stagione inesistente', () => {
+    const d = esempio();
+    d.tariffe[0].stagione = 'estate';
+    expect(errori(d).join('\n')).toContain('La stagione "estate" non è tra le stagioni del file');
+  });
+
+  test('con più stagioni, una tariffa senza stagione', () => {
+    const d = esempio();
+    delete d.tariffe[1].stagione;
+    expect(errori(d).join('\n')).toContain('indica a quale si riferisce la tariffa');
+  });
+
+  test('una data di stagione scritta male', () => {
+    const d = esempio();
+    d.stagioni[0].periodi[0].dal = '1 aprile';
+    expect(errori(d).join('\n')).toContain('formato MM-GG');
+  });
+
+  test('un comune senza stagioni, con tariffa unica', () => {
+    const d = esempio();
+    d.stagioni = [];
+    d.tariffe = [{ ...d.tariffe[0], stagione: undefined }];
+    expect(errori(d)).toEqual([]);
+  });
+
   test('stato diverso da bozza o verificato', () => {
     const d = esempio();
     d.stato = 'pubblicato';

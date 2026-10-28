@@ -14,11 +14,13 @@ trovare gli errori, non confermare il lavoro di altri.
 2. Apri **ogni** fonte indicata nel file.
 3. Controlla **ogni** valore, uno per uno, nel punto indicato dal suo `rif` (articolo,
    comma, pagina). Se il valore è giusto ma il punto è sbagliato, segnalalo.
-4. Controlla che le fonti siano ancora valide: cerca se esiste una delibera o una pagina più
+4. Per l'imposta di soggiorno controlla con cura: le date di inizio e fine di ogni stagione,
+   che ogni tariffa sia attribuita alla stagione giusta, e il numero massimo di notti.
+5. Controlla che le fonti siano ancora valide: cerca se esiste una delibera o una pagina più
    recente (per esempio tariffe dell'anno nuovo) e se la data `valida_dal` è coerente.
-5. Segnala le fonti non ufficiali usate per un valore: contano solo siti di comuni, regioni,
+6. Segnala le fonti non ufficiali usate per un valore: contano solo siti di comuni, regioni,
    Agenzia delle Entrate, Gazzetta Ufficiale e pagine ufficiali delle piattaforme.
-6. Per i valori `non_trovato` o `non_verificato`, prova a trovarli tu: se ci riesci, indica
+7. Per i valori `non_trovato` o `non_verificato`, prova a trovarli tu: se ci riesci, indica
    valore e fonte.
 
 ## Come rispondi
