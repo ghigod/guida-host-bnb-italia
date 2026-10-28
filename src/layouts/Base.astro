@@ -9,6 +9,8 @@ interface Props {
 const { title, description } = Astro.props;
 const nomeSito = 'Guida Host BnB Italia';
 const titoloCompleto = title === nomeSito ? title : `${title} · ${nomeSito}`;
+// Indirizzo ufficiale della pagina: dice a Google quale copia contare (non workers.dev o www).
+const canonico = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -20,6 +22,7 @@ const titoloCompleto = title === nomeSito ? title : `${title} · ${nomeSito}`;
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{titoloCompleto}</title>
+		<link rel="canonical" href={canonico} />
 		{description && <meta name="description" content={description} />}
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
