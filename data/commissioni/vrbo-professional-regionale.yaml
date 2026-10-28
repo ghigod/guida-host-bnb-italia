@@ -1,0 +1,22 @@
+piattaforma: Vrbo
+caso: Professional Plan / regionale
+etichetta_scelta: Tasso diverso
+ordine: 2
+commissione: 15
+fino_a: true
+nota_commissione: Elaborazione inclusa
+iva_aggiunta: true
+costo_ospite:
+  tipo: variabile
+  dettaglio: non pubblicato
+descrizione_scelta: Professional Plan o tariffe regionali in Europa. Il tasso è nella dashboard del proprietario.
+quando: Parti d'Europa. Il tasso esatto è nella dashboard del proprietario.
+in_uscita: false
+fonte:
+  nome: Vrbo
+  titolo: "Vrbo, Centro assistenza: come si calcola la commissione"
+  url: https://help.vrbo.com/articles/How-is-the-booking-fee-calculated
+verificato_il: 2026-10-28
+note: >-
+  15% è il massimo, non un valore fisso: ogni host vede il suo tasso nella dashboard.
+  Data di inizio non indicata dalla fonte.

@@ -1,0 +1,23 @@
+piattaforma: Vrbo
+caso: A prenotazione
+ordine: 1
+commissione: 12
+nota_commissione: Elaborazione inclusa
+iva_aggiunta: true
+costo_ospite:
+  tipo: variabile
+  dettaglio: non pubblicato
+descrizione_scelta: Per le prenotazioni dal 29 ottobre 2026. Elaborazione del pagamento inclusa.
+quando: Prenotazioni dal 29 ottobre 2026. Chi ha l'abbonamento passa qui alla scadenza.
+in_uscita: false
+valida_dal: 2026-10-29
+fonte:
+  nome: Vrbo
+  titolo: "Vrbo, Centro assistenza: come si calcola la commissione"
+  url: https://help.vrbo.com/articles/How-is-the-booking-fee-calculated
+altre_fonti:
+  - nome: Expedia Group
+    titolo: "Expedia Group: modifiche al modello di compenso Vrbo (1 ottobre 2026, aggiornato il 20 ottobre)"
+    url: https://www.expedia.com/newsroom/vrbo-compensation-model-changes/
+    ufficiale: true
+verificato_il: 2026-10-28

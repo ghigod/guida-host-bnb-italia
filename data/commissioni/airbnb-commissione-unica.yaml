@@ -1,0 +1,39 @@
+piattaforma: Airbnb
+caso: Commissione unica
+ordine: 1
+commissione: 15.5
+commissione_altri_host:
+  min: 14
+  max: 16
+iva_aggiunta: true
+costo_ospite:
+  tipo: nessuno
+descrizione_scelta: Standard per gli host italiani dal 13 ottobre 2026. Nessun costo a carico dell'ospite.
+quando: >-
+  Tutti gli host in Italia dal 13 ottobre 2026, già prima per chi usa un software di
+  gestione. Dopo il passaggio non si torna indietro.
+in_uscita: false
+valida_dal: 2026-10-13
+fonte:
+  nome: Airbnb
+  titolo: "Airbnb, Centro assistenza: commissioni di servizio"
+  url: https://www.airbnb.com/help/article/1857
+altre_fonti:
+  - nome: QuiFinanza
+    titolo: "QuiFinanza: Airbnb, cosa cambia dal 13 ottobre"
+    url: https://quifinanza.it/lifestyle/travel-economy/affitti-brevi-tariffe-airbnb-aumento-2026/1008149/
+    ufficiale: false
+  - nome: ItaliaOggi
+    titolo: "ItaliaOggi: commissioni Airbnb e fisco italiano"
+    url: https://www.italiaoggi.it/diritto-e-fisco/airbnb-quadruplica-le-commissioni-affitti-brevi-verso-rincari-fino-al-36-75-fw490mc0
+    ufficiale: false
+    in_tabella: false
+  - nome: Smoobu
+    titolo: "Smoobu: la commissione unica Airbnb al 15,5%"
+    url: https://www.smoobu.com/it/blog/aumento-costi-singoli-host-airbnb/
+    ufficiale: false
+    in_tabella: false
+verificato_il: 2026-10-28
+note: >-
+  La data del 13 ottobre 2026 e l'intervallo 14–16% per alcuni host vengono dagli articoli
+  di supporto: da confermare sulla pagina ufficiale Airbnb.

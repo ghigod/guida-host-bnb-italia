@@ -1,0 +1,20 @@
+piattaforma: Airbnb
+caso: Commissione condivisa
+ordine: 2
+commissione: 3
+nota_commissione: Alcuni host pagano di più
+iva_aggiunta: true
+costo_ospite:
+  tipo: percentuale
+  valore: 14,1–16,5%
+descrizione_scelta: >-
+  Solo se non sei ancora passato alla unica, o per prenotazioni ricevute prima.
+  L'ospite paga 14,1–16,5% in più.
+quando: Host non ancora migrati e prenotazioni ricevute prima del passaggio.
+in_uscita: true
+fonte:
+  nome: Airbnb
+  titolo: "Airbnb, Centro assistenza: commissioni di servizio"
+  url: https://www.airbnb.com/help/article/1857
+verificato_il: 2026-10-28
+note: Modello in uscita, senza una data di inizio unica (valida_dal non indicata).

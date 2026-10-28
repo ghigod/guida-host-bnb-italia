@@ -1,0 +1,32 @@
+iva:
+  valore: 22
+  descrizione: >-
+    IVA ordinaria. Le piattaforme la aggiungono alle loro commissioni; è un costo per
+    privati e partite IVA forfettarie, recuperabile solo con partita IVA ordinaria.
+  fonte:
+    nome: Normattiva
+    titolo: "DPR 26 ottobre 1972, n. 633, art. 16 (aliquota IVA ordinaria)"
+    url: https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1972-10-26;633~art16
+  verificato_il: 2026-10-28
+
+ritenuta:
+  descrizione: >-
+    Ritenuta che la piattaforma trattiene sul lordo (notti e pulizia) prima di pagare l'host.
+  fonte:
+    nome: Agenzia delle Entrate
+    titolo: "Agenzia delle Entrate, comunicato del 10 maggio 2024 sulla circolare n. 10/E"
+    url: https://agenziaentrate.gov.it/portale/documents/20143/6101220/019_Com.st+Circolare+novit%C3%A0+locazioni+brevi+10.05.24/9e566bee-6fec-4298-677d-6ad0f85b443d
+  verificato_il: 2026-10-28
+  opzioni:
+    - valore: 21
+      etichetta: 21%, cedolare secca su una casa
+      predefinita: true
+    - valore: 26
+      etichetta: 26%, cedolare secca dalla seconda casa
+      note: >-
+        DA VERIFICARE. Il comunicato dell'Agenzia delle Entrate (10 maggio 2024) dice che le
+        piattaforme trattengono "sempre" il 21%, anche quando la cedolare è al 26%: il 26%
+        è l'imposta dovuta, non la ritenuta. Controllare se la Legge di bilancio 2026 ha
+        cambiato qualcosa prima di tenere questa opzione.
+    - valore: 0
+      etichetta: Nessuna ritenuta

@@ -1,0 +1,412 @@
+---
+// Pagina principale: il calcolatore del prezzo equivalente tra Airbnb e Vrbo.
+// Tutte le percentuali e le fonti vengono dai file in data/.
+import { getCollection, getEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { costruisciTassi, FILE_COMMISSIONI, numero as num, testoCommissione } from '../lib/tassi';
+
+type Commissione = CollectionEntry<'commissioni'>['data'];
+
+const commissioni = (await getCollection('commissioni')).sort(
+	(a, b) => a.data.piattaforma.localeCompare(b.data.piattaforma) || a.data.ordine - b.data.ordine,
+);
+function caso(id: string): Commissione {
+	const e = commissioni.find((c) => c.id === id);
+	if (!e) throw new Error(`Manca il file data/commissioni/${id}.yaml`);
+	return e.data;
+}
+const aliquoteEntry = await getEntry('fisco', 'aliquote');
+if (!aliquoteEntry) throw new Error('Manca il file data/fisco/aliquote.yaml');
+const { iva, ritenuta } = aliquoteEntry.data;
+
+const abUnica = caso(FILE_COMMISSIONI.airbnbUnica);
+const abCondivisa = caso(FILE_COMMISSIONI.airbnbCondivisa);
+const vrPrenotazione = caso(FILE_COMMISSIONI.vrboPrenotazione);
+const vrProfessional = caso(FILE_COMMISSIONI.vrboProfessional);
+const vrPrecedente = caso(FILE_COMMISSIONI.vrboPrecedente);
+
+const num2 = (x: number) => x.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const molt = (100 + iva.valore) / 100;
+
+function testoConIva(d: Commissione): string {
+	return (d.fino_a ? 'fino a ' : '') + num2(d.commissione * molt) + '%';
+}
+function notaCommissione(d: Commissione): string | undefined {
+	const a = d.commissione_altri_host;
+	return a ? `Altri host ${num(a.min)}–${num(a.max)}%` : d.nota_commissione;
+}
+const tassi = costruisciTassi(caso, iva.valore);
+
+const sceltaAirbnb = [
+	{ value: 'single', d: abUnica },
+	{ value: 'split', d: abCondivisa },
+];
+const sceltaVrbo = [
+	{ value: 'ppb', d: vrPrenotazione },
+	{ value: 'custom', d: vrProfessional },
+	{ value: 'old', d: vrPrecedente },
+];
+const altriHost = abUnica.commissione_altri_host;
+
+const gruppi = (['Airbnb', 'Vrbo'] as const).map((p) => ({
+	piattaforma: p,
+	casi: commissioni.map((c) => c.data).filter((d) => d.piattaforma === p),
+}));
+
+// La data più vecchia tra le commissioni: è quella che vale per tutta la tabella.
+const verificatoIl = new Date(Math.min(...commissioni.map((c) => c.data.verificato_il.getTime())));
+const dataLunga = (d: Date) =>
+	d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+// Elenco fonti: prima le ufficiali, poi quelle di supporto, senza doppioni.
+const tutteLeFonti = [
+	...commissioni.flatMap((c) => [{ ...c.data.fonte, ufficiale: true }, ...c.data.altre_fonti]),
+	{ ...ritenuta.fonte, ufficiale: true },
+	{ ...iva.fonte, ufficiale: true },
+];
+const fonti = [...tutteLeFonti.filter((f) => f.ufficiale), ...tutteLeFonti.filter((f) => !f.ufficiale)].filter(
+	(f, i, arr) => arr.findIndex((g) => g.url === f.url) === i,
+);
+---
+
+<Base
+	title="Guida Host BnB Italia"
+	description="Scegli il tuo caso su Airbnb e su Vrbo e scopri quanto chiedere sull'altra piattaforma per incassare la stessa cifra netta."
+>
+	<header>
+		<span class="eyebrow">Commissioni affitti brevi · Italia</span>
+		<h1>Guida Host BnB Italia</h1>
+		<p class="lead">Scegli il tuo caso su Airbnb e su Vrbo, inserisci il prezzo su una delle due. Il calcolatore ti dice quanto chiedere sull'altra per incassare la stessa cifra.</p>
+		<span class="stamp">Commissioni verificate il {dataLunga(verificatoIl)}</span>
+	</header>
+
+	<section id="caso" aria-labelledby="h-caso" data-tassi={JSON.stringify(tassi)}>
+		<div class="sec-head"><span class="step">1</span><h2 id="h-caso">Il tuo caso</h2></div>
+		<p class="sec-note">Non sei sicuro? Apri una prenotazione recente: su Airbnb in Guadagni, su Vrbo in Dettagli del pagamento. La voce della commissione ti dice in quale caso sei.</p>
+		<div class="cases">
+
+			<div class="panel">
+				<h3>Airbnb</h3>
+				<fieldset>
+					<legend>Struttura delle commissioni</legend>
+					{sceltaAirbnb.map(({ value, d }, i) => (
+						<label class="opt"><input type="radio" name="ab" value={value} checked={i === 0} /><b>{d.caso} <span class="pc">{testoCommissione(d)}</span></b><small>{d.descrizione_scelta}</small></label>
+					))}
+					<label class="opt"><input type="radio" name="ab" value="custom" /><b>Un'altra percentuale</b><small>{altriHost ? `Alcuni host pagano tra ${num(altriHost.min)}% e ${num(altriHost.max)}%.` : 'Inserisci la tua commissione.'}</small></label>
+				</fieldset>
+				<div class="field" id="abCustomWrap" hidden>
+					<label for="abCustom">La tua commissione Airbnb, senza IVA</label>
+					<div class="control"><input id="abCustom" type="number" inputmode="decimal" min="0" max="40" step="0.1" value={altriHost?.max ?? abUnica.commissione} /><span class="unit">%</span></div>
+				</div>
+				<p class="eff"><span>Trattenuta effettiva</span><span id="abEff">{num2(abUnica.commissione * molt)}%</span></p>
+			</div>
+
+			<div class="panel">
+				<h3>Vrbo</h3>
+				<fieldset>
+					<legend>Piano</legend>
+					{sceltaVrbo.map(({ value, d }, i) => (
+						<label class="opt"><input type="radio" name="vr" value={value} checked={i === 0} />{d.fino_a
+							? <b>{d.etichetta_scelta ?? d.caso}, {testoCommissione(d)}</b>
+							: <b>{d.caso} <span class="pc">{testoCommissione(d)}</span></b>}<small>{d.descrizione_scelta}</small></label>
+					))}
+				</fieldset>
+				<div class="field" id="vrCustomWrap" hidden>
+					<label for="vrCustom">La tua commissione Vrbo, senza IVA</label>
+					<div class="control"><input id="vrCustom" type="number" inputmode="decimal" min="0" max="40" step="0.1" value={vrProfessional.commissione} /><span class="unit">%</span></div>
+				</div>
+				<p class="eff"><span>Trattenuta effettiva</span><span id="vrEff">{num2(vrPrenotazione.commissione * molt)}%</span></p>
+			</div>
+
+			<div class="panel fisc">
+				<h3>Il tuo profilo fiscale</h3>
+				<fieldset>
+					<legend>IVA sulle commissioni</legend>
+					<label class="opt"><input type="radio" name="iva" value="priv" checked /><b>Privato, senza partita IVA</b><small>IVA {num(iva.valore)}% aggiunta alle commissioni, non recuperabile.</small></label>
+					<label class="opt"><input type="radio" name="iva" value="forf" /><b>Partita IVA forfettaria</b><small>IVA versata da te con inversione contabile, non recuperabile.</small></label>
+					<label class="opt"><input type="radio" name="iva" value="ord" /><b>Partita IVA ordinaria</b><small>IVA recuperabile: non pesa sul netto.</small></label>
+				</fieldset>
+				<div class="field">
+					<label for="tax">Ritenuta trattenuta dalla piattaforma</label>
+					<select id="tax">
+						{ritenuta.opzioni.map((o) => (
+							<option value={String(o.valore / 100)} selected={o.predefinita}>{o.etichetta}</option>
+						))}
+					</select>
+					<span class="hint">Calcolata su notti e pulizia, prima delle commissioni.</span>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="prezzo" aria-labelledby="h-prezzo">
+		<div class="sec-head"><span class="step">2</span><h2 id="h-prezzo">Il prezzo</h2></div>
+		<div class="calc">
+
+			<form class="panel" id="form" autocomplete="off" onsubmit="return false">
+				<div class="field">
+					<span class="legend" id="refLbl">Parto dal prezzo su</span>
+					<div class="seg" role="radiogroup" aria-labelledby="refLbl">
+						<label><input type="radio" name="ref" value="airbnb" checked />Airbnb</label>
+						<label><input type="radio" name="ref" value="vrbo" />Vrbo</label>
+					</div>
+				</div>
+				<div class="field">
+					<label for="price">Prezzo a notte</label>
+					<div class="control"><span class="unit">€</span><input id="price" type="number" inputmode="decimal" min="0" step="any" value="700" /></div>
+				</div>
+				<div class="row2">
+					<div class="field">
+						<label for="cleaning">Pulizia</label>
+						<div class="control"><span class="unit">€</span><input id="cleaning" type="number" inputmode="decimal" min="0" step="any" value="320" /></div>
+						<span class="hint">a soggiorno</span>
+					</div>
+					<div class="field">
+						<label for="nights">Notti</label>
+						<div class="control"><input id="nights" type="number" inputmode="numeric" min="1" step="1" value="7" /></div>
+						<span class="hint">per soggiorno</span>
+					</div>
+				</div>
+				<fieldset>
+					<span class="legend">Cosa adeguare sull'altra piattaforma</span>
+					<label class="radio"><input type="radio" name="mode" value="prop" checked /> <span>Notte e pulizia in proporzione</span></label>
+					<label class="radio"><input type="radio" name="mode" value="night" /> <span>Solo il prezzo a notte, pulizia invariata</span></label>
+				</fieldset>
+			</form>
+
+			<div class="out" aria-live="polite">
+				<div id="results"></div>
+				<p class="formula">Come si calcola:<br /><code>prezzo = prezzo di partenza × (1 − trattenuta di partenza − ritenuta) ÷ (1 − trattenuta − ritenuta)</code><br />La ritenuta è sul lordo, quindi la piattaforma che trattiene di più richiede un ricarico più alto di quanto sembri.</p>
+				<div class="actions">
+					<button type="button" id="copy">Copia i prezzi</button>
+					<span class="hint" id="copyMsg"></span>
+				</div>
+				<textarea id="copyFb" class="copyfb" readonly hidden aria-label="Prezzi da copiare"></textarea>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="casi" aria-labelledby="h-casi">
+		<h2 id="h-casi">Tutti i casi</h2>
+		<p class="sec-note">Ogni percentuale viene dalla pagina ufficiale della piattaforma. Nessuna delle due pubblica una tabella unica per l'Italia, quindi qui sono messe insieme. "Con IVA" vale per privati e partite IVA forfettarie.</p>
+		<div class="rate-wrap">
+			<table class="rate">
+				<thead><tr><th>Caso</th><th>Commissione</th><th>Con IVA {num(iva.valore)}%</th><th>Costo per l'ospite</th><th>Quando si applica</th><th>Fonte</th></tr></thead>
+				<tbody>
+					{gruppi.map((g) => (
+						<>
+							<tr class="grp"><td colspan="6">{g.piattaforma}</td></tr>
+							{g.casi.map((d) => (
+								<tr>
+									<td class="case">{d.caso}{d.in_uscita && <> <span class="badge off">In uscita</span></>}</td>
+									<td data-label="Commissione"><span class="num">{testoCommissione(d)}</span>{notaCommissione(d) && <small>{notaCommissione(d)}</small>}</td>
+									<td data-label="Con IVA"><span class="num">{testoConIva(d)}</span></td>
+									<td data-label="Ospite">{d.costo_ospite.tipo === 'nessuno'
+										? 'Nessuno'
+										: d.costo_ospite.tipo === 'percentuale'
+											? <span class="num">{d.costo_ospite.valore}</span>
+											: `Variabile, ${d.costo_ospite.dettaglio}`}</td>
+									<td data-label="Quando">{d.quando}</td>
+									<td data-label="Fonte">{[d.fonte, ...d.altre_fonti.filter((f) => f.in_tabella)].map((f, i) => (
+										<>{i > 0 && ' · '}<a href={f.url} target="_blank" rel="noopener">{f.nome}</a></>
+									))}</td>
+								</tr>
+							))}
+						</>
+					))}
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section id="note" aria-labelledby="h-note">
+		<h2 id="h-note">Da sapere</h2>
+		<div class="notes">
+			<div class="note warn">
+				<h3>L'IVA si aggiunge</h3>
+				<p>Vrbo scrive che, dove si applica, l'IVA è addebitata in aggiunta al {num(vrPrenotazione.commissione)}%. Sulle ricevute Airbnb di un host privato compare "3,0% + IVA". Per chi non ha partita IVA ordinaria, il costo reale è quindi la commissione per {num(molt)}.</p>
+			</div>
+			<div class="note warn">
+				<h3>Conta la data della prenotazione</h3>
+				<p>Su entrambe le piattaforme vale il modello in vigore quando l'ospite prenota, non quando arriva. Per un po' convivranno prenotazioni con le vecchie e le nuove commissioni.</p>
+			</div>
+			<div class="note">
+				<h3>Il costo dell'ospite non cambia il tuo netto</h3>
+				<p>Il costo di servizio pagato dall'ospite cambia solo il prezzo finale che vede. Per pareggiare il tuo incasso contano soltanto la trattenuta e la ritenuta.</p>
+			</div>
+			<div class="note">
+				<h3>Cosa resta fuori</h3>
+				<p>Imposta di soggiorno, sconti e correzioni di prezzo, cancellazioni, conguagli in dichiarazione. Verificate anche le regole di parità tariffaria nei termini di Vrbo prima di usare prezzi diversi.</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="fonti" aria-labelledby="h-fonti">
+		<h2 id="h-fonti">Fonti</h2>
+		<ul class="src">
+			{fonti.map((f) => <li><a href={f.url} target="_blank" rel="noopener">{f.titolo}</a></li>)}
+		</ul>
+	</section>
+</Base>
+
+<script>
+	import { computeRows, feeFor, type Stato, type Tassi } from '../lib/calcolo';
+
+	const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+	const tassi: Tassi = JSON.parse($('caso').dataset.tassi ?? '');
+	const eur0 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+	const eur2 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	function pct(x: number) { return (x * 100).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; }
+	function signed(x: number) { const v = (x * 100).toLocaleString('it-IT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); return (x > 0.00005 ? '+' : '') + v + '%'; }
+	function plain(s: string) { return s.replace(/ /g, ' '); }
+	function num(id: string) { const v = parseFloat(String($<HTMLInputElement>(id).value).replace(',', '.')); return isFinite(v) ? v : NaN; }
+	function radio<T extends string>(name: string) { const el = document.querySelector<HTMLInputElement>('input[name="' + name + '"]:checked'); return (el ? el.value : null) as T; }
+
+	function readState(): Stato {
+		return {
+			ab: radio('ab'), abCustom: num('abCustom'), vr: radio('vr'), vrCustom: num('vrCustom'),
+			iva: radio('iva'), tax: parseFloat($<HTMLSelectElement>('tax').value), ref: radio('ref'),
+			price: num('price'), cleaning: isNaN(num('cleaning')) ? 0 : num('cleaning'),
+			nights: isNaN(num('nights')) ? 1 : num('nights'), mode: radio('mode'),
+		};
+	}
+
+	let lastText = '';
+	function render() {
+		const s = readState();
+		$('abCustomWrap').hidden = s.ab !== 'custom';
+		$('vrCustomWrap').hidden = s.vr !== 'custom';
+		const fa = feeFor('airbnb', s, tassi), fv = feeFor('vrbo', s, tassi);
+		$('abEff').textContent = pct(fa.eff) + (s.tax ? ' + ritenuta ' + pct(s.tax).replace(',00', '') : '');
+		$('vrEff').textContent = pct(fv.eff) + (s.tax ? ' + ritenuta ' + pct(s.tax).replace(',00', '') : '');
+
+		const r = computeRows(s, tassi), box = $('results');
+		if (!r) { box.innerHTML = '<div class="rows"><p class="empty">Inserisci il prezzo a notte per vedere il prezzo equivalente.</p></div>'; lastText = ''; return; }
+		let html = '<div class="headline"><div><div class="lbl">Incasso netto per ' + r.n + (r.n === 1 ? ' notte' : ' notti') +
+			(r.t > 0 ? ', dopo commissioni, IVA e ritenuta' : ', dopo commissioni e IVA') + '</div><div class="big">' + eur2.format(r.netStay) +
+			'</div></div><div class="sub">' + eur2.format(r.netNight) + ' a notte, uguale su Airbnb e Vrbo</div></div><div class="rows">';
+		const lines: string[] = [];
+		r.rows.forEach((x) => {
+			const exact = x.isRef ? '' : (Math.abs(x.exact - x.price) > 0.004 ? 'esatto ' + plain(eur2.format(x.exact)) : '');
+			const cleanLine = s.cleaning > 0 ? 'pulizia ' + plain(eur0.format(x.cleaning)) : '';
+			const aux = [exact, cleanLine].filter(Boolean).join(' · ');
+			html += '<article class="res' + (x.isRef ? ' ref' : '') + '">' +
+				'<div class="who"><h3>' + x.name + (x.isRef ? ' <span class="tag">Partenza</span>' : '') + '</h3>' +
+				'<p class="meta">' + x.label + ' = ' + pct(x.fee) + (x.guest ? '<br>Costo ospite ' + x.guest + ', non incide sul tuo netto' : '') + '</p></div>' +
+				'<div class="cell"><span class="lbl">Imposta a notte</span><span class="val">' + eur0.format(x.price) + '</span><span class="aux">' + (aux || '&nbsp;') + '</span></div>' +
+				'<div class="cell"><span class="lbl">Trattenute sul soggiorno</span><span class="val small">' + eur0.format(x.feeAmt + x.withheld) + '</span><span class="aux">' +
+				(x.isRef ? 'commissioni ' + plain(eur0.format(x.feeAmt)) + (r.t ? ' · ritenuta ' + plain(eur0.format(x.withheld)) : '') : signed(x.delta) + ' sul prezzo di partenza') + '</span></div>' +
+				'</article>';
+			lines.push(x.name + ': ' + plain(eur0.format(x.price)) + ' a notte' + (s.cleaning > 0 ? ', ' + cleanLine : ''));
+		});
+		box.innerHTML = html + '</div>';
+		lastText = 'Prezzi per incassare ' + plain(eur2.format(r.netStay)) + ' netti su ' + r.n + (r.n === 1 ? ' notte' : ' notti') + '\n' + lines.join('\n');
+	}
+
+	document.querySelectorAll('input, select').forEach((el) => {
+		el.addEventListener('input', render); el.addEventListener('change', render);
+	});
+
+	$('copy').addEventListener('click', () => {
+		const msg = $('copyMsg'), fb = $<HTMLTextAreaElement>('copyFb');
+		if (!lastText) { msg.textContent = 'Inserisci prima un prezzo.'; return; }
+		function fallback() { fb.hidden = false; fb.value = lastText; fb.focus(); fb.select(); msg.textContent = 'Seleziona il testo e copialo.'; }
+		try { navigator.clipboard.writeText(lastText).then(() => { fb.hidden = true; msg.textContent = 'Copiato.'; }, fallback); } catch { fallback(); }
+	});
+
+	render();
+</script>
+
+<style is:global>
+	/* passo 1: il tuo caso */
+	.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+	fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+	legend, .legend { font-size: .85rem; font-weight: 600; padding: 0; margin-bottom: 6px; }
+	.opt { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; background: var(--bg); }
+	.opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+	.opt input { margin-top: 4px; accent-color: var(--accent); grid-row: span 2; }
+	.opt b { font-weight: 600; font-size: .95rem; }
+	.opt .pc { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+	.opt small { color: var(--muted); font-size: .8rem; grid-column: 2; }
+	.eff { font-size: .88rem; border-top: 1px solid var(--line); padding-top: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+	.eff span:last-child { font-family: var(--f-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+	.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+	.field > label { font-size: .85rem; font-weight: 600; }
+	.hint { font-size: .8rem; color: var(--muted); }
+	.control { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+	.control:focus-within { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 0; }
+	.control .unit { padding: 0 12px; color: var(--muted); font-family: var(--f-mono); }
+	.control input { font: inherit; font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--fg); background: transparent; border: 0; outline: 0; width: 100%; min-width: 0; padding: 10px 12px; }
+	.control .unit + input { padding-left: 0; }
+	.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+	#tax { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; }
+
+	/* passo 2: prezzo */
+	.calc { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: start; }
+	.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+	.seg label { text-align: center; padding: 9px 8px; cursor: pointer; font-weight: 600; font-size: .92rem; background: var(--bg); }
+	.seg label + label { border-left: 1px solid var(--line); }
+	.seg input { position: absolute; opacity: 0; pointer-events: none; }
+	.seg label:has(input:checked) { background: var(--accent); color: var(--on-accent); }
+	.seg label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -3px; }
+	.radio { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; cursor: pointer; }
+	.radio input { margin-top: 4px; accent-color: var(--accent); }
+
+	.out { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+	.headline { background: var(--accent); color: var(--on-accent); border-radius: 10px; padding: 18px 20px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+	.headline .lbl { font-size: .85rem; opacity: .9; }
+	.headline .big { font-family: var(--f-mono); font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 500; font-variant-numeric: tabular-nums; }
+	.headline .sub { font-size: .9rem; opacity: .92; }
+	.rows { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
+	.res { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 10px 20px; padding: 18px 20px; border-top: 1px solid var(--line); align-items: start; }
+	.res:first-child { border-top: 0; }
+	.res.ref { background: var(--accent-soft); }
+	.res h3 { font-size: 1.2rem; font-weight: 600; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+	.tag { font-family: var(--f-body); font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: var(--on-accent); }
+	.res .meta { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+	.cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+	.cell .lbl { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+	.cell .val { font-family: var(--f-mono); font-size: 1.7rem; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.15; }
+	.cell .val.small { font-size: 1.15rem; }
+	.cell .aux { font-size: .8rem; color: var(--muted); font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+	.formula { font-size: .82rem; color: var(--muted); }
+	.formula code { font-family: var(--f-mono); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; display: inline-block; margin: 4px 0; }
+	.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+	button { font: inherit; font-weight: 600; font-size: .9rem; padding: 9px 14px; border-radius: 6px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+	button:hover { background: var(--accent-soft); }
+	.copyfb { width: 100%; font-family: var(--f-mono); font-size: .8rem; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px; min-height: 6rem; }
+	.empty { padding: 28px 20px; color: var(--muted); }
+
+	/* tabella casi */
+	.rate-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+	table.rate { border-collapse: collapse; width: 100%; font-size: .92rem; }
+	.rate th { text-align: left; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+	.rate td { padding: 14px 16px; vertical-align: top; border-top: 1px solid var(--line); }
+	.rate tbody tr:first-child td { border-top: 0; }
+	.rate tr.grp td { background: var(--bg); font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; padding-block: 10px; }
+	.rate .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }
+	.rate small { color: var(--muted); font-size: .84rem; display: block; }
+	.badge { display: inline-block; font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+	.badge.off { border-color: var(--accent); color: var(--accent); }
+
+	@media (max-width: 960px) { .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cases .fisc { grid-column: 1 / -1; } }
+	@media (max-width: 860px) { .calc { grid-template-columns: minmax(0, 1fr); } }
+	@media (max-width: 720px) {
+		.cases { grid-template-columns: minmax(0, 1fr); }
+		.res { grid-template-columns: 1fr 1fr; }
+		.res .who { grid-column: 1 / -1; }
+		.rate thead { display: none; }
+		.rate tr { display: block; padding: 12px 16px; border-top: 1px solid var(--line); }
+		.rate tbody tr:first-child { border-top: 0; }
+		.rate tr.grp { padding: 0; }
+		.rate tr.grp td { display: block; padding: 10px 16px; }
+		.rate td { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 10px; padding: 5px 0; border: 0; }
+		.rate td::before { content: attr(data-label); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+		.rate td.case { display: block; padding-bottom: 6px; font-weight: 600; }
+		.rate td.case::before { content: none; }
+	}
+</style>

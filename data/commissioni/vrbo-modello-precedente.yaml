@@ -1,0 +1,25 @@
+piattaforma: Vrbo
+caso: Modello precedente
+ordine: 3
+commissione: 8
+componenti:
+  - voce: commissione
+    percentuale: 5
+  - voce: elaborazione del pagamento
+    percentuale: 3
+nota_commissione: Commissione + elaborazione
+iva_aggiunta: true
+costo_ospite:
+  tipo: variabile
+  dettaglio: 9–15% osservato
+descrizione_scelta: "Prenotazioni ricevute prima del 29 ottobre 2026: commissione più elaborazione del pagamento."
+quando: Prenotazioni ricevute prima del 29 ottobre 2026, anche per soggiorni successivi.
+in_uscita: true
+fonte:
+  nome: Expedia Group
+  titolo: "Expedia Group: modifiche al modello di compenso Vrbo (1 ottobre 2026, aggiornato il 20 ottobre)"
+  url: https://www.expedia.com/newsroom/vrbo-compensation-model-changes/
+verificato_il: 2026-10-28
+note: >-
+  Il costo per l'ospite "9–15%" è osservato sulle ricevute, non pubblicato da Vrbo.
+  Modello in uscita: vale per le prenotazioni fatte fino al 28 ottobre 2026.
