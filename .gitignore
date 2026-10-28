@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # impostazioni personali di Claude Code
 .claude/settings.local.json
+
+# file temporanei di wrangler (Cloudflare)
+.wrangler/

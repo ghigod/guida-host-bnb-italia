@@ -1,0 +1,9 @@
+// Configurazione per pubblicare il sito su Cloudflare Workers.
+// Il sito è statico: Cloudflare serve i file creati dalla build nella cartella dist.
+{
+  "name": "guida-host-bnb-italia",
+  "compatibility_date": "2026-10-28",
+  "assets": {
+    "directory": "./dist"
+  }
+}
