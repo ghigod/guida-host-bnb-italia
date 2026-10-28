@@ -1,0 +1,44 @@
+# Comune INVENTATO, solo per i test dello schema: nessun dato qui è reale.
+# I file veri stanno in data/imposta-soggiorno/.
+comune: Comune di Prova
+provincia: XX
+regione: Regione di Prova
+anno: 2026
+valida_dal: 2026-01-01
+stato: bozza
+fonti:
+  delibera:
+    titolo: Delibera di prova
+    url: https://example.org/delibera
+  regolamento:
+    titolo: Regolamento di prova
+    url: https://example.org/regolamento
+  pagina_comune:
+    titolo: Pagina di prova
+    url: https://example.org/imposta
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: Locazioni turistiche
+    importo: 1.5
+    rif: { fonte: delibera, punto: art. 1 }
+  - categoria: bnb
+    nome_nel_documento: Bed and breakfast
+    importo: 2
+    periodo: alta stagione
+    rif: { fonte: delibera, punto: art. 2 }
+notti_massime:
+  valore: 7
+  rif: { fonte: regolamento, punto: art. 3 }
+esenzioni:
+  - descrizione: Minori
+    eta_fino_a: 12
+    rif: { fonte: regolamento, punto: art. 4 }
+riscossione:
+  airbnb: non_verificato
+  vrbo: no
+  rif: { fonte: pagina_comune, punto: sezione piattaforme }
+scadenze:
+  - cosa: Versamento
+    quando: Entro il 16 del mese successivo
+    rif: { fonte: regolamento, punto: art. 5 }
+verificato_il: 2026-10-28

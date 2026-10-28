@@ -3,6 +3,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { schemaImposta } from './lib/schema-imposta';
 
 const fonte = z.object({
   nome: z.string(),
@@ -105,4 +106,10 @@ const supplementi = defineCollection({
   }),
 });
 
-export const collections = { commissioni, fisco, supplementi };
+/** Un file per comune; lo schema sta in src/lib/schema-imposta.ts perché lo usano anche i test. */
+const impostaSoggiorno = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './data/imposta-soggiorno' }),
+  schema: schemaImposta,
+});
+
+export const collections = { commissioni, fisco, supplementi, impostaSoggiorno };
