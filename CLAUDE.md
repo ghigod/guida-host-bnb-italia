@@ -28,6 +28,13 @@ Il proprietario non è un programmatore.
 - Se un dato non è certo, scrivilo nel campo `note` e segnalalo. Mai inventare.
 - Le modifiche ai dati passano sempre da una pull request, mai direttamente.
 
+## Flusso per l'imposta di soggiorno (un comune alla volta)
+
+1. Agente `ricercatore-imposta`: compila `data/imposta-soggiorno/<comune>.yaml` in `stato: bozza`.
+2. Agente `verificatore-dati`: controlla ogni valore sulle fonti, senza vedere il lavoro del primo.
+3. Il proprietario guarda le righe DIVERSO / NON TROVATO e apre almeno la delibera.
+4. Solo lui decide il passaggio a `stato: verificato`. Pull request, poi merge.
+
 ## Codice
 
 - Astro + TypeScript, sito statico.

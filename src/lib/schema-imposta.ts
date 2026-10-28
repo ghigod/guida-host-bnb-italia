@@ -54,8 +54,14 @@ export const schemaImposta = z
       )
       .min(1),
 
-    /** Oltre questo numero di notti consecutive non si paga più. */
-    notti_massime: z.object({ valore: z.number().int().min(1).max(365), rif }),
+    /**
+     * Oltre questo numero di notti consecutive non si paga più.
+     * "non_trovato" serve a non inventare: si spiega in note e il comune resta in bozza.
+     */
+    notti_massime: z.object({
+      valore: z.union([z.number().int().min(1).max(365), z.literal('nessun_limite'), z.literal('non_trovato')]),
+      rif: rif.optional(),
+    }),
 
     esenzioni: z
       .array(
@@ -115,7 +121,15 @@ export const schemaImposta = z
       }
     };
     d.tariffe.forEach((t, i) => controlla(t.rif, ['tariffe', i]));
-    controlla(d.notti_massime.rif, ['notti_massime']);
+    if (d.notti_massime.valore === 'non_trovato') {
+      if (d.stato === 'verificato') {
+        ctx.addIssue({ code: 'custom', path: ['notti_massime'], message: 'Un comune verificato non può avere le notti massime "non_trovato"' });
+      }
+    } else if (!d.notti_massime.rif) {
+      ctx.addIssue({ code: 'custom', path: ['notti_massime', 'rif'], message: 'Serve il rif: da dove viene questo valore?' });
+    } else {
+      controlla(d.notti_massime.rif, ['notti_massime']);
+    }
     d.esenzioni.forEach((e, i) => controlla(e.rif, ['esenzioni', i]));
     d.riduzioni.forEach((r, i) => controlla(r.rif, ['riduzioni', i]));
     controlla(d.riscossione.rif, ['riscossione']);

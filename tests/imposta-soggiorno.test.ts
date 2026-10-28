@@ -77,6 +77,20 @@ describe('lo schema blocca gli errori', () => {
     expect(errori(d).join('\n')).toContain('sigla di due lettere');
   });
 
+  test('notti massime "non_trovato": va bene in bozza, non in un comune verificato', () => {
+    const d = esempio();
+    d.notti_massime = { valore: 'non_trovato' };
+    expect(errori(d)).toEqual([]);
+    d.stato = 'verificato';
+    expect(errori(d).join('\n')).toContain('non può avere le notti massime "non_trovato"');
+  });
+
+  test('notti massime senza rif', () => {
+    const d = esempio();
+    delete d.notti_massime.rif;
+    expect(errori(d).join('\n')).toContain('Serve il rif');
+  });
+
   test('stato diverso da bozza o verificato', () => {
     const d = esempio();
     d.stato = 'pubblicato';
