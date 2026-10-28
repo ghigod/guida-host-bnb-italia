@@ -14,6 +14,12 @@ export interface DatiCommissione {
     | { tipo: 'variabile'; dettaglio: string };
 }
 
+/** Quello che serve al calcolatore da data/supplementi/animali.yaml. */
+export interface DatiAnimali {
+  ritenuta_inclusa: boolean;
+  piattaforme: { piattaforma: 'Airbnb' | 'Vrbo'; commissione_inclusa: boolean }[];
+}
+
 /** Il nome del file (senza .yaml) di ogni caso usato dal calcolatore. */
 export const FILE_COMMISSIONI = {
   airbnbUnica: 'airbnb-commissione-unica',
@@ -41,11 +47,18 @@ function perCalcolo(d: DatiCommissione): Caso {
   return { percentuale: d.commissione, label: `${d.caso} ${testoCommissione(d)}`, guest: ospiteBreve(d) };
 }
 
+function commissioneSuAnimali(a: DatiAnimali, p: 'Airbnb' | 'Vrbo'): boolean {
+  const d = a.piattaforme.find((x) => x.piattaforma === p);
+  if (!d) throw new Error(`Manca ${p} in data/supplementi/animali.yaml`);
+  return d.commissione_inclusa;
+}
+
 /**
  * @param trova restituisce i dati di un file di data/commissioni/ dato il suo nome
  * @param iva aliquota IVA in punti (22 = 22%)
+ * @param animali i dati di data/supplementi/animali.yaml
  */
-export function costruisciTassi(trova: (id: string) => DatiCommissione, iva: number): Tassi {
+export function costruisciTassi(trova: (id: string) => DatiCommissione, iva: number, animali: DatiAnimali): Tassi {
   const f = FILE_COMMISSIONI;
   const abUnica = trova(f.airbnbUnica);
   return {
@@ -59,6 +72,10 @@ export function costruisciTassi(trova: (id: string) => DatiCommissione, iva: num
       ppb: perCalcolo(trova(f.vrboPrenotazione)),
       old: perCalcolo(trova(f.vrboPrecedente)),
       custom: perCalcolo(trova(f.vrboProfessional)),
+    },
+    animali: {
+      commissione: { airbnb: commissioneSuAnimali(animali, 'Airbnb'), vrbo: commissioneSuAnimali(animali, 'Vrbo') },
+      ritenuta: animali.ritenuta_inclusa,
     },
   };
 }
