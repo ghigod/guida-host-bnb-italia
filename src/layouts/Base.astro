@@ -11,6 +11,12 @@ const nomeSito = 'Guida Host BnB Italia';
 const titoloCompleto = title === nomeSito ? title : `${title} · ${nomeSito}`;
 // Indirizzo ufficiale della pagina: dice a Google quale copia contare (non workers.dev o www).
 const canonico = new URL(Astro.url.pathname, Astro.site);
+
+// Menu in alto: la voce della sezione in cui sei è evidenziata.
+const menu = [
+  { href: '/', testo: 'Calcolatore commissioni', attiva: Astro.url.pathname === '/' },
+  { href: '/imposta-di-soggiorno/', testo: 'Imposta di soggiorno', attiva: Astro.url.pathname.startsWith('/imposta-di-soggiorno') },
+];
 ---
 
 <!doctype html>
@@ -33,6 +39,12 @@ const canonico = new URL(Astro.url.pathname, Astro.site);
 	</head>
 	<body>
 		<div class="wrap">
+			<nav class="top" aria-label="Sezioni del sito">
+				<a class="brand" href="/">{nomeSito}</a>
+				<ul>
+					{menu.map((v) => <li><a href={v.href} aria-current={v.attiva ? 'page' : undefined}>{v.testo}</a></li>)}
+				</ul>
+			</nav>
 			<slot />
 			<footer>
 				<p class="legal">
@@ -112,6 +124,13 @@ const canonico = new URL(Astro.url.pathname, Astro.site);
 	.note.warn p { color: var(--fg); }
 	.src { font-size: .88rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; padding-left: 18px; margin: 0; }
 	.legal { font-size: .82rem; color: var(--muted); max-width: 44rem; }
+
+	nav.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-bottom: -24px; }
+	nav.top .brand { font-family: var(--f-display); font-weight: 700; color: var(--fg); text-decoration: none; }
+	nav.top ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+	nav.top ul a { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: .9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--line); background: var(--surface); }
+	nav.top ul a:hover { color: var(--fg); }
+	nav.top ul a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
 	@media (max-width: 720px) {
 		.wrap { gap: 44px; }

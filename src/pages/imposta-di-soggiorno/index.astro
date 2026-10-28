@@ -1,0 +1,93 @@
+---
+// Elenco dei comuni con l'imposta di soggiorno verificata. Le bozze non compaiono.
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { dataLunga, tariffaInBreve } from '../../lib/imposta';
+
+const comuni = (await getCollection('impostaSoggiorno', (e) => e.data.stato === 'verificato'))
+	.sort((a, b) => a.data.comune.localeCompare(b.data.comune, 'it'));
+
+const notti = (v: number | string) => (typeof v === 'number' ? String(v) : v === 'nessun_limite' ? 'Nessun limite' : '—');
+const airbnb = (v: string) => (v === 'riscuote_e_versa' ? 'Sì' : v === 'no' ? 'No' : '—');
+---
+
+<Base
+	title="Imposta di soggiorno per comune"
+	description="Imposta di soggiorno per affitti brevi comune per comune: tariffe, stagioni, notti massime, esenzioni, chi la riscuote tra Airbnb e Vrbo. Ogni dato con la sua fonte ufficiale."
+>
+	<header>
+		<span class="eyebrow">Affitti brevi · Italia</span>
+		<h1>Imposta di soggiorno per comune</h1>
+		<p class="lead">Quanto paga ogni ospite, per quante notti, e se la riscuote la piattaforma o tu. Ogni dato viene dalla delibera o dal regolamento del Comune.</p>
+		<span class="stamp">{comuni.length} {comuni.length === 1 ? 'comune verificato' : 'comuni verificati'}, altri in arrivo</span>
+	</header>
+
+	<section aria-labelledby="h-elenco">
+		<h2 id="h-elenco">I comuni</h2>
+		<div class="field">
+			<label for="cerca">Cerca il tuo comune</label>
+			<input id="cerca" type="search" placeholder="Es. Firenze" autocomplete="off" />
+		</div>
+		<div class="rate-wrap">
+			<table class="rate" id="elenco">
+				<thead><tr><th>Comune</th><th>Locazione turistica, a persona a notte</th><th>Notti massime</th><th>Airbnb la riscuote</th><th>Verificato il</th></tr></thead>
+				<tbody>
+					{comuni.map((c) => (
+						<tr data-nome={c.data.comune.toLowerCase()}>
+							<td class="case"><a href={`/imposta-di-soggiorno/${c.id}/`}>{c.data.comune}</a> <span class="muted">({c.data.provincia})</span>{c.data.stagioni.length > 0 && <span class="badge">Stagioni</span>}</td>
+							<td data-label="A persona a notte" class="num">{tariffaInBreve(c.data)}</td>
+							<td data-label="Notti massime" class="num">{notti(c.data.notti_massime.valore)}</td>
+							<td data-label="Airbnb la riscuote">{airbnb(c.data.riscossione.airbnb.valore)}</td>
+							<td data-label="Verificato il">{dataLunga(c.data.verificato_il)}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+			<p class="empty" id="nessuno" hidden>Questo comune non c'è ancora. Stiamo aggiungendo i comuni uno alla volta, controllando ogni dato.</p>
+		</div>
+		<p class="sec-note">La tariffa in tabella è quella delle locazioni turistiche. Nella pagina di ogni comune trovi anche case vacanza, B&B e affittacamere, le stagioni con le date e le scadenze.</p>
+	</section>
+</Base>
+
+<script>
+	// Filtra l'elenco mentre scrivi. Senza JavaScript l'elenco resta completo.
+	const cerca = document.getElementById('cerca') as HTMLInputElement;
+	const righe = [...document.querySelectorAll<HTMLTableRowElement>('#elenco tbody tr')];
+	cerca.addEventListener('input', () => {
+		const q = cerca.value.trim().toLowerCase();
+		let visibili = 0;
+		for (const r of righe) {
+			const ok = (r.dataset.nome ?? '').includes(q);
+			r.hidden = !ok;
+			if (ok) visibili++;
+		}
+		(document.getElementById('nessuno') as HTMLElement).hidden = visibili > 0;
+	});
+</script>
+
+<style>
+	.field { display: flex; flex-direction: column; gap: 6px; max-width: 24rem; }
+	.field label { font-size: .85rem; font-weight: 600; }
+	#cerca { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+	.muted { color: var(--muted); }
+	.badge { display: inline-block; margin-left: 8px; font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); }
+	.empty { padding: 20px; color: var(--muted); }
+
+	.rate-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+	table.rate { border-collapse: collapse; width: 100%; font-size: .92rem; }
+	.rate th { text-align: left; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+	.rate td { padding: 12px 16px; vertical-align: top; border-top: 1px solid var(--line); }
+	.rate tbody tr:first-child td { border-top: 0; }
+	.rate .case { font-weight: 600; }
+	.rate .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+	@media (max-width: 720px) {
+		.rate thead { display: none; }
+		.rate tr { display: block; padding: 12px 16px; border-top: 1px solid var(--line); }
+		.rate tbody tr:first-child { border-top: 0; }
+		.rate td { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 10px; padding: 4px 0; border: 0; }
+		.rate td::before { content: attr(data-label); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+		.rate td.case { display: block; padding-bottom: 6px; }
+		.rate td.case::before { content: none; }
+	}
+</style>

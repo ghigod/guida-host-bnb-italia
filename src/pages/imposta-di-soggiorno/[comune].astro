@@ -1,0 +1,194 @@
+---
+// Pagina dell'imposta di soggiorno di un comune, generata dal suo file in data/imposta-soggiorno/.
+// Diventano pagine solo i comuni in stato "verificato": le bozze restano fuori dal sito.
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import {
+	NOME_CATEGORIA, dataLunga, esempio, euro, periodoLeggibile, tariffaInBreve, tariffePrincipali, testoRiscossione,
+} from '../../lib/imposta';
+
+export async function getStaticPaths() {
+	const comuni = await getCollection('impostaSoggiorno', (e) => e.data.stato === 'verificato');
+	return comuni.map((e) => ({ params: { comune: e.id }, props: { voce: e } }));
+}
+
+interface Props { voce: CollectionEntry<'impostaSoggiorno'> }
+const d = Astro.props.voce.data;
+
+const conStagioni = d.stagioni.length > 0;
+const principali = tariffePrincipali(d);
+const nm = d.notti_massime.valore;
+const testoNotti =
+	typeof nm === 'number' ? `Si paga al massimo per ${nm} notti consecutive.`
+	: nm === 'nessun_limite' ? 'Non c\'è un massimo: si paga per ogni notte.'
+	: 'Il massimo di notti non è indicato nelle fonti ufficiali.';
+
+// Esempio: 4 persone per 3 notti, e un soggiorno più lungo del massimo (se c'è).
+const esempi = principali.map((t) => ({ ...t, corto: esempio(d, t.importo, 4, 3), lungo: typeof nm === 'number' ? esempio(d, t.importo, 2, nm + 3) : null }));
+
+const fonte = (nome: string) => d.fonti[nome];
+const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
+---
+
+<Base
+	title={titolo}
+	description={`Imposta di soggiorno a ${d.comune} per affitti brevi: ${tariffaInBreve(d)} a persona a notte, notti massime, esenzioni, chi la riscuote tra Airbnb e Vrbo, scadenze e fonti ufficiali.`}
+>
+	<header>
+		<span class="eyebrow"><a href="/imposta-di-soggiorno/">Imposta di soggiorno</a> · {d.regione}</span>
+		<h1>{titolo}</h1>
+		<p class="lead">Quanto paga ogni ospite, per quante notti, chi la riscuote e cosa devi fare tu se affitti a breve termine a {d.comune}.</p>
+		<span class="stamp">Verificato il {dataLunga(d.verificato_il)} · tariffe in vigore dal {dataLunga(d.valida_dal)}</span>
+	</header>
+
+	<section aria-labelledby="h-quanto">
+		<h2 id="h-quanto">Quanto si paga</h2>
+		<div class="big-grid">
+			{principali.map((t) => (
+				<div class="panel big-card">
+					<span class="lbl">{NOME_CATEGORIA[t.categoria]}{t.stagione && <>, stagione {t.stagione}</>}</span>
+					<span class="big">{euro(t.importo)}</span>
+					<span class="sub">a persona, a notte</span>
+				</div>
+			))}
+			<div class="panel big-card">
+				<span class="lbl">Notti massime</span>
+				<span class="big">{typeof nm === 'number' ? nm : '—'}</span>
+				<span class="sub">{testoNotti}</span>
+			</div>
+		</div>
+
+		{conStagioni ? (
+			<div class="panel">
+				<h3>Le stagioni</h3>
+				<ul class="plain">
+					{d.stagioni.map((st) => (
+						<li><b>Stagione {st.nome}:</b> {st.periodi.map(periodoLeggibile).join(' e ')}</li>
+					))}
+				</ul>
+			</div>
+		) : (
+			<p class="sec-note">La tariffa è la stessa tutto l'anno: non ci sono differenze tra alta e bassa stagione.</p>
+		)}
+	</section>
+
+	<section aria-labelledby="h-esempio">
+		<h2 id="h-esempio">Un esempio</h2>
+		<div class="notes">
+			{esempi.map((e) => (
+				<div class="note">
+					<h3>{e.corto.persone} persone per {e.corto.notti} notti{e.stagione && <> in stagione {e.stagione}</>}</h3>
+					<p class="calc">{e.corto.persone} × {e.corto.tassate} notti × {euro(e.importo)} = <b>{euro(e.corto.totale)}</b></p>
+				</div>
+			))}
+			{esempi[0]?.lungo && (
+				<div class="note">
+					<h3>2 persone per {esempi[0].lungo.notti} notti</h3>
+					<p class="calc">Si paga solo per {esempi[0].lungo.tassate} notti: 2 × {esempi[0].lungo.tassate} × {euro(esempi[0].importo)} = <b>{euro(esempi[0].lungo.totale)}</b></p>
+				</div>
+			)}
+		</div>
+		<p class="sec-note">Gli esempi valgono per adulti non esenti. Chi è esente non si conta; chi ha una riduzione paga una parte della tariffa.</p>
+	</section>
+
+	<section aria-labelledby="h-chi">
+		<h2 id="h-chi">Chi la riscuote</h2>
+		<div class="notes">
+			<div class="note">
+				<h3>Airbnb</h3>
+				<p>{testoRiscossione('Airbnb', d.riscossione.airbnb.valore)}</p>
+			</div>
+			<div class="note">
+				<h3>Vrbo</h3>
+				<p>{testoRiscossione('Vrbo', d.riscossione.vrbo.valore)}</p>
+			</div>
+		</div>
+		<p class="sec-note">Anche quando la piattaforma versa l'imposta, il Comune può chiederti comunicazioni periodiche: guarda le scadenze qui sotto.</p>
+	</section>
+
+	{d.scadenze.length > 0 && (
+		<section aria-labelledby="h-scadenze">
+			<h2 id="h-scadenze">Cosa devi fare e quando</h2>
+			<div class="rate-wrap">
+				<table class="rate">
+					<thead><tr><th>Cosa</th><th>Quando</th></tr></thead>
+					<tbody>
+						{d.scadenze.map((s) => <tr><td>{s.cosa}</td><td>{s.quando}</td></tr>)}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	)}
+
+	<section aria-labelledby="h-esenti">
+		<h2 id="h-esenti">Chi non paga e chi paga meno</h2>
+		<div class="notes">
+			<div class="note">
+				<h3>Non pagano</h3>
+				<ul class="plain small">{d.esenzioni.map((e) => <li>{e.descrizione}</li>)}</ul>
+			</div>
+			{d.riduzioni.length > 0 && (
+				<div class="note">
+					<h3>Pagano meno</h3>
+					<ul class="plain small">{d.riduzioni.map((r) => <li>{r.descrizione}: riduzione del {r.percentuale}%</li>)}</ul>
+				</div>
+			)}
+		</div>
+	</section>
+
+	<section aria-labelledby="h-tutte">
+		<h2 id="h-tutte">Tutte le tariffe extralberghiere</h2>
+		<p class="sec-note">Con il nome che usa il Comune nella delibera. Gli alberghi non sono inclusi.</p>
+		<div class="rate-wrap">
+			<table class="rate">
+				<thead><tr><th>Nel documento del Comune</th><th>Tipo</th>{conStagioni && <th>Stagione</th>}<th>A persona a notte</th><th>Fonte</th></tr></thead>
+				<tbody>
+					{d.tariffe.map((t) => (
+						<tr>
+							<td>{t.nome_nel_documento}</td>
+							<td>{NOME_CATEGORIA[t.categoria]}</td>
+							{conStagioni && <td>{t.stagione}</td>}
+							<td class="num">{euro(t.importo)}</td>
+							<td class="small">{fonte(t.rif.fonte) ? <a href={fonte(t.rif.fonte).url} target="_blank" rel="noopener">{t.rif.punto}</a> : t.rif.punto}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section aria-labelledby="h-fonti">
+		<h2 id="h-fonti">Fonti</h2>
+		<ul class="src">
+			{Object.values(d.fonti).map((f) => <li><a href={f.url} target="_blank" rel="noopener">{f.titolo}</a></li>)}
+		</ul>
+		<p class="sec-note">Le tariffe cambiano spesso a inizio anno. Prima di decidere, controlla la pagina ufficiale del Comune.</p>
+	</section>
+</Base>
+
+<style>
+	.big-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+	.big-card { gap: 4px; }
+	.big-card .lbl { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+	.big-card .big { font-family: var(--f-mono); font-size: 2.2rem; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.15; }
+	.big-card .sub { font-size: .88rem; color: var(--muted); }
+	.plain { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+	.small { font-size: .88rem; }
+	.calc { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--fg) !important; }
+	.eyebrow a { color: inherit; }
+
+	.rate-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+	table.rate { border-collapse: collapse; width: 100%; font-size: .92rem; }
+	.rate th { text-align: left; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+	.rate td { padding: 12px 16px; vertical-align: top; border-top: 1px solid var(--line); }
+	.rate tbody tr:first-child td { border-top: 0; }
+	.rate .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+	@media (max-width: 720px) {
+		.rate thead { display: none; }
+		.rate tr { display: block; padding: 10px 16px; border-top: 1px solid var(--line); }
+		.rate tbody tr:first-child { border-top: 0; }
+		.rate td { display: block; padding: 3px 0; border: 0; }
+	}
+</style>
