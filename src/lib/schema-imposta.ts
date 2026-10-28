@@ -103,10 +103,10 @@ export const schemaImposta = z
       )
       .default([]),
 
+    /** Per ogni piattaforma, con la sua fonte: spesso Airbnb e Vrbo hanno fonti diverse. */
     riscossione: z.object({
-      airbnb: z.enum(RISCOSSIONE),
-      vrbo: z.enum(RISCOSSIONE),
-      rif,
+      airbnb: z.object({ valore: z.enum(RISCOSSIONE), rif: rif.optional() }),
+      vrbo: z.object({ valore: z.enum(RISCOSSIONE), rif: rif.optional() }),
     }),
 
     scadenze: z
@@ -166,7 +166,12 @@ export const schemaImposta = z
     }
     d.esenzioni.forEach((e, i) => controlla(e.rif, ['esenzioni', i]));
     d.riduzioni.forEach((r, i) => controlla(r.rif, ['riduzioni', i]));
-    controlla(d.riscossione.rif, ['riscossione']);
+    for (const p of ['airbnb', 'vrbo'] as const) {
+      const r = d.riscossione[p];
+      if (r.valore === 'non_verificato') continue;
+      if (!r.rif) ctx.addIssue({ code: 'custom', path: ['riscossione', p, 'rif'], message: 'Serve il rif: da dove viene questo valore?' });
+      else controlla(r.rif, ['riscossione', p]);
+    }
     d.scadenze.forEach((s, i) => controlla(s.rif, ['scadenze', i]));
   });
 

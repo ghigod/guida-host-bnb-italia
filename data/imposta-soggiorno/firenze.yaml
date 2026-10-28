@@ -1,0 +1,171 @@
+# Imposta di soggiorno - Comune di Firenze
+# Compilato dall'agente ricercatore-imposta, controllato dall'agente verificatore-dati e
+# approvato dal proprietario del sito il 2026-10-28.
+comune: Firenze
+provincia: FI
+regione: Toscana
+anno: 2026
+valida_dal: 2025-02-01
+stato: verificato
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Firenze - Imposta di Soggiorno - Informati"
+    url: https://servizi.comune.fi.it/servizi/imposta-di-soggiorno-informati
+  delibera:
+    titolo: "Deliberazione di Giunta n. DG/2024/00535 del 10/12/2024 - Imposta di soggiorno, approvazione nuove tariffe 2025"
+    url: https://servizi.comune.fi.it/sites/www.comune.fi.it/files/deliberazione_di_giunta_completa-dg_2024_00599_00535-1.pdf
+  regolamento:
+    titolo: "Regolamento su imposta di soggiorno in vigore dal 1 novembre 2026 (modificato con delibere C.C. n. 36 del 29/6/2026 e n. 53 del 28/9/2026)"
+    url: https://servizi.comune.fi.it/sites/www.comune.fi.it/files/regolamento_su_imposta_di_soggiorno_in_vigore_dal_1_novembre_2026_1.pdf
+  regolamento_fino_al_2026_10_31:
+    titolo: "Regolamento Imposta di Soggiorno - testo in vigore dal 1 maggio 2023 al 31 ottobre 2026"
+    url: https://servizi.comune.fi.it/sites/www.comune.fi.it/files/regolamento1maggio2023.pdf
+  modello_mensile_locazioni:
+    titolo: "Comunicazione mensile - modello per gli immobili locati ad uso turistico (da novembre 2026), con istruzioni"
+    url: https://servizi.comune.fi.it/sites/www.comune.fi.it/files/comunicazione_mensile_dal_1_novembre_2026_locazioni_turistiche_1.pdf
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+  pagina_registrazione:
+    titolo: "Comune di Firenze - Imposta di soggiorno - Registrazione e scelta Locazioni Turistiche"
+    url: https://www.comune.firenze.it/servizi/imprese-e-commercio-tributi-finanze-e-contravvenzioni/imposta-di-soggiorno-registrazione-e
+
+# Nessuna stagione: la delibera fissa una sola tariffa per tutto l'anno (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Locazioni di immobili ad uso turistico"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d) Strutture extra alberghiere con caratteristiche di civile abitazione, pag. 10" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case appartamenti vacanze - CAV"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d), pag. 10" }
+  - categoria: bnb
+    nome_nel_documento: "Bed and breakfast imprenditoriali"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d), pag. 10" }
+  - categoria: bnb
+    nome_nel_documento: "Bed and breakfast non imprenditoriali"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d), pag. 10" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere imprenditoriali (o Affittacamere professionali)"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d), pag. 10" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere non imprenditoriale (o Affittacamere non professionali)"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella d), pag. 10" }
+
+notti_massime:
+  valore: 7
+  rif: { fonte: regolamento, punto: "art. 2, comma 3 (stesso testo nel regolamento precedente)" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Firenze: l'imposta è dovuta solo da chi non è residente"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1" }
+  - descrizione: "Minori fino al compimento del dodicesimo anno di età (nel modello di comunicazione: minori di anni 12)"
+    eta_fino_a: 11
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera a)" }
+  - descrizione: "Chi assiste persone ricoverate in strutture sanitarie del territorio, anche in day hospital: massimo 2 accompagnatori per paziente, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera b) e comma 2" }
+  - descrizione: "Pazienti in cura in day hospital, con comunicazione del paziente al Comune"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera c) e comma 3" }
+  - descrizione: "Studenti iscritti all'Università degli Studi di Firenze, con attestazione di iscrizione per l'anno accademico in corso"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera d) e comma 4" }
+  - descrizione: "Forze dell'ordine, vigili del fuoco e protezione civile in servizio, per la durata del servizio (dal 1/11/2026 anche le forze armate)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera e) (le forze armate sono nuove dal 1/11/2026)" }
+  - descrizione: "Persone con handicap grave certificato (legge 104/92, art. 3 comma 3, o norme analoghe estere) e un accompagnatore"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera f)" }
+  - descrizione: "Dipendenti della struttura che vi alloggiano solo per lavoro"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera g)" }
+  - descrizione: "Detenuti del carcere di Sollicciano in permesso breve o licenza"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera h)" }
+  - descrizione: "Persone e volontari alloggiati per attività di assistenza, emergenze da calamità, soccorso umanitario o assistenza sanitaria"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera i)" }
+
+riduzioni:
+  - descrizione: "Gruppi scolastici delle medie inferiori e superiori in visita didattica, con attestazione del dirigente scolastico"
+    percentuale: 50
+    rif: { fonte: regolamento, punto: "art. 6, comma 1, lettera a) e comma 2" }
+  - descrizione: "Sportivi sotto i 16 anni in gruppi che partecipano a iniziative e tornei organizzati con il Comune, con attestazione della federazione sportiva"
+    percentuale: 50
+    rif: { fonte: regolamento, punto: "art. 6, comma 1, lettera b) e comma 2" }
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: modello_mensile_locazioni, punto: "pag. 4, Istruzioni per la compilazione, punti I-III e frase finale su Airbnb" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Registrazione della locazione sul portale dell'imposta di soggiorno"
+    quando: "Prima dell'inizio dell'attività"
+    rif: { fonte: pagina_registrazione, punto: "testo: la registrazione va effettuata prima dell'inizio dell'attività ricettiva (il regolamento, art. 8 comma 1, dice: in concomitanza con l'inizio)" }
+  - cosa: "Comunicazione mensile al Comune (ospiti, pernottamenti, esenti, imposta dovuta), anche nei mesi senza ospiti"
+    quando: "Entro il 15 del mese successivo"
+    rif: { fonte: regolamento, punto: "art. 8, comma 3" }
+  - cosa: "Versamento dell'imposta al Comune (PagoPA o F24)"
+    quando: "Entro 15 giorni dalla fine di ogni mese"
+    rif: { fonte: regolamento, punto: "art. 7, comma 2" }
+  - cosa: "Dichiarazione annuale (solo online)"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 8, comma 6" }
+
+verificato_il: 2026-10-28
+
+note: |
+  TARIFFE E STAGIONI
+  - Tariffe della delibera di Giunta DG/2024/00535 del 10/12/2024, in vigore dal 1° febbraio 2025
+    (la data è sulla pagina del Comune; la delibera rimanda all'art. 15-quater del D.L. 34/2019).
+    Il modello di comunicazione mensile "da novembre 2026" riporta ancora 6,00 euro per Airbnb:
+    non ho trovato una delibera tariffaria più recente né una già approvata per il 2027.
+  - Nessuna differenza tra alta e bassa stagione: la delibera ha una sola tabella per tutto l'anno.
+  - La delibera chiama le locazioni brevi "Locazioni di immobili ad uso turistico" (il regolamento
+    dice "locazioni turistiche, così come definite dalla legge regionale"). Le mette nello stesso
+    gruppo di affittacamere, CAV e B&B ("strutture extra alberghiere con caratteristiche di civile
+    abitazione"): tutte pagano 6,00 euro, imprenditoriali e non. Fa eccezione "Residenze d'epoca"
+    (7,00 euro), che non ho inserito perché non è tra le categorie del sito.
+  - Fino al 31/01/2025 la tariffa era 5,50 euro (delibera G.C. 56 del 22/2/2023).
+
+  NOTTI MASSIME
+  - 7 notti consecutive. Per chi soggiorna a lungo per lavoro documentato: massimo 7 notti
+    nell'anno solare (art. 2, comma 4).
+
+  AIRBNB E VRBO
+  - Airbnb: il modello di comunicazione mensile del Comune (novembre 2026) dice che Airbnb trattiene
+    e riversa l'imposta per le prenotazioni fatte dopo il 1° gennaio 2018, alla tariffa in vigore il
+    giorno della prenotazione (regolamento art. 3, comma 4). L'host però deve comunque fare la
+    comunicazione mensile (punto a del modello, con l'ID utente Airbnb). Per le prenotazioni fatte
+    prima del 1/2/2025 con notti dal 1/2/2025, l'host doveva versare la differenza di 0,50 euro.
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale di Vrbo elenca le
+    località dove riscuote e versa l'imposta in Europa e l'Italia non c'è; gli atti del Comune
+    nominano solo Airbnb. Chi usa Vrbo deve quindi riscuotere e versare da sé. Conferma definitiva:
+    Ufficio imposta di soggiorno (impostadisoggiorno@comune.fi.it).
+  - La dichiarazione annuale per le notti incassate da Airbnb: secondo la pagina di aiuto Airbnb
+    (https://www.airbnb.com/help/article/2287) la presenta Airbnb. La pagina però non nomina Firenze:
+    da verificare.
+
+  NOVITÀ DAL 1° NOVEMBRE 2026
+  - Dal 1/11/2026 entra in vigore un nuovo testo del regolamento (delibere C.C. n. 36 del 29/6/2026 e
+    n. 53 del 28/9/2026). Ho confrontato i due testi: notti massime, riduzioni, scadenze e sanzioni non
+    cambiano. Cambia l'art. 5, lettera e): si aggiungono le forze armate tra gli esenti. Cambia anche
+    l'uso del gettito (art. 2, comma 1). Il nuovo testo dice "delibera C.C. n. 33 del 2 giugno 2011",
+    il testo 2023 dice "20 giugno 2011": probabile refuso, non cambia i dati.
+  - Dal 26/06/2026 (L.R. Toscana n. 9/2026), per le locazioni turistiche brevi nell'immobile dove
+    risiede il locatore serve una CIA al SUAP sul portale STAR prima della registrazione al portale
+    dell'imposta (fonte: pagina del Comune). Non riguarda le tariffe.
+
+  DUBBI DA CONTROLLARE
+  - Età dei minori: regolamento e pagina del Comune dicono "fino al compimento del dodicesimo anno
+    di età", il modello "minori di anni 12": esenti fino a 11 anni compresi (confermato dal verificatore).
+  - La pagina servizi del Comune non mostra una data di aggiornamento.
+  - La pagina del Comune collega due moduli di autodichiarazione con date diverse ("dal 21.6.2026" e
+    "dal 4-8-2026") senza spiegare la differenza.
+  - Nel modello "da novembre 2026", il modulo aggiuntivo a pag. 5 descrive l'esenzione e) ancora
+    senza le forze armate, mentre la pag. 2 le include: incoerenza del Comune, non del file.
