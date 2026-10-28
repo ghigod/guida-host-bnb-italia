@@ -76,4 +76,33 @@ const fisco = defineCollection({
   }),
 });
 
-export const collections = { commissioni, fisco };
+const supplementi = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './data/supplementi' }),
+  schema: z.object({
+    nome: z.string(),
+    descrizione: z.string(),
+    /** Come si può applicare il supplemento (a prenotazione, a notte...). */
+    modalita: z.array(z.object({ valore: z.string(), etichetta: z.string() })).min(1),
+    /** La piattaforma trattiene la ritenuta anche su questo importo. */
+    ritenuta_inclusa: z.boolean(),
+    piattaforme: z
+      .array(
+        z.object({
+          piattaforma: z.enum(['Airbnb', 'Vrbo']),
+          /** La commissione della piattaforma si paga anche su questo importo. */
+          commissione_inclusa: z.boolean(),
+          modalita: z.string(),
+          limite: z.string().optional(),
+          fonte,
+          fonte_commissione: fonte,
+          verificato_il: z.coerce.date(),
+          note: z.string().optional(),
+        }),
+      )
+      .length(2),
+    verificato_il: z.coerce.date(),
+    note: z.string().optional(),
+  }),
+});
+
+export const collections = { commissioni, fisco, supplementi };

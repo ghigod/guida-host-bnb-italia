@@ -17,6 +17,8 @@ export interface Tassi {
   iva: number;
   airbnb: { single: Caso; split: Caso; custom: Caso };
   vrbo: { ppb: Caso; old: Caso; custom: Caso };
+  /** Su quali trattenute pesa il supplemento animali (da data/supplementi/animali.yaml). */
+  animali: { commissione: Record<Piattaforma, boolean>; ritenuta: boolean };
 }
 
 /** Le scelte dell'utente nel modulo. */
@@ -29,17 +31,30 @@ export interface Stato {
   /** Ritenuta come frazione (0,21 = 21%). */
   tax: number;
   ref: Piattaforma;
+  /** Prezzo a notte sulla piattaforma di partenza. */
   price: number;
+  /** Pulizia, a soggiorno. */
   cleaning: number;
-  nights: number;
-  mode: 'prop' | 'night';
+  /** Supplemento animali, nella modalità scelta (a prenotazione, a notte...). */
+  pet: number;
 }
+
+/** Le voci di prezzo: ognuna si converte da sola, senza bisogno del numero di notti. */
+export type Voce = 'notte' | 'pulizia' | 'animali';
+export const VOCI: readonly Voce[] = ['notte', 'pulizia', 'animali'];
 
 export interface Fee {
   base: number;
   eff: number;
   label: string;
   guest: string | null;
+}
+
+/** Un importo su una piattaforma: esatto, arrotondato all'euro e quanto resta all'host. */
+export interface Importo {
+  exact: number;
+  value: number;
+  net: number;
 }
 
 export interface Riga {
@@ -49,21 +64,15 @@ export interface Riga {
   fee: number;
   label: string;
   guest: string | null;
-  exact: number;
-  price: number;
-  cleaningExact: number;
-  cleaning: number;
+  voci: Record<Voce, Importo>;
+  /** Differenza del prezzo a notte rispetto alla partenza (0,07 = +7%). */
   delta: number;
-  feeAmt: number;
-  withheld: number;
-  net: number;
 }
 
 export interface Risultato {
-  n: number;
   t: number;
-  netStay: number;
-  netNight: number;
+  /** Netto per l'host di ogni voce, uguale sulle due piattaforme. */
+  netti: Record<Voce, number>;
   rows: Riga[];
 }
 
@@ -98,31 +107,40 @@ export function feeFor(id: Piattaforma, s: Stato, tassi: Tassi): Fee {
   return { base, eff: base * v, label: label + (v > 1 ? ' + IVA' : ''), guest };
 }
 
+/** Quota del lordo che resta all'host per una voce, dopo commissione (con IVA) e ritenuta. */
+export function quota(id: Piattaforma, voce: Voce, s: Stato, tassi: Tassi): number {
+  const t = sane(s.tax, 0, 0.5, 0);
+  const animali = voce === 'animali';
+  const fee = !animali || tassi.animali.commissione[id] ? feeFor(id, s, tassi).eff : 0;
+  return 1 - fee - (!animali || tassi.animali.ritenuta ? t : 0);
+}
+
 export function computeRows(s: Stato, tassi: Tassi): Risultato | null {
   const price = sane(s.price, 0, 1e7, NaN);
   if (!(price > 0)) return null;
-  const cleaning = sane(s.cleaning, 0, 1e7, 0);
-  const n = Math.max(1, Math.round(sane(s.nights, 1, 365, 1)));
-  const t = sane(s.tax, 0, 0.5, 0);
-  const fRef = feeFor(s.ref, s, tassi).eff;
-  const gross = price * n + cleaning;
-  const netStay = gross * (1 - fRef - t);
+  const partenza: Record<Voce, number> = {
+    notte: price,
+    pulizia: sane(s.cleaning, 0, 1e7, 0),
+    animali: sane(s.pet, 0, 1e7, 0),
+  };
+  const netti = {} as Record<Voce, number>;
+  for (const v of VOCI) netti[v] = partenza[v] * quota(s.ref, v, s, tassi);
+
   const rows = (['airbnb', 'vrbo'] as const).map((id): Riga => {
     const f = feeFor(id, s, tassi);
     const isRef = id === s.ref;
-    let p: number;
-    let c: number;
-    if (isRef) { p = price; c = cleaning; }
-    else if (s.mode === 'night') { c = cleaning; p = Math.max(0, (netStay / (1 - f.eff - t) - cleaning) / n); }
-    else { const k = (1 - fRef - t) / (1 - f.eff - t); p = price * k; c = cleaning * k; }
-    const pr = isRef ? p : Math.ceil(p - 1e-9);
-    const cr = isRef ? c : Math.max(0, Math.ceil(c - 1e-9));
-    const g = pr * n + cr;
+    const voci = {} as Record<Voce, Importo>;
+    for (const v of VOCI) {
+      const q = quota(id, v, s, tassi);
+      const exact = isRef ? partenza[v] : netti[v] / q;
+      // Sull'altra piattaforma si arrotonda all'euro per eccesso: si incassa un filo di più, mai meno.
+      const value = isRef ? exact : Math.max(0, Math.ceil(exact - 1e-9));
+      voci[v] = { exact, value, net: value * q };
+    }
     return {
       id, name: id === 'airbnb' ? 'Airbnb' : 'Vrbo', isRef, fee: f.eff, label: f.label, guest: f.guest,
-      exact: p, price: pr, cleaningExact: c, cleaning: cr, delta: p / price - 1,
-      feeAmt: g * f.eff, withheld: g * t, net: g * (1 - f.eff - t),
+      voci, delta: voci.notte.exact / price - 1,
     };
   });
-  return { n, t, netStay, netNight: netStay / n, rows };
+  return { t: sane(s.tax, 0, 0.5, 0), netti, rows };
 }

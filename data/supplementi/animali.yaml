@@ -1,0 +1,57 @@
+nome: Supplemento animali
+descrizione: >-
+  Importo che l'host aggiunge quando l'ospite porta animali domestici. Su entrambe le
+  piattaforme la commissione si paga anche su questo importo.
+# Come si può applicare il supplemento: sono le modalità di Airbnb.
+modalita:
+  - valore: prenotazione
+    etichetta: a prenotazione
+  - valore: notte
+    etichetta: a notte
+  - valore: animale
+    etichetta: per animale
+  - valore: animale_notte
+    etichetta: per animale a notte
+# Si applica anche la ritenuta, come su notti e pulizia?
+ritenuta_inclusa: true
+piattaforme:
+  - piattaforma: Airbnb
+    commissione_inclusa: true
+    modalita: >-
+      A prenotazione, a notte, per animale o per animale a notte. Un unico importo fisso
+      può valere per più animali.
+    limite: Non può superare il prezzo base a notte.
+    fonte:
+      nome: Airbnb
+      titolo: "Airbnb, Centro assistenza: aggiungere un supplemento per animali domestici"
+      url: https://www.airbnb.com/help/article/3623
+    fonte_commissione:
+      nome: Airbnb
+      titolo: "Airbnb, Centro assistenza: commissioni di servizio"
+      url: https://www.airbnb.com/help/article/1857
+    verificato_il: 2026-10-28
+    note: >-
+      La pagina sulle commissioni dice che si applicano al prezzo a notte "e a ogni costo
+      aggiunto dall'host", senza nominare il supplemento animali: lo includiamo per questo.
+  - piattaforma: Vrbo
+    commissione_inclusa: true
+    modalita: >-
+      Le modalità non sono pubblicate. Il supplemento si imposta tra le tariffe standard,
+      alla voce animali.
+    fonte:
+      nome: Vrbo
+      titolo: "Vrbo, Centro assistenza: come si calcola la commissione"
+      url: https://help.vrbo.com/articles/How-is-the-booking-fee-calculated
+    fonte_commissione:
+      nome: Vrbo
+      titolo: "Vrbo, Centro assistenza: come si calcola la commissione"
+      url: https://help.vrbo.com/articles/How-is-the-booking-fee-calculated
+    verificato_il: 2026-10-28
+    note: >-
+      Vrbo non pubblica se il supplemento può essere a notte o per animale: da controllare
+      nella dashboard (Calendario, Impostazioni, Prezzi, Costi aggiuntivi).
+verificato_il: 2026-10-28
+note: >-
+  DA VERIFICARE. Nessuna fonte ufficiale dice in modo esplicito se la ritenuta si applica
+  anche al supplemento animali. La legge sulle locazioni brevi (DL 50/2017, art. 4) cita
+  solo pulizia e biancheria come servizi compresi. Qui la includiamo, come per la pulizia.
