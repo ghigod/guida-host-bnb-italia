@@ -1,12 +1,12 @@
 # Imposta di soggiorno - Comune di Firenze
-# Bozza compilata dall'agente ricercatore-imposta e controllata dall'agente verificatore-dati
-# il 2026-10-28. Il passaggio a "verificato" lo decide il proprietario del sito.
+# Compilato dall'agente ricercatore-imposta, controllato dall'agente verificatore-dati e
+# approvato dal proprietario del sito il 2026-10-28.
 comune: Firenze
 provincia: FI
 regione: Toscana
 anno: 2026
 valida_dal: 2025-02-01
-stato: bozza
+stato: verificato
 
 fonti:
   pagina_comune:
