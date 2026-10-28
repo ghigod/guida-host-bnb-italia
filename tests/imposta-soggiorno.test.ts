@@ -42,7 +42,7 @@ describe('lo schema blocca gli errori', () => {
   test('manca la pagina ufficiale del comune', () => {
     const d = esempio();
     delete d.fonti.pagina_comune;
-    d.riscossione.rif.fonte = 'delibera';
+    d.riscossione.vrbo.rif.fonte = 'delibera';
     expect(errori(d).join('\n')).toContain('pagina_comune');
   });
 
@@ -114,6 +114,12 @@ describe('lo schema blocca gli errori', () => {
     d.stagioni = [];
     d.tariffe = [{ ...d.tariffe[0], stagione: undefined }];
     expect(errori(d)).toEqual([]);
+  });
+
+  test('una piattaforma con valore ma senza rif', () => {
+    const d = esempio();
+    delete d.riscossione.vrbo.rif;
+    expect(errori(d).join('\n')).toContain('riscossione.vrbo.rif');
   });
 
   test('stato diverso da bozza o verificato', () => {
