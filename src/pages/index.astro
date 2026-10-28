@@ -257,8 +257,10 @@ const fonti = [...tutteLeFonti.filter((f) => f.ufficiale), ...tutteLeFonti.filte
 
 	const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 	const tassi: Tassi = JSON.parse($('caso').dataset.tassi ?? '');
-	const eur0 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-	const eur2 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	// useGrouping 'always': in italiano il browser mette il punto delle migliaia solo da 10.000 in su,
+	// ma vogliamo "1.234,56 €" anche per gli importi a 4 cifre (vedi CLAUDE.md).
+	const eur0 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, useGrouping: 'always' });
+	const eur2 = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: 'always' });
 	function pct(x: number) { return (x * 100).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; }
 	function signed(x: number) { const v = (x * 100).toLocaleString('it-IT', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); return (x > 0.00005 ? '+' : '') + v + '%'; }
 	function plain(s: string) { return s.replace(/ /g, ' '); }
