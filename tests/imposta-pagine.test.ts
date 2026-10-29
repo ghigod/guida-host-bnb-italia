@@ -3,7 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 import { describe, expect, test } from 'vitest';
-import { dataLunga, esempio, euro, giornoLeggibile, nottiTassate, periodoLeggibile, tariffaInBreve, tariffePrincipali } from '../src/lib/imposta';
+import { dataLunga, eccezioniNotti, esempio, euro, giornoLeggibile, nottiTassate, periodoLeggibile, tariffaInBreve, tariffePrincipali } from '../src/lib/imposta';
 import { schemaImposta } from '../src/lib/schema-imposta';
 
 /** Il browser separa numero e € con uno spazio che non va a capo: qui lo trattiamo come uno spazio normale. */
@@ -59,8 +59,14 @@ describe('notti tassate ed esempio di calcolo', () => {
 
   test('senza limite si pagano tutte le notti', () => {
     const d = comune();
-    d.notti_massime = { valore: 'nessun_limite' };
+    d.notti_massime = { valore: 'nessun_limite', eccezioni: [] };
     expect(nottiTassate(10, d)).toBe(10);
+  });
+
+  test('eccezioni al massimo di notti, in parole', () => {
+    const d = comune();
+    d.notti_massime.eccezioni = [{ categorie: ['bnb', 'affittacamere'], valore: 'nessun_limite', rif: { fonte: 'regolamento', punto: 'art. 1' } }];
+    expect(eccezioniNotti(d)).toEqual(['B&B e Affittacamere: nessun limite']);
   });
 
   test('4 persone per 3 notti a 2 €: 24 €', () => {

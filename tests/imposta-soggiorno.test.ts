@@ -122,6 +122,12 @@ describe('lo schema blocca gli errori', () => {
     expect(errori(d).join('\n')).toContain('riscossione.vrbo.rif');
   });
 
+  test('un\'eccezione alle notti massime con una fonte inesistente', () => {
+    const d = esempio();
+    d.notti_massime.eccezioni = [{ categorie: ['bnb'], valore: 'nessun_limite', rif: { fonte: 'blog', punto: 'x' } }];
+    expect(errori(d).join('\n')).toContain('La fonte "blog" non è tra le fonti del file');
+  });
+
   test('stato diverso da bozza o verificato', () => {
     const d = esempio();
     d.stato = 'pubblicato';

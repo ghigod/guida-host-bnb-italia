@@ -1,0 +1,230 @@
+# Imposta di soggiorno - Comune di Napoli
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. BOZZA: da controllare con
+# l'agente verificatore-dati e da approvare dal proprietario del sito.
+comune: Napoli
+provincia: NA
+regione: Campania
+anno: 2026
+valida_dal: 2026-05-01
+stato: bozza
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Napoli - Imposta di Soggiorno 2026"
+    url: https://www.comune.napoli.it/articolo_tematico/tributi-locali/imposta-di-soggiorno/imposta-di-soggiorno-2026/
+  pagina_comune_generale:
+    titolo: "Comune di Napoli - Imposta di Soggiorno (pagina generale)"
+    url: https://www.comune.napoli.it/articolo_tematico/tributi-locali/imposta-di-soggiorno/
+  comunicato_tariffe_2026:
+    titolo: "Comune di Napoli - Novità del 12/03/2026: Napoli, aggiornate le tariffe dell'imposta di soggiorno per il 2026"
+    url: https://www.comune.napoli.it/novita/napoli-aggiornate-le-tariffe-dellimposta-di-soggiorno-per-il-2026/
+  delibera_2024_572:
+    titolo: "Deliberazione di Giunta Comunale n. 572 del 09/12/2024 - Rideterminazione delle tariffe dell'imposta di soggiorno (tariffe dal 1/3/2025 e dal 1/1/2026)"
+    url: https://static-www.comune.napoli.it/wp-content/uploads/2025/06/dgc_572_1_.pdf
+  regolamento:
+    titolo: "Testo coordinato del Regolamento sull'Imposta di Soggiorno (D.C.C. n. 20/2012, modificato da ultimo con D.C.C. n. 13 del 29/03/2019)"
+    url: https://static-www.comune.napoli.it/wp-content/uploads/2025/09/Testo_Coordinato_del_Regolamento_sull_Imposta_di_Soggiorno_2019.pdf
+  modifiche_regolamento_2020:
+    titolo: "Deliberazione di Consiglio Comunale n. 12 del 04/08/2020 - Modifiche al regolamento comunale sull'imposta di soggiorno (con allegata proposta G.C. n. 202 del 26/06/2020)"
+    url: https://static-www.comune.napoli.it/wp-content/uploads/2025/09/Delibera_C.C.n.12_del_4.8.2020.pdf
+  pagina_dichiarazioni:
+    titolo: "Comune di Napoli - Modalità presentazione dichiarazioni e versamenti"
+    url: https://www.comune.napoli.it/articolo_tematico/tributi-locali/imposta-di-soggiorno/modalita-presentazione-dichiarazioni-e-versamenti/
+  pagina_intermediari:
+    titolo: "Comune di Napoli - Accordi tra Comune di Napoli e intermediari turistici"
+    url: https://www.comune.napoli.it/articolo_tematico/tributi-locali/imposta-di-soggiorno/accordi-tra-comune-di-napoli-e-intermediari-turistici/
+  faq_geis:
+    titolo: "Comune di Napoli - FAQ imposta di soggiorno, portale GEIS (V.0.2 del 07/10/2025)"
+    url: https://static-www.comune.napoli.it/wp-content/uploads/2019/06/FAQ_Risposte_Dettagliate_20251007_V.0.2.pdf
+  pagina_modello_21:
+    titolo: "Comune di Napoli - Modalità di presentazione del Modello 21"
+    url: https://www.comune.napoli.it/articolo_tematico/tributi-locali/imposta-di-soggiorno/modalita-di-presentazione-del-modello-21/
+  avviso_extralberghiere_2026:
+    titolo: "Comune di Napoli - Avviso ai titolari o gestori di strutture ricettive extralberghiere e di attività di locazione breve (20/05/2026)"
+    url: https://www.comune.napoli.it/novita/avviso-ai-titolari-o-gestori-di-strutture-ricettive-extralberghieree-di-attivita-di-locazione-breve/
+  suap_extralberghiere:
+    titolo: "Comune di Napoli - SUAP, All. A: indicazioni operative per strutture ricettive extralberghiere e locazioni brevi"
+    url: https://static-www.comune.napoli.it/wp-content/uploads/2025/08/ALL._A_INDICAZIONI_OPERATIVE_STRUTTURE_RICETTIVE_E_LOCAZIONI_BREVI.pdf
+  mef_delibere_2026:
+    titolo: "Dipartimento delle Finanze - elenco delibere 2026 (D.G.C. Napoli n. 89 del 12/03/2026, pubblicata il 16/03/2026)"
+    url: https://www1.finanze.gov.it/finanze2/dipartimentopolitichefiscali/fiscalitalocale/nuova_at/dati/download_csv_nuova_at.php?tipo=D&anno=2026
+  airbnb_napoli:
+    titolo: "Airbnb, Centro assistenza: Hosting responsabile a Napoli, Italia (articolo 3643)"
+    url: https://www.airbnb.com/help/article/3643
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# Nessuna stagione: le tariffe cambiano per data di entrata in vigore (1/1 e 1/5/2026),
+# non tra alta e bassa stagione, e valgono tutto l'anno (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Locazioni brevi"
+    importo: 6.00
+    rif: { fonte: pagina_comune, punto: "tabella tariffe, riga Locazioni brevi, colonna €/notte Dal 01/05/2026 (Deliberazione di Giunta n. 89 del 12/03/2026, testo non trovato)" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Strutture ricettive extra alberghiere"
+    importo: 5.50
+    rif: { fonte: pagina_comune, punto: "tabella tariffe, riga Strutture ricettive extra alberghiere, colonna €/notte Dal 01/05/2026 (che le case vacanza, anche non imprenditoriali, siano extralberghiere: suap_extralberghiere, pag. 1-2)" }
+  - categoria: bnb
+    nome_nel_documento: "Strutture ricettive extra alberghiere"
+    importo: 5.50
+    rif: { fonte: comunicato_tariffe_2026, punto: "Strutture extra-alberghiere (B&B, Affittacamere, ecc.): 5,50 € dal 1/5/2026" }
+  - categoria: affittacamere
+    nome_nel_documento: "Strutture ricettive extra alberghiere"
+    importo: 5.50
+    rif: { fonte: comunicato_tariffe_2026, punto: "Strutture extra-alberghiere (B&B, Affittacamere, ecc.): 5,50 € dal 1/5/2026" }
+
+notti_massime:
+  valore: 14
+  rif: { fonte: regolamento, punto: "art. 2, comma 3 (pag. 4): fino ad un massimo di 14 pernottamenti consecutivi" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Napoli: l'imposta è dovuta solo da chi non è residente e non è iscritto all'anagrafe del Comune"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1" }
+  - descrizione: "Minori entro il quattordicesimo anno d'età (la pagina del Comune dice: l'imposta è dovuta dai soggetti di età maggiore di 14 anni). Età esatta da verificare, vedi note"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera a)" }
+  - descrizione: "Pazienti in trattamento sanitario in day-hospital presso strutture sanitarie del territorio comunale, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera b) e comma 2" }
+  - descrizione: "Chi assiste degenti ricoverati in strutture sanitarie: un accompagnatore per paziente; se il paziente è minore, entrambi i genitori. Servono certificazione della struttura sanitaria e autodichiarazione"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera c) e comma 2" }
+  - descrizione: "Rifugiati politici, con il tesserino della Commissione Territoriale"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera d) e comma 3" }
+  - descrizione: "Forze dell'Ordine alloggiate per provvedimenti delle autorità pubbliche (emergenze sociali, calamità, soccorso umanitario), con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera e) e comma 4" }
+  - descrizione: "Volontari della Protezione Civile e della Croce Rossa in servizio in occasione di calamità, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera f) e comma 4" }
+  - descrizione: "Persone con disabilità non inferiore all'80% certificata (o analoga certificazione estera), più un accompagnatore"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera g) e comma 4" }
+  - descrizione: "Autisti di pullman e accompagnatori turistici di gruppi organizzati da agenzie di viaggio (un accompagnatore ogni 25 partecipanti)"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera h) e comma 4" }
+  - descrizione: "Personale dipendente della struttura che vi lavora"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera i) e comma 4" }
+  - descrizione: "Persone ospitate gratis su richiesta del Comune o di altro ente pubblico (con assenso del Comune) per promuovere il territorio"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1, lettera j)" }
+
+# Nessuna riduzione percentuale nel regolamento (vedi note).
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: pagina_intermediari, punto: "elenco degli intermediari convenzionati (Airbnb è il primo), accordo per la riscossione e il riversamento in luogo dei gestori approvato con D.G.C. n. 167 del 20/04/2018" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Iscrizione della struttura o della locazione breve sul portale dell'imposta di soggiorno (oggi GEIS Portal)"
+    quando: "All'inizio dell'attività"
+    rif: { fonte: regolamento, punto: "art. 8, comma 1, lettera f): in concomitanza con l'inizio dell'attività (il testo nomina il vecchio portale Tourist Tax; la pagina del Comune parla di GEIS Portal)" }
+  - cosa: "Dichiarazione trimestrale al Comune (ospiti, pernottamenti, esenti, imposta), anche quando non c'è imposta da versare; gli ospiti Airbnb vanno nella riga AIRBNB"
+    quando: "Entro il 15 del mese successivo alla fine di ogni trimestre (15 aprile, 15 luglio, 15 ottobre, 15 gennaio)"
+    rif: { fonte: modifiche_regolamento_2020, punto: "proposta G.C. 202/2020 allegata, punto 1.1 a) e b): modifica dell'art. 8, comma 1, lettere g) e h) del regolamento; conferma su pagina_dichiarazioni" }
+  - cosa: "Versamento al Comune dell'imposta riscossa nel trimestre, con PagoPA dal portale GEIS"
+    quando: "Entro il 15 del mese successivo alla fine di ogni trimestre"
+    rif: { fonte: modifiche_regolamento_2020, punto: "proposta G.C. 202/2020 allegata, punto 1.1 c): modifica dell'art. 8, comma 1, lettera i) del regolamento; PagoPA: pagina_dichiarazioni e FAQ GEIS dom. 15" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE E STAGIONI
+  - Tariffe in vigore oggi (dal 1° maggio 2026): Locazioni brevi 6,00 euro; Strutture ricettive extra
+    alberghiere 5,50 euro, per persona e per notte. Fonte: tabella della pagina "Imposta di Soggiorno
+    2026" del Comune, che cita la "Deliberazione di Giunta n. 89 12/03/2026". NON ho trovato il testo
+    della delibera n. 89: il link sulla pagina del Comune rimanda alla pagina stessa, e non l'ho trovata
+    né sul sito del Comune né sul portale del MEF. Le tariffe vengono quindi solo dalla pagina del Comune
+    e dal comunicato del 12/03/2026 (stessi importi).
+  - Dal 1/1/2026 al 30/4/2026 valevano 5,00 euro (Locazioni brevi) e 4,50 euro (Strutture ricettive
+    extra alberghiere): delibera G.C. 572 del 09/12/2024, pag. 4 (tariffe in vigore dal 1/3/2025),
+    confermate nella colonna "Dal 01/01/2026" della pagina del Comune.
+  - Data di inizio: la pagina del Comune dice "dal 01/05/2026". Il comunicato del 12/03/2026 dice invece
+    "dal primo giorno del secondo mese successivo alla pubblicazione" sul sito del MEF, senza una data.
+    Confermato dal verificatore: la delibera 89 è pubblicata sul portale MEF il 16/03/2026 (fonte
+    mef_delibere_2026), quindi vale dal 1/5/2026. Il testo della delibera resta non trovato.
+  - Nessuna differenza tra alta e bassa stagione e nessuna differenza per zona: la tabella ha una sola
+    tariffa per categoria, valida tutto l'anno. Le due colonne della tabella sono date di entrata in vigore,
+    non stagioni.
+  - Stranezza: la pagina "Imposta di Soggiorno 2026" (e quella generale) mostra "Ultimo aggiornamento:
+    14/01/2026", ma cita una delibera del 12/03/2026.
+  - L'importo di 6,00 euro supera il limite generale di 5 euro (art. 4 D.Lgs. 23/2011). Il comunicato del
+    Comune lo basa sulla Legge di Bilancio 2026 (L. 199/2025), che permette di mantenere gli aumenti del
+    Giubileo 2025. Non ho letto la legge.
+
+  NOMI USATI DAL COMUNE
+  - Per gli affitti brevi la tabella dice "Locazioni brevi"; il comunicato "Locazioni brevi (Affitti
+    turistici)"; il regolamento (art. 2, comma 2) "immobili ad uso abitativo per periodi inferiori ai
+    30 giorni, cd. locazioni brevi".
+  - B&B, affittacamere e case vacanza rientrano in "Strutture ricettive extra alberghiere" (tabella).
+    Il regolamento (art. 2, comma 1) le elenca come "affittacamere, case e appartamenti per vacanze,
+    appartamenti ammobiliati per uso turistico, attività saltuarie di alloggio e prima colazione (bed &
+    breakfast)". Il comunicato dice "Strutture extra-alberghiere (B&B, Affittacamere, ecc.)": le case
+    vacanza non sono nominate lì. DA VERIFICARE: una casa vacanze gestita da un privato senza impresa
+    potrebbe essere trattata come "locazione breve" (6,00 euro) e non come extralberghiera (5,50 euro);
+    dipende da come è registrata l'attività. Nessuna fonte del Comune lo chiarisce.
+
+  NOTTI MASSIME
+  - 14 pernottamenti consecutivi (regolamento, art. 2, comma 3). La pagina del Comune dice "fino ad un
+    massimo di 14 giorni consecutivi": stesso numero, parola diversa.
+
+  ESENZIONI: ETÀ DEI MINORI (DUBBIO)
+  - Il regolamento (art. 7, comma 1, lettera a) dice "i minori entro il quattordicesimo anno d'età". La
+    pagina del Comune dice "L'imposta è dovuta dai soggetti di età maggiore di 14 anni", cioè sembra che
+    chi ha 14 anni sia esente. Le due frasi si possono leggere in modo diverso (esenti fino a 13 o fino a
+    14 anni compresi): per questo NON ho compilato eta_fino_a. Da chiedere all'Ufficio Imposta di
+    Soggiorno (entrate.impostasoggiorno@comune.napoli.it).
+  - Nessuna riduzione percentuale nel regolamento. Il regolamento permette ad agenzie e organizzatori di
+    gruppi (almeno 30 partecipanti) di pagare in anticipo l'imposta (art. 3, comma 3), ma non è uno sconto.
+
+  AIRBNB E VRBO
+  - Airbnb: la pagina "Accordi tra Comune di Napoli e intermediari turistici" elenca Airbnb tra gli
+    intermediari convenzionati per riscuotere e riversare l'imposta al posto dei gestori (D.G.C. 167 del
+    20/04/2018). La pagina di aiuto di Airbnb su Napoli (articolo 3643) conferma che Airbnb riscuote
+    l'imposta per tutte le prenotazioni fatte su Airbnb; le esenzioni le rimborsa Airbnb agli ospiti su
+    richiesta. ATTENZIONE: l'host resta iscritto al portale GEIS e deve comunque dichiarare gli ospiti
+    Airbnb nella dichiarazione trimestrale, nella riga "AIRBNB" (FAQ GEIS, domanda 10). La pagina 2287 di
+    Airbnb (Italia) dice che la dichiarazione annuale la presenta Airbnb, ma non nomina Napoli.
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale di Vrbo elenca le località
+    dove riscuote in Europa e l'Italia non c'è; Vrbo non è tra gli intermediari convenzionati del Comune.
+    Chi usa Vrbo deve riscuotere e versare da sé.
+  - Altri convenzionati nell'elenco del Comune: Boundless Housing, Di Morra, Domus Extra, Mister B&B,
+    MyBnB. Booking non c'è.
+
+  SCADENZE
+  - Il testo coordinato del regolamento (2019) dice ancora dichiarazione "mensile" e, per le
+    extralberghiere e le locazioni brevi, "bimestrale". La D.C.C. 12 del 04/08/2020 l'ha cambiata in
+    trimestrale per tutti dal 1° luglio 2020. La pagina modulistica del Comune offre però ancora un
+    modulo "Dichiarazione BIMESTRALE Extra Alberghieri": probabilmente vecchio, ma da segnalare.
+  - La dichiarazione va inserita nel portale GEIS nell'ultimo mese del trimestre (marzo, giugno,
+    settembre, dicembre) e inviata entro il 15 del mese dopo (pagina_dichiarazioni).
+  - Modello 21 (conto della gestione, entro il 30 gennaio, regolamento art. 8 comma 2): secondo la
+    pagina del Comune (aggiornata il 29/01/2026), dopo la sentenza di Cassazione n. 1527/2026 non è più
+    dovuto dalle strutture. Per questo non l'ho messo tra le scadenze. Da confermare.
+  - Dichiarazione annuale entro il 30 giugno (art. 180 D.L. 34/2020): la pagina generale del Comune dice
+    che resta l'obbligo di dichiarazione e versamento periodico fino al decreto MEF. Non l'ho messa tra le
+    scadenze perché il Comune non la indica come obbligo per Napoli.
+  - Sanzioni: i commi 4 e 5 dell'art. 9 del regolamento sono stati abrogati nel 2020; la pagina del
+    Comune indica le sanzioni di legge (dal 100% al 200% per dichiarazione omessa o infedele, 30% per
+    versamento omesso o tardivo).
+
+  2027
+  - Non ho trovato delibere già approvate per il 2027 (né sul sito del Comune né in rete). Il regolamento
+    (art. 4, comma 3) dice che, finché non c'è una nuova delibera, valgono le tariffe dell'anno prima.
+
+  ALTRO
+  - Pagina "Regolamenti tributari" del Comune (aggiornata l'08/09/2026): il regolamento vigente è il testo
+    coordinato 2019 più la modifica D.C.C. 12/2020. Il PDF della D.C.C. 12/2020 è una scansione: l'ho
+    letto per intero (12 pagine).
+
+  DAL VERIFICATORE (29/10/2026)
+  - Case vacanza: anche in forma non imprenditoriale sono strutture extralberghiere (con SCIA) e pagano
+    5,50 €; chi ha solo la comunicazione di "locazione breve" al SUAP paga 6,00 €. Conta il titolo con
+    cui è registrata l'attività (suap_extralberghiere, pag. 1-2 e 4). Fonte di settore, non tributaria.
+  - Incoerenze del sito del Comune: la pagina generale ha il titolo "Nuove tariffe dal 1°gennaio 2026" ma
+    la tabella ha anche la colonna "Dal 01/05/2026"; la pagina 2026 dice che le locazioni brevi sono
+    "equiparate" alle extralberghiere ma dà loro una tariffa diversa; la modulistica offre ancora la
+    dichiarazione bimestrale e nessun modello trimestrale.
+  - Resta aperta solo l'età dei minori esenti (regolamento "entro il quattordicesimo anno", pagina del
+    Comune "età maggiore di 14 anni"): da chiedere a entrate.impostasoggiorno@comune.napoli.it.
