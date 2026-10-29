@@ -1,0 +1,268 @@
+# Imposta di soggiorno - Comune di Bologna
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. BOZZA: da controllare con
+# l'agente verificatore-dati e da approvare dal proprietario del sito.
+comune: Bologna
+provincia: BO
+regione: Emilia-Romagna
+anno: 2026
+valida_dal: 2026-01-01
+stato: bozza
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Bologna - Imposta di soggiorno (pagina 'Regolamenti e modulistica'). ATTENZIONE: con WebFetch la pagina restituisce solo il testo della licenza Creative Commons, il contenuto non si è potuto leggere"
+    url: https://www.comune.bologna.it/servizi-informazioni/imposta-di-soggiorno
+  delibera:
+    titolo: "Atto di Giunta, proposta DG/PRO/2025/283 - Approvazione delle tariffe per l'anno 2026 valide per l'applicazione dell'imposta di soggiorno a decorrere dal 01.01.2026 (testo della proposta; numero dell'atto approvato non trovato)"
+    url: https://www.comune.bologna.it/myportal/C_A944/api/content/download?id=660532c5ca8004009ad9519a
+  regolamento:
+    titolo: "Regolamento per la disciplina dell'imposta di soggiorno - Allegato A alla delibera DC/PRO/2020/147 (P.G. 528563/2020), testo ORIGINALE 2020 pubblicato sul portale del MEF. Il testo è stato poi modificato (ultima modifica: delibera C.C. P.G. 848364/2024 del 25/11/2024): il testo aggiornato non è stato trovato"
+    url: https://www1.finanze.gov.it/finanze2/dipartimentopolitichefiscali/fiscalitalocale/nuova_at/download_lib.php?key=0900f23080542c28&nome=301669_CIMUNIC-05bo21a944AM.pdf
+  comunicato_tariffe_2025:
+    titolo: "Comune di Bologna, comunicato stampa del 4/12/2024 (aggiornato il 2/2/2026): Imposta di soggiorno, approvato l'adeguamento tariffario per il 2025"
+    url: https://www.comune.bologna.it/novita/comunicati-stampa/imposta-di-soggiorno-approvato-ladeguamento-tariffario-il-2025
+  modulo_esenzione_ricoverati:
+    titolo: "Comune di Bologna - Imposta di soggiorno, dichiarazione per esenzione accompagnatore/genitore che assiste degente ricoverato (cita art. 2 comma 4 del regolamento P.G. 528563/2020 e ss.mm.ii.)"
+    url: https://www.comune.bologna.it/myportal/C_A944/api/content/download?id=5ff6b8a206399a0057fd9490
+  modulo_abilitazione_geis:
+    titolo: "Comune di Bologna - Richiesta di abilitazione ai servizi on-line (portale GEIS) per la gestione dell'imposta di soggiorno"
+    url: https://www.comune.bologna.it/myportal/C_A944/api/content/download?id=5fdb3c9f7d8ea40058e2989c
+  airbnb_italia:
+    titolo: "Airbnb, Centro assistenza: Riscossione e pagamento della tassa di soggiorno in Italia da parte di Airbnb (non nomina Bologna)"
+    url: https://www.airbnb.it/help/article/2287
+  airbnb_aree:
+    titolo: "Airbnb, Centro assistenza: Aree in cui sono disponibili la riscossione e il pagamento delle imposte da parte di Airbnb (non nomina Bologna)"
+    url: https://www.airbnb.it/help/article/2509
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: Europe - Where Vrbo collects and remits taxes and lodging taxes"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+  bologna_welcome:
+    titolo: "Bologna Welcome - Tassa di soggiorno (pagina aggiornata al 20/07/2026; sito turistico, non atto del Comune)"
+    url: https://www.bolognawelcome.com/it/informazioni/tassa-di-soggiorno
+    ufficiale: false
+
+# Nessuna stagione: le tariffe valgono tutto l'anno, dal 1/1/2026 al 31/12/2026 (vedi note).
+stagioni: []
+
+# Bologna NON ha una tariffa per tipo di struttura: la tariffa dipende dal PREZZO del
+# pernottamento per persona (4 fasce), uguale per tutte le strutture tranne campeggi e ostelli.
+# Per questo ogni categoria compare 4 volte, una per fascia. Vedi note per la tariffa
+# percentuale (10,50%) che vale quando incassa un portale o un intermediario.
+tariffe:
+  # Locazioni brevi / appartamenti ammobiliati ad uso turistico (incasso diretto dell'host)
+  - categoria: locazione_turistica
+    nome_nel_documento: "Immobili destinati alla locazione breve / appartamenti ammobiliati per uso turistico - fascia di prezzo da 1 a 30,99 euro"
+    importo: 4.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 1, pag. 4 (categorie: regolamento art. 2 comma 1)" }
+  - categoria: locazione_turistica
+    nome_nel_documento: "Immobili destinati alla locazione breve / appartamenti ammobiliati per uso turistico - fascia di prezzo da 31 a 70,99 euro"
+    importo: 5.80
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 2, pag. 4" }
+  - categoria: locazione_turistica
+    nome_nel_documento: "Immobili destinati alla locazione breve / appartamenti ammobiliati per uso turistico - fascia di prezzo da 71 a 120,99 euro"
+    importo: 6.50
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 3, pag. 4" }
+  - categoria: locazione_turistica
+    nome_nel_documento: "Immobili destinati alla locazione breve / appartamenti ammobiliati per uso turistico - prezzo uguale o superiore a 121 euro"
+    importo: 7.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 4, pag. 4" }
+  # Case e appartamenti per vacanze
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e appartamenti per vacanze - fascia di prezzo da 1 a 30,99 euro"
+    importo: 4.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 1, pag. 4" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e appartamenti per vacanze - fascia di prezzo da 31 a 70,99 euro"
+    importo: 5.80
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 2, pag. 4" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e appartamenti per vacanze - fascia di prezzo da 71 a 120,99 euro"
+    importo: 6.50
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 3, pag. 4" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e appartamenti per vacanze - prezzo uguale o superiore a 121 euro"
+    importo: 7.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 4, pag. 4" }
+  # Bed & breakfast
+  - categoria: bnb
+    nome_nel_documento: "Attività saltuarie di alloggio e prima colazione (bed & breakfast) - fascia di prezzo da 1 a 30,99 euro"
+    importo: 4.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 1, pag. 4" }
+  - categoria: bnb
+    nome_nel_documento: "Attività saltuarie di alloggio e prima colazione (bed & breakfast) - fascia di prezzo da 31 a 70,99 euro"
+    importo: 5.80
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 2, pag. 4" }
+  - categoria: bnb
+    nome_nel_documento: "Attività saltuarie di alloggio e prima colazione (bed & breakfast) - fascia di prezzo da 71 a 120,99 euro"
+    importo: 6.50
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 3, pag. 4" }
+  - categoria: bnb
+    nome_nel_documento: "Attività saltuarie di alloggio e prima colazione (bed & breakfast) - prezzo uguale o superiore a 121 euro"
+    importo: 7.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 4, pag. 4" }
+  # Affittacamere
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere - fascia di prezzo da 1 a 30,99 euro"
+    importo: 4.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 1, pag. 4" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere - fascia di prezzo da 31 a 70,99 euro"
+    importo: 5.80
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 2, pag. 4" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere - fascia di prezzo da 71 a 120,99 euro"
+    importo: 6.50
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 3, pag. 4" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere - prezzo uguale o superiore a 121 euro"
+    importo: 7.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, lettera a), fascia 4, pag. 4" }
+
+# Il testo 2020 del regolamento dice 5 notti, ma il regolamento è stato modificato dopo
+# (2024) e non ho potuto leggere il testo in vigore; alcune fonti non ufficiali dicono 4.
+# Vedi note.
+notti_massime:
+  valore: non_trovato
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Bologna: l'imposta è dovuta solo da chi non è residente"
+    rif: { fonte: regolamento, punto: "art. 2, comma 2 (testo 2020)" }
+  - descrizione: "Minori di 14 anni"
+    eta_fino_a: 13
+    rif: { fonte: regolamento, punto: "art. 2, comma 3 (testo 2020)" }
+  - descrizione: "Studenti universitari regolarmente iscritti all'Università di Bologna alloggiati in studentati"
+    rif: { fonte: regolamento, punto: "art. 2, comma 3 (testo 2020)" }
+  - descrizione: "Chi assiste un degente ricoverato (anche in day hospital/day surgery/day service) in ospedali o strutture di cura del territorio: massimo 1 accompagnatore per paziente; entrambi i genitori se il paziente ha meno di 14 anni. Solo per le notti del ricovero, compresa quella prima, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 2, comma 4, lettera a) (testo 2020); stesso contenuto nel modulo di esenzione del Comune" }
+  - descrizione: "Chi fa cure in day hospital (day surgery/day service), per le notti del periodo di terapia, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 2, comma 4, lettera b) (testo 2020); stesso contenuto nel modulo di esenzione del Comune" }
+  - descrizione: "Persone alloggiate dal Comune o da altri enti pubblici per emergenze sociali (non sono soggetti passivi)"
+    rif: { fonte: regolamento, punto: "art. 2, comma 2, secondo periodo (testo 2020)" }
+
+# Nessuna riduzione percentuale nel testo 2020 del regolamento.
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: non_verificato
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy, tutte le giurisdizioni francesi dal 2019), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Abilitazione al portale GEIS del Comune (con CIN e CIR della struttura)"
+    quando: "Prima di iniziare a gestire l'imposta (il modulo non indica un termine preciso)"
+    rif: { fonte: modulo_abilitazione_geis, punto: "pag. 1, richiesta ai sensi dell'art. 5 del regolamento" }
+  - cosa: "Comunicazione trimestrale al Comune (portale GEIS), una per ogni indirizzo e numero civico. Trimestri: gen-mar, apr-giu, lug-set, ott-dic"
+    quando: "Entro 15 giorni dalla fine del trimestre"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera b) (testo 2020)" }
+  - cosa: "Versamento al Comune dell'imposta del trimestre (se meno di 5,00 euro si può versare alla scadenza successiva)"
+    quando: "Entro 15 giorni dalla fine del trimestre (stessa scadenza della comunicazione)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera c) (testo 2020)" }
+  - cosa: "Dichiarazione annuale (art. 4 comma 1-ter D.Lgs. 23/2011)"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera e) (testo 2020)" }
+  - cosa: "Invio al Comune della certificazione di esenzione per ricoverati/day hospital"
+    quando: "Entro 3 giorni lavorativi"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera d) (testo 2020)" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE 2026
+  - Fonte: proposta di delibera di Giunta DG/PRO/2025/283 (documento creato l'11/12/2025; Bologna
+    Welcome la cita come "DG/PRO/2025/283 del 9/12/25"). Conferma dal 1/1/2026 al 31/12/2026 le
+    tariffe già in vigore dal 1/4/2025 (delibera di Giunta P.G. 861894/2024). Non ho trovato il
+    numero definitivo dell'atto approvato né la sua pubblicazione sul portale del MEF.
+  - La delibera (punto 3) dice che, se la Legge di Bilancio 2026 non avesse confermato gli aumenti,
+    sarebbero tornate le tariffe in vigore al 31/12/2024 (delibera G.C. P.G. 832788/2023, non letta).
+    La Legge di Bilancio 2026 (L. 30/12/2025 n. 199, art. 1 comma 683, secondo fonti NON ufficiali:
+    leggeinchiaro.it, mysolution.it) ha confermato la possibilità per il 2026. Conferme indirette:
+    Bologna Welcome (20/7/2026) e Resto del Carlino (26/12/2025) riportano le tariffe 4,00 / 5,80 /
+    6,50 / 7,00 per il 2026. Testo della legge in Gazzetta Ufficiale NON verificato.
+  - Bologna non distingue le tariffe per tipo di struttura: conta il prezzo "della camera con
+    colazione (al netto di IVA e di eventuali servizi aggiuntivi) relativo al singolo pernottamento
+    di una persona". Fasce: 1-30,99 euro → 4,00; 31-70,99 → 5,80; 71-120,99 → 6,50; da 121 → 7,00.
+    Campeggi e ostelli: 2,80 fissi (non inseriti, non sono categorie del sito). I nomi delle
+    categorie nel campo nome_nel_documento vengono dal regolamento, art. 2 comma 1; la delibera
+    nomina solo le fasce.
+  - TARIFFA PERCENTUALE (non convertita): quando il canone è incassato direttamente da un portale
+    telematico o da un intermediario immobiliare, per le locazioni brevi (art. 4 D.L. 50/2017) e
+    per gli appartamenti ammobiliati ad uso turistico (art. 12 L.R. E-R 16/2004), l'imposta è il
+    10,50% del costo dell'appartamento (al netto di IVA e servizi aggiuntivi), con un massimo di
+    7,00 euro a persona per notte (delibera, punto 1 lettera b, pagg. 4-5; regolamento art. 4
+    comma 4). Il regolamento (art. 4 comma 5) permette ai portali convenzionati di usare la
+    percentuale anche per altre strutture. Per il calcolatore del sito questo punto è importante.
+
+  STAGIONI
+  - Nessuna differenza tra alta e bassa stagione: una sola tabella, valida tutto l'anno.
+
+  NOTTI MASSIME (NON TROVATO: da verificare)
+  - Il testo originale 2020 del regolamento dice: massimo 5 pernottamenti consecutivi (art. 4
+    comma 1), anche se il soggiorno è in più strutture (comma 7); se i pernottamenti sono ripetuti
+    nello stesso mese, si pagano solo i primi 5 (comma 8).
+  - Il regolamento però è stato modificato più volte; l'ultima modifica è la delibera di Consiglio
+    P.G. 848364/2024 del 25/11/2024 (in vigore dal 1/2/2025 secondo CNA Bologna). Il testo
+    aggiornato non si è potuto leggere: la pagina del Comune non si apre con WebFetch e non l'ho
+    trovato sul portale del MEF.
+  - Fonti non ufficiali in contrasto: Holidu e vertoai.it dicono 4 notti; altre dicono 5. Per
+    questo non ho scelto. Conferma: Ufficio Imposta di soggiorno, impostadisoggiorno@comune.bologna.it,
+    tel. 051 2193376.
+
+  ESENZIONI E RIDUZIONI
+  - Le esenzioni vengono dal testo 2020 del regolamento: potrebbero essere cambiate.
+  - Bologna Welcome (non ufficiale, 20/7/2026) aggiunge un'esenzione che il testo 2020 non ha:
+    persone con disabilità grave (L. 104/92 art. 3 comma 3, o norme analoghe estere) e un
+    accompagnatore. Probabilmente introdotta con una modifica successiva: non inserita, da verificare
+    sul regolamento in vigore.
+  - Altre esenzioni citate solo da un blog (vertoai.it: forze dell'ordine, donatori, autisti di
+    pullman ecc.): non verificate, non inserite.
+  - Nessuna riduzione percentuale nel testo 2020.
+
+  AIRBNB E VRBO
+  - Airbnb: "non_verificato". Le pagine ufficiali di Airbnb (help 2287 e 2509) dicono che Airbnb
+    riscuote e versa in Italia nei comuni registrati al suo portale, ma non nominano Bologna. Il
+    comunicato ufficiale del Comune (4/12/2024) dice che, quando "incasso e versamento" avvengono
+    tramite portali telematici o intermediari, si applica il 10,5% con massimo 7 euro: conferma
+    che esistono portali che riscuotono, ma non nomina Airbnb. Una notizia del newsroom Airbnb
+    (2018, su Palermo) cita un accordo già fatto con Bologna: datata, non usata come fonte.
+    Conferma definitiva: Ufficio Imposta di soggiorno del Comune.
+  - Vrbo: "no" è dedotto: la pagina ufficiale di Vrbo elenca dove riscuote in Europa e l'Italia
+    non c'è. Chi usa Vrbo deve riscuotere e versare da sé.
+
+  SCADENZE
+  - Dal testo 2020 del regolamento (art. 5): da verificare sul testo aggiornato.
+  - Il testo 2020 (art. 11 comma 6, disposizione transitoria) chiedeva anche il "conto giudiziale"
+    (modello 21) entro il 30 gennaio dell'anno dopo. Non inserito tra le scadenze: non so se valga
+    ancora.
+  - Versamento: tramite PagoPA o, in via residuale, bonifico (Regolamento entrate comunali, art. 37
+    comma 2, in vigore dal 1/5/2024).
+
+  NOME USATO DAL COMUNE
+  - Il regolamento (art. 2 comma 1) elenca: "affittacamere", "case e appartamenti per vacanze",
+    "appartamenti ammobiliati per uso turistico", "attività saltuarie di alloggio e prima colazione
+    (bed & breakfast)" e "immobili destinati alla locazione breve, di cui all'art. 4 del D.L.
+    50/2017". La delibera tariffe parla di "locazione breve" e "locazione di appartamenti
+    ammobiliati ad uso turistico".
+
+  2027
+  - Non ho trovato delibere già approvate per il 2027. La delibera 2026 vale solo fino al
+    31/12/2026 perché legata alla Legge di Bilancio 2026: per il 2027 serve un nuovo atto. Da
+    ricontrollare a fine anno.
+
+  BLOCCANTE PRIMA DI VERIFICARE (dal verificatore, 29/10/2026)
+  - Il regolamento usato è il testo ORIGINALE 2020, poi modificato tre volte (n. 579531/21 del 23/12/2021;
+    n. 797595/23 del 29/11/2023; n. 110 del 27/11/2024, pubblicata sul MEF il 27/12/2024, in vigore dal
+    1/2/2025). Il testo coordinato in vigore non è stato trovato: esenzioni, scadenze e art. 4 vanno
+    ricontrollati. La modifica 2024 semplifica gli adempimenti dell'art. 5 c. 2 e lascia ai portali
+    solo le locazioni brevi (art. 4 c. 4-5).
+  - Il massimo di 7 € per la tariffa percentuale viene dalla delibera 2026, non dal regolamento 2020
+    (che diceva 5 €; la modifica 2024 rinvia al limite di legge).
+  - La delibera 2026 risulta adottata il 09/12/2025 e pubblicata sul portale MEF il 30/12/2025 (elenco
+    delibere 2026, codice A944): per legge varrebbe dal 1/2/2026, il testo dice dal 1/1/2026. Da chiarire.
+  - Accompagnatori di ricoverati: il modulo ufficiale attuale dice "genitore o accompagnatore del degente
+    minore di 14 anni, al massimo due persone per paziente" (formulazione più recente del regolamento 2020).
+  - Esenzione probabile non inserita: persone con disabilità grave (L. 104/92) e un accompagnatore, forse
+    introdotta con la modifica del 2021 (solo fonti non ufficiali).
+  - Contatti dai moduli ufficiali: impostadisoggiorno@comune.bologna.it, call center 051 0185048,
+    numero verde 800 037 688.

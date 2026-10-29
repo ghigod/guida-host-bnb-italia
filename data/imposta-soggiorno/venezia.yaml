@@ -1,0 +1,333 @@
+# Imposta di soggiorno - Comune di Venezia
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. BOZZA: da controllare con
+# l'agente verificatore-dati e da approvare dal proprietario del sito.
+comune: Venezia
+provincia: VE
+regione: Veneto
+anno: 2026
+valida_dal: 2025-04-01
+stato: verificato
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Venezia - Imposta di Soggiorno (IDS) (pagina aggiornata il 27/01/2026)"
+    url: https://www.comune.venezia.it/it/content/imposta-di-soggiorno-0
+  pagina_tariffe:
+    titolo: "Comune di Venezia - Tariffe IDS (pagina aggiornata il 19/03/2025)"
+    url: https://www.comune.venezia.it/it/content/tariffe-ids-dal-19052020
+  opuscolo_tariffe:
+    titolo: "Imposta di soggiorno - Strutture classificate ai sensi della L.R.V. 11/2013 - opuscolo valido dal 01/04/2025 (versione aggiornata al 10/03/2025)"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/TARIFFE%20IDS%20-%20STRUTTURE%20con%20classificazione%20L.R.%2011_2013_valide%20dal%2001.04.2025.pdf
+  delibera:
+    titolo: "Deliberazione di Giunta Comunale n. 366 del 22/11/2018 - Aggiornamento delle tariffe dell'Imposta di Soggiorno relativamente alle Locazioni turistiche ex art. 27 bis L.R.V. 11/2013 (in vigore dal 1/01/2019)"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/DG_2018_366_aggiornamento%20tariffe%20locazioni%20turistiche_testo.pdf
+  delibera_complementari:
+    titolo: "Deliberazione del Commissario Straordinario nella competenza della Giunta n. 198 del 26/05/2015 - Adeguamento del sistema tariffario alla nuova classificazione L.R.V. 11/2013 (in vigore dal 1/07/2015)"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/DG_2015_198_testo.pdf
+  regolamento:
+    titolo: "Regolamento dell'Imposta di Soggiorno - testo modificato con delibera C.C. n. 77 del 19/12/2024, modifiche in vigore dal 01/04/2025"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/page/files/Regolamento_IDS_DCC_77_2024_0.pdf
+  faq:
+    titolo: "Comune di Venezia - FAQ IDS, aggiornato al 13/03/2025"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/FAQ%20IDS%20aggiornamento%2013.03.2025.pdf
+  pagina_periodi_stagionali:
+    titolo: "Comune di Venezia - Vocabolario IDS: Periodi stagionali (pagina aggiornata il 14/03/2025)"
+    url: https://www.comune.venezia.it/it/content/periodi-stagionali-vocabolario-ids-dal-19052020
+  informativa_02_2026:
+    titolo: "Informativa n. 02/IDS/2026 del 23 marzo 2026 - Nuovo portale City Tax e comunicazione del I trimestre 2026"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/2026_02_informativa%20imposta%20di%20soggiorno.pdf
+  informativa_03_2026:
+    titolo: "Informativa n. 03/IDS/2026 del 23 giugno 2026 - Comunicazione del II trimestre 2026 e dichiarazione ministeriale"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/2026_03_informativa%20imposta%20di%20soggiorno_verificata.pdf
+  informativa_04_2026:
+    titolo: "Informativa n. 04/IDS/2026 del 22 settembre 2026 - Comunicazione del III trimestre 2026"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/2026_04_informativa%20imposta%20di%20soggiorno.pdf
+  news_tributi:
+    titolo: "Comune di Venezia - News Ufficio Tributi (news del 15/02/2024 su Airbnb; pagina aggiornata il 03/08/2026)"
+    url: https://www.comune.venezia.it/it/content/news-ufficio-tributi-venezia
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+  regione_unita_abitative:
+    titolo: "Regione Veneto - Turismo - Unità abitative ammobiliate a uso turistico (comprendono case e appartamenti vacanze)"
+    url: https://www.regione.veneto.it/web/turismo/unita-abitative-ammobiliate
+  regione_case_per_vacanze:
+    titolo: "Regione Veneto - Turismo - Case per vacanze (strutture con servizi comuni: case per ferie, ostelli e simili)"
+    url: https://www.regione.veneto.it/web/turismo/case-vacanza
+  informativa_01_2026:
+    titolo: "Comune di Venezia - Informativa 01/IDS/2026 del 16/01/2026: avvio del portale CityTax++"
+    url: https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/2026_01_informativa%20imposta%20di%20soggiorno_AVVIO%20CITYTAX%20.pdf
+  regione_alloggi_turistici:
+    titolo: "Regione Veneto - Turismo - Alloggi Turistici (definizione, art. 27 L.R. 11/2013)"
+    url: https://www.regione.veneto.it/web/turismo/alloggi-turistici
+
+# Le tariffe cambiano tra alta e bassa stagione: la bassa stagione è solo gennaio.
+stagioni:
+  - nome: alta
+    periodi:
+      - { dal: "02-01", al: "12-31" }
+    rif: { fonte: regolamento, punto: "art. 5, comma 4, lettera c) (anche opuscolo tariffe pag. 1)" }
+  - nome: bassa
+    periodi:
+      - { dal: "01-01", al: "01-31" }
+    rif: { fonte: opuscolo_tariffe, punto: "pag. 1, periodo di pernottamento: bassa stagione dal 1 gennaio al 31 gennaio (regolamento art. 5, comma 4, lettera c: riduzione del 30% fuori dall'alta stagione)" }
+
+# Tre zone per le strutture complementari (B&B, case per vacanze, unità abitative, alloggi
+# turistici). Le locazioni turistiche hanno una sola zona per tutto il comune, ma la tariffa
+# dipende dalla categoria catastale dell'immobile (gruppi 1, 2, 3). Vedi note.
+tariffe:
+  # --- LOCAZIONI TURISTICHE (art. 27 bis L.R.V. 11/2013) - nessuna riduzione per zona ---
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 1: A/1 - A/8 - A/9", importo: 5.00, stagione: alta, zona: "Tutto il territorio comunale", rif: { fonte: delibera, punto: "dispositivo, prospetto Gruppo 1 (anche opuscolo tariffe pag. 8, alta stagione)" } }
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 2: A/2 - A/3 - A/6 - A/7 - A/11", importo: 4.00, stagione: alta, zona: "Tutto il territorio comunale", rif: { fonte: delibera, punto: "dispositivo, prospetto Gruppo 2 (anche opuscolo tariffe pag. 8, alta stagione)" } }
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 3: A/4 - A/5", importo: 3.00, stagione: alta, zona: "Tutto il territorio comunale", rif: { fonte: delibera, punto: "dispositivo, prospetto Gruppo 3 (anche opuscolo tariffe pag. 8, alta stagione)" } }
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 1: A/1 - A/8 - A/9", importo: 3.50, stagione: bassa, zona: "Tutto il territorio comunale", rif: { fonte: opuscolo_tariffe, punto: "pag. 8, bassa stagione (tariffa base ridotta del 30%), Gruppo 1, Intero" } }
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 2: A/2 - A/3 - A/6 - A/7 - A/11", importo: 2.80, stagione: bassa, zona: "Tutto il territorio comunale", rif: { fonte: opuscolo_tariffe, punto: "pag. 8, bassa stagione (tariffa base ridotta del 30%), Gruppo 2, Intero" } }
+  - { categoria: locazione_turistica, nome_nel_documento: "Locazioni turistiche art. 27 bis L.R.V. 11/2013 - Gruppo 3: A/4 - A/5", importo: 2.10, stagione: bassa, zona: "Tutto il territorio comunale", rif: { fonte: opuscolo_tariffe, punto: "pag. 8, bassa stagione (tariffa base ridotta del 30%), Gruppo 3, Intero" } }
+
+  # --- BED & BREAKFAST - ALTA STAGIONE (opuscolo pag. 4) ---
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 2.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa base" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 3.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa base" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 4.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa base" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 5.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa base" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 1.60, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 20%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 2.40, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 20%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 3.20, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 20%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 4.00, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 20%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 1.40, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 2.10, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 2.80, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 3.50, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Bed & Breakfast, tariffa ridotta del 30%" } }
+
+  # --- BED & BREAKFAST - BASSA STAGIONE (opuscolo pag. 5) ---
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 1.40, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, tariffa base ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 2.10, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, tariffa base ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 2.80, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, tariffa base ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 3.50, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, tariffa base ridotta del 30%" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 1.10, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Lido e Isole" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 1.70, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Lido e Isole" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 2.20, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Lido e Isole" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 2.80, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Lido e Isole" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 2 leoni", importo: 1.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Terraferma" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 3 leoni", importo: 1.50, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Terraferma" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 4 leoni", importo: 2.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Terraferma" } }
+  - { categoria: bnb, nome_nel_documento: "Bed & Breakfast - 5 leoni", importo: 2.40, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Bed & Breakfast, Terraferma" } }
+
+  # --- CASA PER VACANZE (solo 2, 3, 4 leoni) - ALTA STAGIONE (opuscolo pag. 4) ---
+
+  # --- CASA PER VACANZE - BASSA STAGIONE (opuscolo pag. 5) ---
+
+  # --- UNITA' ABITATIVE AMMOBILIATE AD USO TURISTICO (messe in casa_vacanze: vedi note) - ALTA STAGIONE (opuscolo pag. 4) ---
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 2.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 3.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 4.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 5.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 1.60, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 20%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 2.40, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 20%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 3.20, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 20%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 4.00, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 20%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 1.40, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 2.10, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 2.80, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 3.50, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa ridotta del 30%" } }
+
+  # --- UNITA' ABITATIVE AMMOBILIATE AD USO TURISTICO - BASSA STAGIONE (opuscolo pag. 5) ---
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 1.40, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 2.10, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 2.80, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 3.50, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, tariffa base ridotta del 30%" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 1.10, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Lido e Isole" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 1.70, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Lido e Isole" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 2.20, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Lido e Isole" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 2.80, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Lido e Isole" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 2 leoni", importo: 1.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Terraferma" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 3 leoni", importo: 1.50, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Terraferma" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 4 leoni", importo: 2.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Terraferma" } }
+  - { categoria: casa_vacanze, nome_nel_documento: "Unità Abitative Ammobiliate ad Uso Turistico - 5 leoni", importo: 2.40, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Unità Abitative Ammobiliate ad Uso Turistico, Terraferma" } }
+
+  # --- ALLOGGI TURISTICI (messi in affittacamere: vedi note) - ALTA STAGIONE (opuscolo pag. 4) ---
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 2.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa base" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 3.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa base" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 4.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa base" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 5.00, stagione: alta, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa base" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 1.60, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 20%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 2.40, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 20%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 3.20, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 20%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 4.00, stagione: alta, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 20%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 1.40, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 2.10, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 2.80, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 3.50, stagione: alta, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 4, complementari alta stagione, Alloggi turistici, tariffa ridotta del 30%" } }
+
+  # --- ALLOGGI TURISTICI - BASSA STAGIONE (opuscolo pag. 5) ---
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 1.40, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, tariffa base ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 2.10, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, tariffa base ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 2.80, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, tariffa base ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 3.50, stagione: bassa, zona: "Centro storico, Giudecca e isole con principale vocazione ricettiva", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, tariffa base ridotta del 30%" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 1.10, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Lido e Isole" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 1.70, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Lido e Isole" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 2.20, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Lido e Isole" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 2.80, stagione: bassa, zona: "Lido e isole della laguna", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Lido e Isole" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 2 leoni", importo: 1.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Terraferma" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 3 leoni", importo: 1.50, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Terraferma" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 4 leoni", importo: 2.00, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Terraferma" } }
+  - { categoria: affittacamere, nome_nel_documento: "Alloggi turistici - 5 leoni", importo: 2.40, stagione: bassa, zona: "Terraferma", rif: { fonte: opuscolo_tariffe, punto: "pag. 5, complementari bassa stagione, Alloggi turistici, Terraferma" } }
+
+notti_massime:
+  valore: 5
+  rif: { fonte: regolamento, punto: "art. 5, comma 3 (stesso valore in FAQ pag. 2 e informativa 04/2026 pag. 2)" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Venezia (iscritti all'anagrafe)"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera a)" }
+  - descrizione: "Minori entro il decimo anno di età: secondo le FAQ del Comune sono esenti i bambini che non hanno ancora compiuto 10 anni"
+    eta_fino_a: 9
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera b); FAQ pag. 2 ('non hanno ancora compiuto il 10° anno')" }
+  - descrizione: "Chi pernotta in strutture ricettive in uso dell'Amministrazione Comunale di Venezia o di sue istituzioni"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera c)" }
+  - descrizione: "Chi fa terapie riabilitative in strutture sanitarie del Comune, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera d) e comma 2" }
+  - descrizione: "Chi assiste persone ricoverate in strutture sanitarie del Comune: un accompagnatore per paziente, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera e) e comma 2" }
+  - descrizione: "Entrambi i genitori che accompagnano un malato, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera f) e comma 2" }
+  - descrizione: "Autisti di pullman e accompagnatori turistici di gruppi organizzati da agenzie di almeno 25 partecipanti (ogni autista e un accompagnatore ogni 25 partecipanti)"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera g)" }
+  - descrizione: "Volontari in servizio in città per eventi organizzati da Comune, Città Metropolitana o Regione, o per emergenze ambientali"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera h)" }
+  - descrizione: "Forze Armate, Forze dell'Ordine e Vigili del Fuoco che soggiornano per servizio"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera i)" }
+  - descrizione: "Persone con disabilità evidente o certificata (norme italiane o analoghe norme estere). L'accompagnatore NON è esente"
+    rif: { fonte: regolamento, punto: "art. 4, comma 1, lettera j); FAQ pag. 5 (accompagnatori non esenti)" }
+
+riduzioni:
+  - descrizione: "Giovani tra 10 e 16 anni: secondo le FAQ pagano la metà i ragazzi dai 10 ai 15 anni compiuti; dai 16 anni si paga la tariffa intera"
+    percentuale: 50
+    rif: { fonte: regolamento, punto: "art. 5, comma 4, lettera d); FAQ pag. 2" }
+
+riscossione:
+  airbnb:
+    valore: "no"
+    rif: { fonte: news_tributi, punto: "news del 15/02/2024 'Chiarimenti su comunicazione di Airbnb in merito a riscossione dell'imposta di soggiorno per locazioni brevi': il Comune non ha aderito ad alcun accordo e Airbnb non è autorizzato a riscuotere l'imposta per conto delle strutture" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy, tutta la Francia dal 2019), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Iscrizione del gestore e della struttura al portale dell'imposta di soggiorno (dal 26/01/2026 portale CityTax, accesso con SPID/CIE/CNS)"
+    quando: "Entro il termine della prima comunicazione trimestrale dopo l'avvio dell'attività"
+    rif: { fonte: informativa_01_2026, punto: "avvio CityTax++ dal 26/01/2026, accesso con SPID/CIE/CNS (termine: regolamento art. 6, comma 2, lettera b)" }
+  - cosa: "Comunicazione trimestrale dei pernottamenti (imponibili, esenti, esclusi), anche se nel trimestre non ci sono stati ospiti"
+    quando: "Entro 15 giorni dalla fine di ogni trimestre: 15 aprile, 15 luglio, 15 ottobre, 15 gennaio dell'anno dopo"
+    rif: { fonte: regolamento, punto: "art. 6, comma 2, lettera c); date in FAQ pag. 10" }
+  - cosa: "Versamento dell'imposta al Comune con PagoPA dal portale"
+    quando: "Entro 15 giorni dalla fine di ogni trimestre (stesse date della comunicazione)"
+    rif: { fonte: regolamento, punto: "art. 7, comma 1; FAQ pag. 10-11" }
+  - cosa: "Comunicazione delle variazioni (gestore, struttura, chiusura)"
+    quando: "Entro il termine della comunicazione trimestrale successiva all'evento"
+    rif: { fonte: regolamento, punto: "art. 6, comma 2, lettera b)" }
+  - cosa: "Dichiarazione annuale (ministeriale), solo online sul sito dell'Agenzia delle Entrate"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: informativa_03_2026, punto: "pag. 3, sezione Comunicazioni (art. 180 D.L. 34/2020)" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE E STAGIONI
+  - SÌ, le tariffe cambiano tra alta e bassa stagione. Alta stagione: dal 1° febbraio al 31 dicembre.
+    Bassa stagione: solo gennaio (1-31 gennaio), con riduzione del 30% (regolamento art. 5, comma 4,
+    lettera c). Le date sono fisse nel regolamento, non cambiano ogni anno.
+  - Notte a cavallo tra due periodi: conta il giorno di arrivo (es. arrivo il 31 dicembre = alta
+    stagione). Fonte: FAQ pag. 3.
+  - Le tariffe sono in euro per persona per notte. Fonte dei valori: opuscolo del Comune "valido dal
+    01/04/2025" (pagine 4, 5, 8), che è ancora l'ultimo pubblicato sulla pagina Tariffe IDS. Ho
+    controllato le tariffe base sulle delibere: DG 366/2018 per le locazioni turistiche (5, 4, 3 euro
+    dal 1/1/2019) e DG 198/2015 punto 1.b per le strutture complementari (2-5 euro secondo i leoni).
+    Le tariffe ridotte per zona e stagione sono calcolate dal Comune con le riduzioni del regolamento
+    (art. 5, comma 4) e l'arrotondamento al decimo di euro (i 5 centesimi per difetto).
+  - valida_dal 2025-04-01 è la data dell'opuscolo e delle ultime modifiche al regolamento: le
+    tariffe in sé sono più vecchie (2015 e 2019) e non sono cambiate.
+
+  ZONE
+  - Strutture complementari (B&B, case per vacanze, unità abitative ammobiliate, alloggi turistici):
+    tariffa piena in Centro storico, Giudecca e isole con principale vocazione ricettiva (San Servolo,
+    San Clemente, Sacca Sessola, La Certosa); -20% al Lido e nelle altre isole della laguna (es.
+    Murano, Burano); -30% in Terraferma (Mestre e le altre località non insulari).
+  - Locazioni turistiche: NESSUNA riduzione per zona (regolamento art. 5, comma 6): stessa tariffa in
+    tutto il comune. La tariffa dipende invece dalla categoria catastale dell'immobile:
+    Gruppo 1 (A/1, A/8, A/9), Gruppo 2 (A/2, A/3, A/6, A/7, A/11), Gruppo 3 (A/4, A/5).
+    Immobili non accatastati o in categorie non abitative pagano come Gruppo 1; se si usano più
+    immobili di categorie diverse vale il gruppo più caro (opuscolo pag. 9).
+  - Le strutture complementari pagano in base alla classificazione regionale in "leoni" (2-5).
+
+  NOMI USATI DAL COMUNE E SCELTE DI CATEGORIA (DA CONTROLLARE)
+  - "Locazioni turistiche art. 27 bis L.R.V. 11/2013": sono gli affitti brevi tipici degli host privati.
+  - "Bed & Breakfast" -> categoria bnb.
+  - "Casa per vacanze" del Veneto NON è inserita: secondo la Regione è una struttura con servizi comuni
+    (case per ferie, ostelli, centri vacanze), non la casa vacanze di un host privato. Per 2-4 leoni le
+    tariffe sono comunque uguali a quelle delle unità abitative ammobiliate (correzione del verificatore).
+  - "Unità Abitative Ammobiliate ad Uso Turistico" -> casa_vacanze: la Regione Veneto scrive che sono unità
+    abitative ammobiliate anche "i Residence, le case e appartamenti vacanze" (fonte regione_unita_abitative).
+  - "Alloggi turistici" -> l'ho messa in affittacamere perché la Regione Veneto li descrive come
+    strutture da 1 a 6 camere (anche "camere/rooms", locande). Il Comune di Venezia non usa mai la
+    parola "affittacamere" e la pagina della Regione non dice che corrispondono. Da confermare.
+  - Il Comune chiama l'host "gestore della struttura ricettiva".
+
+  NOTTI MASSIME
+  - 5 notti consecutive (regolamento art. 5, comma 3). Se l'ospite cambia struttura senza interruzione
+    paga in tutto al massimo 5 notti (FAQ pag. 3). Le notti oltre la quinta si comunicano come "esclusi".
+  - Dal 1/4/2025: chi lavora presso strutture sanitarie del Comune paga al massimo 5 notti in tutto
+    nell'anno solare, anche non consecutive, con dichiarazione sostitutiva (regolamento art. 5,
+    comma 3 bis).
+
+  AIRBNB E VRBO
+  - Airbnb: "no". Il Comune, nella news del 15/02/2024 ancora pubblicata sulla pagina News Ufficio
+    Tributi (aggiornata il 03/08/2026), dice di non aver aderito ad alcun accordo con Airbnb: le
+    strutture devono continuare a riscuotere e versare da sé. Le informative 2026 (n. 2, 3, 4) dicono
+    che il gestore versa con PagoPA e non nominano Airbnb. La pagina di aiuto di Airbnb
+    (https://www.airbnb.it/help/article/2287) dice solo che riscuote "in alcuni comuni italiani" che
+    hanno aderito, senza elenco. Nota: il testo della news l'ho letto tramite uno strumento che
+    riassume la pagina: il verificatore controlli il testo esatto.
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito: la pagina ufficiale di Vrbo elenca dove
+    riscuote in Europa e l'Italia non c'è.
+
+  ALTRE NOVITÀ 2026
+  - Dal 26/01/2026 il portale si chiama CityTax++ (informativa 01/IDS/2026 del 16/01/2026:
+    https://www.comune.venezia.it/sites/comune.venezia.it/files/documenti/Tributi/ids/2026_01_informativa%20imposta%20di%20soggiorno_AVVIO%20CITYTAX%20.pdf).
+  - Dal 2026 nella scheda di ogni struttura sono obbligatori CIN, CIR e dati catastali: senza questi
+    dati non si può fare la comunicazione trimestrale. La comunicazione resta trimestrale, ma i dati
+    (ospiti e pernottamenti) vanno divisi mese per mese e va "protocollata", altrimenti viene cancellata (informativa 02/2026).
+  - Comunicazione in ritardo: si può fare online entro la fine del trimestre successivo, con sanzioni;
+    dopo bisogna contattare l'ufficio (FAQ pag. 9 e 11). Sanzione per comunicazione omessa o
+    irregolare: da 25 a 500 euro (regolamento art. 9, comma 1).
+
+  2027
+  - Non ho trovato nessuna delibera già approvata che cambi le tariffe per il 2027. Le pagine ufficiali
+    (Tariffe IDS, Regolamento e Delibere IDS) e l'informativa del 22/09/2026 non parlano di aumenti.
+  - Solo come supporto (non ufficiale): un articolo di QuiFinanza del 22/09/2026
+    (https://quifinanza.it/lifestyle/travel-economy/venezia-ticket-ingresso-2027-ipotesi/1016391/)
+    dice che il Comune "valuta" un aumento dell'imposta di soggiorno, senza delibera né date.
+    Da ricontrollare nei prossimi mesi (le tariffe le decide la Giunta, regolamento art. 5, comma 2).
+
+  CONTRIBUTO DI ACCESSO
+  - Il "contributo di accesso" (ticket per i visitatori giornalieri) è un tributo diverso e NON è
+    l'imposta di soggiorno: non è trattato in questo file. Pagina del Comune:
+    https://www.comune.venezia.it/it/cda-info
+
+  DUBBI DA CONTROLLARE
+  - Età dei minori: il regolamento dice "minori entro il decimo anno di età", le FAQ e l'opuscolo
+    "minori entro i 10 anni (non compiuti)": ho messo esenti fino a 9 anni compresi.
+  - Riduzione 50%: il regolamento dice "tra i 10 e i 16 anni", le FAQ dicono "dai 10 ai 15 anni
+    compiuti" e tariffa intera dal 16° anno. Ho seguito le FAQ nella descrizione.
+  - La pagina "Soggiornare in un alloggio turistico" del Comune (aggiornata 22/01/2024) dice "tariffa
+    intera tra 1 e 5 euro": coerente con le tabelle, ma è un riassunto.
+  - Mappatura delle categorie "Unità abitative ammobiliate" e "Alloggi turistici" (vedi sopra).
+  - Correzione del verificatore: dal 9 all'11 settembre 2026 la stampa (non ufficiale: gruppotv7.com,
+    italiareportusa.com; Il Gazzettino e VeneziaToday non apribili) riporta una PROPOSTA del Comune per
+    il 2027: fino a 7 € negli alloggi turistici, nuove zone (isole minori a metà tariffa da ottobre a
+    marzo, Terraferma con sconti del 16-25%), bassa stagione non più solo a gennaio. Nessuna delibera
+    approvata: stagioni e zone potrebbero cambiare. Ricontrollare a dicembre 2026 e gennaio 2027.
+
+  ARROTONDAMENTI
+  - Le tariffe ridotte (es. riduzione del 50% per i 10-15 anni) non sono sempre la metà esatta: il
+    Comune arrotonda al decimo, con i 5 centesimi per difetto (DG 198/2015 punto 5; opuscolo pag. 1).
+    Esempio: locazione Gruppo 1 in bassa stagione ridotta = 1,70 €, non 1,75 € (opuscolo pag. 8).

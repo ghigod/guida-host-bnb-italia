@@ -1,0 +1,202 @@
+# Imposta di soggiorno - Comune di Milano
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. Da controllare (verificatore-dati e proprietario).
+comune: Milano
+provincia: MI
+regione: Lombardia
+anno: 2026
+valida_dal: 2026-01-01
+stato: verificato
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Milano - Imposta di soggiorno: informazioni (pagina NON aperta: il sito risponde 403, vedi note)"
+    url: https://www.comune.milano.it/argomenti/tributi/imposta-di-soggiorno-informazioni
+  delibera:
+    titolo: "Deliberazione della Giunta Comunale n. 1418 del 13/11/2025 - Imposta Comunale di Soggiorno - Approvazione delle tariffe per l'anno 2026"
+    url: https://www.comune.milano.it/documents/20118/1016509/DELG+1418.2025.pdf/932be158-cc96-1933-6696-80f6056f179a?version=2.1&t=1766480677991&download=true
+  delibera_allegato_1:
+    titolo: "Allegato 1 alla delibera G.C. 1418/2025 - Imposta comunale di soggiorno, approvazione delle tariffe per l'anno 2026 (tabella)"
+    url: https://www.comune.milano.it/documents/20118/89692/Imposta+di+soggiorno+-+Tariffe+2026.pdf
+  tariffe_dal_2026_04_01:
+    titolo: "Comune di Milano - Imposta di soggiorno, tariffe 2026 dall'1/4/2026 (la tabella non indica l'atto che l'ha approvata)"
+    url: https://www.comune.milano.it/documents/20118/1016509/Tariffe+2026+decorrenza+1%C2%B0aprile+2026.pdf/d101078f-26b0-4446-d16b-787845b76bca?version=1.1&t=1771602332605&download=true
+  regolamento:
+    titolo: "Regolamento dell'imposta comunale di soggiorno nella città di Milano (delibera C.C. n. 19 dell'11/06/2012, da ultimo modificato con delibera C.C. n. 2 del 26/01/2026)"
+    url: https://www2.comune.milano.it/documents/20126/200621333/Regolamento+Imposta+di+Soggiorno+2026.pdf/e32b40da-2c92-ff1e-d2bc-f12c4756b1fe?t=1769777675207
+  modulo_esenzione:
+    titolo: "Comune di Milano - Imposta di soggiorno, Modulo A2: autocertificazione per l'esenzione (versione 2026)"
+    url: https://www.comune.milano.it/documents/20118/89692/Modello+unico+esenzione_2026.pdf/9e172f6a-04f9-d1c8-bfa0-034eba53b92d?version=2.0&t=1774607360363&download=true
+  airbnb_milano:
+    titolo: "Airbnb, Centro assistenza: Milano, Italia - regole e riscossione dell'imposta di soggiorno"
+    url: https://www.airbnb.com/help/article/3711
+  airbnb_accordo_2018:
+    titolo: "Airbnb Newsroom, 16/03/2018: Firmato l'accordo tra Comune di Milano e Airbnb sull'imposta di soggiorno"
+    url: https://news.airbnb.com/it/firmato-laccordo-tra-comune-di-milano-e-airbnb-sullimposta-di-soggiorno
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# Nessuna stagione: una sola tariffa per tutto il 2026, senza periodi diversi (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Locazioni Brevi ex D.L. 50/2017"
+    importo: 9.50
+    rif: { fonte: delibera_allegato_1, punto: "riga 'Case e appartamenti per vacanze e locazioni brevi, ex D.L. n. 50/2017' (invariata nella tabella dall'1/4/2026, ultima riga)" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e appartamenti per vacanze"
+    importo: 9.50
+    rif: { fonte: delibera_allegato_1, punto: "riga 'Case e appartamenti per vacanze e locazioni brevi' (invariata nella tabella dall'1/4/2026)" }
+  - categoria: bnb
+    nome_nel_documento: "Bed & breakfast"
+    importo: 9.50
+    rif: { fonte: delibera_allegato_1, punto: "riga 'Bed & breakfast' (invariata nella tabella dall'1/4/2026)" }
+  - categoria: affittacamere
+    nome_nel_documento: "Foresterie lombarde/Affittacamere"
+    importo: 9.50
+    rif: { fonte: delibera_allegato_1, punto: "riga 'Foresterie lombarde/Affittacamere' (invariata nella tabella dall'1/4/2026)" }
+
+notti_massime:
+  valore: 14
+  rif: { fonte: regolamento, punto: "Parte II (locazioni brevi), art. 18, comma 3; per case e appartamenti per vacanze art. 4, comma 3" }
+  eccezioni:
+    - categorie: [bnb, affittacamere]
+      valore: nessun_limite
+      rif: { fonte: regolamento, punto: "art. 4, comma 3: l'imposta si applica per l'intera durata del soggiorno" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Milano: sono esclusi dall'imposta"
+    rif: { fonte: regolamento, punto: "art. 17, comma 2 (locazioni brevi) e art. 3, comma 4 (altre strutture)" }
+  - descrizione: "Minori fino al diciottesimo anno di età (nel modulo di esenzione: minori di anni 18)"
+    eta_fino_a: 17
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera a) e art. 5, comma 1, lettera a); età letta dal modulo_esenzione (Modulo A2, prima casella)" }
+  - descrizione: "Familiari, affini o accompagnatori di persone ricoverate in strutture sanitarie della Provincia di Milano, per il periodo del ricovero, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera b) e art. 5, comma 1, lettera c)" }
+  - descrizione: "Chi prosegue le cure in strutture sanitarie di Milano e provincia dopo un ricovero ospedaliero, e i suoi accompagnatori"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera c) e art. 5, comma 1, lettera d)" }
+  - descrizione: "Forze dell'ordine e forze armate che alloggiano a Milano per servizio, solo per la durata del servizio"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera e) e art. 5, comma 1, lettera f)" }
+  - descrizione: "Studenti universitari fino a 26 anni iscritti agli atenei milanesi"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera f) (locazioni brevi: 'che alloggiano nelle strutture ricettive'); art. 5, comma 1, lettera g) (altre strutture: 'in strutture, in pensionati o residenze universitarie')" }
+  - descrizione: "Persone con disabilità e loro accompagnatori"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera g) e art. 5, comma 1, lettera h)" }
+  - descrizione: "Volontari coordinati dalla Protezione Civile e appartenenti ad associazioni di volontariato, in caso di calamità e grandi eventi individuati dal Comune"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera h) e art. 5, comma 1, lettera i)" }
+  - descrizione: "Persone alloggiate per provvedimento delle autorità pubbliche o del Comune per emergenze sociali o straordinarie (lo comunica il Comune, non l'ospite)"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera i) e art. 5, comma 1, lettera l)" }
+  - descrizione: "Componenti della 'famiglia olimpica' (atleti e familiari, staff e delegazioni delle federazioni) solo durante i Giochi olimpici e paralimpici invernali Milano-Cortina 2026"
+    rif: { fonte: regolamento, punto: "art. 19, comma 1, lettera l) e art. 5, comma 1, lettera m)" }
+
+# Nessuna riduzione automatica per gli host di locazioni brevi (vedi note sulla riduzione per fiere e congressi).
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: airbnb_milano, punto: "sezione 'Milan, Italy', riscossione dell'imposta di soggiorno: Airbnb riscuote alla prenotazione e versa al Comune; 9,50 euro dal 1/1/2026" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Versamento al Comune dell'imposta riscossa nel trimestre (pagoPA o F24)"
+    quando: "Entro 15 giorni dalla fine di ogni trimestre: 15 aprile, 15 luglio, 15 ottobre, 15 gennaio"
+    rif: { fonte: regolamento, punto: "art. 22, comma 1 (locazioni brevi), con le modalità dell'art. 8, comma 1, lettera a)" }
+  - cosa: "Dichiarazione annuale, solo online, tramite l'applicativo del Comune"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 23, commi 1 e 2 (locazioni brevi); art. 9 per le altre strutture" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE E STAGIONI
+  - Tariffa 2026 per locazioni brevi, case vacanza, B&B e affittacamere: 9,50 euro per persona per notte,
+    in vigore dal 1° gennaio 2026 (delibera G.C. 1418 del 13/11/2025, dispositivo punti 1 e 2, pag. 4;
+    importi nell'allegato 1). Nel 2025 la tariffa era più bassa: secondo Airbnb la differenza è di 3,20 euro.
+  - Nessuna alta o bassa stagione e nessuna tariffa diversa per le Olimpiadi o per le fiere: una sola
+    tariffa per tutto il 2026. L'aumento 2026 si basa sull'art. 4, comma 6, del D.L. 156/2025, che permette
+    ai comuni vicini alle sedi olimpiche di aumentare l'imposta fino a 5 euro "nell'anno 2026" (delibera
+    1418, pag. 3). L'aumento vale quindi tutto l'anno, non solo nelle settimane dei Giochi.
+  - Dal 1° aprile 2026 il Comune ha cambiato le tariffe con la delibera n. 144 del 12/02/2026. La tabella
+    ufficiale "dall'1/4/2026" mostra cambi solo per alberghi e residence (es. 5 stelle da 10,00 a 12,00 euro).
+    Per le 4 categorie del sito l'importo resta 9,50 euro. NON ho potuto aprire il testo della delibera 144:
+    non l'ho trovata tra i PDF raggiungibili. Ho usato la tabella pubblicata dal Comune.
+  - Nomi usati dal Comune: "Locazioni Brevi ex D.L. 50/2017", "Case e appartamenti per vacanze",
+    "Bed & breakfast", "Foresterie lombarde/Affittacamere". Nell'allegato alla delibera 1418 case vacanza e
+    locazioni brevi stanno in un'unica riga ("Case e appartamenti per vacanze e locazioni brevi, ex D.L. n.
+    50/2017"). Anche "Locande" pagano 9,50 euro, ma non sono tra le categorie del sito.
+
+  NOTTI MASSIME (DA GUARDARE BENE)
+  - Il regolamento ha due parti. Parte II (artt. 15-29) vale per le locazioni brevi del D.L. 50/2017
+    (affitti fino a 30 giorni di persone fisiche, senza impresa): massimo 14 notti consecutive, art. 18
+    comma 3. Se la consecutività si interrompe, il conteggio riparte.
+  - Parte I vale per le strutture ricettive della legge regionale. Qui il limite di 14 notti vale solo per
+    residence, case per ferie no profit e "case ed appartamenti per vacanze" (art. 4, comma 3, e art. 5,
+    lettera e). Per B&B e affittacamere il regolamento dice che l'imposta è applicata "per l'intera durata
+    del soggiorno": NESSUN limite di notti. Lo schema permette un solo valore: ho scritto 14, che vale per
+    locazioni brevi e case vacanza, ma NON per B&B e affittacamere.
+
+  RIDUZIONI, FIERE E OLIMPIADI
+  - Art. 5, comma 2 (solo Parte I, quindi non le locazioni brevi): l'imposta "può essere ridotta nei limiti
+    del 50%" per eventi congressuali e fieristici importanti, solo se la struttura riduce i prezzi di almeno
+    il 20%. Non è automatica e non ho trovato atti che la applichino nel 2026: per questo non l'ho messa in
+    "riduzioni". La Parte II (locazioni brevi) non prevede riduzioni.
+  - Olimpiadi: nessuna tariffa speciale. C'è solo l'esenzione per la "famiglia olimpica" durante i Giochi.
+    Il regolamento non scrive le date dei Giochi.
+  - Il Modulo A2 del Comune cita anche chi usa la struttura in "day use" (Consiglio di Stato n. 1614/2019):
+    senza pernottamento l'imposta non si versa.
+
+  AIRBNB E VRBO
+  - Airbnb: la pagina di aiuto Airbnb per Milano dice che Airbnb riscuote l'imposta alla prenotazione e la
+    versa al Comune. Dal 9 dicembre 2025 applica in automatico 9,50 euro. Per le prenotazioni fatte PRIMA del
+    9/12/2025 con notti nel 2026, l'host deve riscuotere dall'ospite la differenza di 3,20 euro per persona
+    per notte e versarla lui al Comune. L'accordo Comune-Airbnb esiste dal 1° marzo 2018 (newsroom Airbnb).
+    Probabile base nel regolamento: art. 17, comma 7 (convenzione con chi gestisce le prenotazioni);
+    è una mia lettura, non scritta nelle fonti.
+    Non ho potuto aprire la FAQ del Comune su Airbnb (https://servizicrm.comune.milano.it/centro-supporto/KA-02208/Airbnb-gestione-imposta-di-soggiorno,
+    errore 403). Dai risultati di ricerca sembra che l'host debba comunque indicare gli ospiti Airbnb nel
+    riepilogo sul portale del Comune (SoggiorniAmo): da verificare sulla pagina ufficiale.
+  - Vrbo: "no" è dedotto dalla pagina ufficiale di Vrbo, che elenca dove riscuote in Europa e non nomina
+    l'Italia. Non ho trovato convenzioni del Comune con Vrbo. Attenzione però: l'art. 17, commi 3 e 5, del
+    regolamento dice che anche i portali che "intervengono nel pagamento" sono responsabili dell'imposta.
+    In pratica chi usa Vrbo deve riscuotere e versare da sé, ma la questione legale non è chiusa.
+
+  SCADENZE E ALTRI OBBLIGHI
+  - Versamento trimestrale (art. 22) e dichiarazione annuale entro il 30 giugno (art. 23).
+  - Per ogni ospite l'host deve dare una ricevuta nominativa con la sola imposta di soggiorno (art. 20) e
+    informare gli ospiti con il materiale del Comune, anche nell'annuncio online (art. 21).
+  - Fonti non ufficiali parlano di un "riepilogo trimestrale" sul portale SoggiorniAmo. Il regolamento non lo
+    nomina: da verificare sulla pagina del Comune.
+  - Sanzioni (art. 25): 30% dell'imposta non versata; dal 100% al 200% per dichiarazione omessa o infedele;
+    da 25 a 500 euro per le altre violazioni. Interessi di mora: tasso legale + 0,5 punti.
+
+  2027
+  - Non ho trovato una delibera già approvata per le tariffe 2027. L'aumento olimpico del D.L. 156/2025 vale
+    solo per il 2026, quindi le tariffe 2027 potrebbero cambiare. Negli ultimi anni il Comune ha approvato
+    le tariffe in autunno (2026: delibera 1418 del 13/11/2025; 2025: delibera 1388/2024). Da ricontrollare
+    a novembre-dicembre 2026.
+
+  DUBBI DA CONTROLLARE
+  - La pagina del Comune (pagina_comune) e le FAQ di servizicrm.comune.milano.it rispondono 403 a WebFetch:
+    NON le ho lette. Ne ho visto solo il testo nei risultati di ricerca. Lì è citata anche una delibera
+    "n. 481 del 16 aprile 2026", di cui non ho trovato né il testo né l'oggetto.
+  - Delibera 144/2026: alcuni risultati di ricerca la attribuiscono al Consiglio Comunale, altri alla Giunta.
+    Non ho potuto aprire il testo.
+  - Il regolamento è stato modificato con delibera C.C. n. 2 del 26/01/2026. Non ho trovato quella delibera:
+    non so quali articoli ha cambiato. Probabilmente l'esenzione per la "famiglia olimpica", ma non è verificato.
+  - Età dei minori: il regolamento dice "fino al diciottesimo anno di età", il Modulo A2 dice "minori di anni
+    18". Quindi esenti fino a 17 anni compresi.
+
+  DAL VERIFICATORE (29/10/2026)
+  - Notti massime: 14 solo per locazioni brevi e case vacanza; B&B e affittacamere senza limite
+    (ora nel campo "eccezioni").
+  - Delibera "144 del 12/02/2026" e "481 del 16/04/2026": nessuna fonte ufficiale aperta le cita;
+    il legame con la tabella dall'1/4/2026 viene solo da siti non ufficiali. Tolto dal titolo.
+  - La FAQ ufficiale del Comune sulle tariffe (servizicrm KA-02206, risponde 403) nei risultati di
+    ricerca sembra riportare ancora 6,30 € per le locazioni brevi (tariffe 2025): probabile pagina
+    non aggiornata, da segnalare al Comune.
+  - Riduzioni: la Parte II (locazioni brevi) non ne prevede, ma l'art. 15 c. 2 rimanda alla Parte I,
+    dove l'art. 5 c. 2 consente riduzioni per fiere e congressi: questione di interpretazione.
+  - 2027: nessuna delibera. L'aumento "olimpico" (D.L. 156/2025) vale per il 2026: senza una nuova
+    norma le tariffe 2027 potrebbero scendere. Ricontrollare a novembre-dicembre 2026.

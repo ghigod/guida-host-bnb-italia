@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import {
-	NOME_CATEGORIA, dataLunga, esempio, euro, periodoLeggibile, tariffaInBreve, tariffePrincipali, testoRiscossione,
+	NOME_CATEGORIA, dataLunga, eccezioniNotti, esempio, euro, periodoLeggibile, tariffaInBreve, tariffePrincipali, testoRiscossione,
 } from '../../lib/imposta';
 
 export async function getStaticPaths() {
@@ -22,6 +22,10 @@ const soloUnPeriodo = d.stagioni.length === 1;
 const conStagioni = d.stagioni.length > 1;
 const periodoUnico = soloUnPeriodo ? d.stagioni[0].periodi.map(periodoLeggibile).join(' e ') : '';
 const principali = tariffePrincipali(d);
+// Con molte tariffe (stagioni, categorie catastali, zone) un riquadro per tariffa diventa illeggibile:
+// ne mostriamo uno solo con l'intervallo e rimandiamo alla tabella completa.
+const tanteTariffe = principali.length > 2;
+const conZone = d.tariffe.some((t) => t.zona);
 const nm = d.notti_massime.valore;
 const testoNotti =
 	typeof nm === 'number' ? `Si paga al massimo per ${nm} notti consecutive.`
@@ -29,7 +33,10 @@ const testoNotti =
 	: 'Il massimo di notti non è indicato nelle fonti ufficiali.';
 
 // Esempio: 4 persone per 3 notti, e un soggiorno più lungo del massimo (se c'è).
-const esempi = principali.map((t) => ({ ...t, corto: esempio(d, t.importo, 4, 3), lungo: typeof nm === 'number' ? esempio(d, t.importo, 2, nm + 3) : null }));
+// Al massimo due: con la tariffa più alta e con la più bassa.
+const ordinate = [...principali].sort((a, b) => b.importo - a.importo);
+const scelte = ordinate.length > 1 && ordinate[0].importo !== ordinate[ordinate.length - 1].importo ? [ordinate[0], ordinate[ordinate.length - 1]] : [ordinate[0]];
+const esempi = scelte.map((t) => ({ ...t, corto: esempio(d, t.importo, 4, 3), lungo: typeof nm === 'number' ? esempio(d, t.importo, 2, nm + 3) : null }));
 
 const fonte = (nome: string) => d.fonti[nome];
 const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
@@ -49,7 +56,13 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 	<section aria-labelledby="h-quanto">
 		<h2 id="h-quanto">Quanto si paga</h2>
 		<div class="big-grid">
-			{principali.map((t) => (
+			{tanteTariffe ? (
+				<div class="panel big-card">
+					<span class="lbl">{NOME_CATEGORIA[principali[0].categoria]}</span>
+					<span class="big">{tariffaInBreve(d)}</span>
+					<span class="sub">a persona, a notte. La tariffa cambia secondo i casi (stagione, zona, tipo di immobile o prezzo): trovi ogni caso nella tabella qui sotto.</span>
+				</div>
+			) : principali.map((t) => (
 				<div class="panel big-card">
 					<span class="lbl">{NOME_CATEGORIA[t.categoria]}{conStagioni && t.stagione && <>, stagione {t.stagione}</>}</span>
 					<span class="big">{euro(t.importo)}</span>
@@ -60,6 +73,7 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 				<span class="lbl">Notti massime</span>
 				<span class="big">{typeof nm === 'number' ? nm : '—'}</span>
 				<span class="sub">{testoNotti}</span>
+				{eccezioniNotti(d).map((t) => <span class="sub">{t}.</span>)}
 			</div>
 		</div>
 
@@ -84,7 +98,7 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 		<div class="notes">
 			{esempi.map((e) => (
 				<div class="note">
-					<h3>{e.corto.persone} persone per {e.corto.notti} notti{conStagioni && e.stagione && <> in stagione {e.stagione}</>}</h3>
+					<h3>{e.corto.persone} persone per {e.corto.notti} notti{tanteTariffe ? <>, tariffa da {euro(e.importo)}</> : conStagioni && e.stagione && <> in stagione {e.stagione}</>}</h3>
 					<p class="calc">{e.corto.persone} × {e.corto.tassate} notti × {euro(e.importo)} = <b>{euro(e.corto.totale)}</b></p>
 				</div>
 			))}
@@ -148,12 +162,13 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 		<p class="sec-note">Con il nome che usa il Comune nella delibera. Gli alberghi non sono inclusi.</p>
 		<div class="rate-wrap">
 			<table class="rate">
-				<thead><tr><th>Nel documento del Comune</th><th>Tipo</th>{conStagioni && <th>Stagione</th>}<th>A persona a notte</th><th>Fonte</th></tr></thead>
+				<thead><tr><th>Nel documento del Comune</th><th>Tipo</th>{conZone && <th>Zona</th>}{conStagioni && <th>Stagione</th>}<th>A persona a notte</th><th>Fonte</th></tr></thead>
 				<tbody>
 					{d.tariffe.map((t) => (
 						<tr>
 							<td>{t.nome_nel_documento}</td>
 							<td>{NOME_CATEGORIA[t.categoria]}</td>
+							{conZone && <td>{t.zona}</td>}
 							{conStagioni && <td>{t.stagione}</td>}
 							<td class="num">{euro(t.importo)}</td>
 							<td class="small">{fonte(t.rif.fonte) ? <a href={fonte(t.rif.fonte).url} target="_blank" rel="noopener">{t.rif.punto}</a> : t.rif.punto}</td>

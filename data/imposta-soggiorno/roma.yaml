@@ -1,0 +1,214 @@
+# Contributo di soggiorno - Roma Capitale
+# A Roma l'imposta di soggiorno si chiama "contributo di soggiorno" (D.L. 78/2010, art. 14, comma 16, lett. e).
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. Da controllare (verificatore-dati e proprietario).
+comune: Roma
+provincia: RM
+regione: Lazio
+anno: 2026
+valida_dal: 2023-10-01
+stato: verificato
+
+fonti:
+  pagina_comune:
+    titolo: "Roma Capitale - Contributo di soggiorno (scheda servizio, Ragioneria Generale)"
+    url: https://www.comune.roma.it/web/it/scheda-servizi.page?contentId=INF41430
+  delibera:
+    titolo: "Deliberazione della Giunta Capitolina n. 255 del 17 luglio 2023 - Approvazione delle tariffe del Contributo di Soggiorno di Roma Capitale per l'anno 2023"
+    url: https://www.comune.roma.it/web-resources/cms/documents/Deliberazione_Giunta_Capitolina_n__255_del_17_luglio__2023.pdf
+  regolamento:
+    titolo: "Deliberazione dell'Assemblea Capitolina n. 34 del 12 marzo 2024 - Modifica e ripubblicazione integrale del Regolamento sul Contributo di Soggiorno di Roma Capitale (allegato A)"
+    url: https://www.comune.roma.it/web-resources/cms/documents/Deliberazione_Assemblea_Capitolina_n._342024.pdf
+  tabella_tariffe:
+    titolo: "Roma Capitale - Nuove tariffe del contributo di soggiorno dal 01.10.2023 (tabella)"
+    url: https://www.comune.roma.it/web-resources/cms/documents/Nuove_tariffe_contributo_di_soggiorno_dal_01.10.2023_logo.pdf
+  avviso_scadenze_ottobre_2026:
+    titolo: "Roma Capitale - Scadenze per il contributo di soggiorno (avviso del 16 ottobre 2026, III trimestre 2026)"
+    url: https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1648327
+  pagina_faq_mod21:
+    titolo: "Roma Capitale - Contributo di soggiorno: circolari, note operative e FAQ sul Mod.21"
+    url: https://www.comune.roma.it/web/it/scheda-servizi.page?contentId=INF41430&pagina=3
+  turismoroma_tariffe:
+    titolo: "Turismo Roma (sito turistico di Roma Capitale) - Contributo di soggiorno nella città di Roma Capitale"
+    url: https://turismoroma.it/it/accoglienza/contributo-di-soggiorno-nella-citt%C3%A0-di-roma-capitale
+  turismoroma_airbnb:
+    titolo: "Turismo Roma (sito turistico di Roma Capitale) - Accordo tra Airbnb e Roma Capitale per il pagamento del contributo di soggiorno"
+    url: https://www.turismoroma.it/it/node/46775
+  airbnb_newsroom_roma:
+    titolo: "Airbnb Newsroom - Turismo responsabile: accordo del Comune di Roma con Airbnb (16 luglio 2020)"
+    url: https://news.airbnb.com/it/turismo-responsabile-accordo-del-comune-di-roma-con-airbnb
+  airbnb_help_italia:
+    titolo: "Airbnb, Centro assistenza: riscossione e pagamento della tassa di soggiorno in Italia da parte di Airbnb"
+    url: https://www.airbnb.it/help/article/2287
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# Nessuna stagione: la delibera ha una sola tabella valida tutto l'anno (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Immobili destinati alla locazione breve (art. 4, D.L. n. 50/2017, convertito, con L. n. 96/2017)"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 5" }
+  - categoria: locazione_turistica
+    nome_nel_documento: "Alloggi per uso turistico (artt. 1, comma 2, lett. c) e 12-bis del Regolamento Reg. Lazio n. 8/2015 e ss.mm.ii.)"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 5" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e Appartamenti per vacanze - Categoria 1"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 4" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case e Appartamenti per vacanze - Categoria 2"
+    importo: 5.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 4" }
+  - categoria: bnb
+    nome_nel_documento: "Bed and Breakfast"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 5" }
+  - categoria: affittacamere
+    nome_nel_documento: "Guest house o Affittacamere - Categoria 1"
+    importo: 7.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 4" }
+  - categoria: affittacamere
+    nome_nel_documento: "Guest house o Affittacamere - Categoria 2"
+    importo: 6.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 4" }
+  - categoria: affittacamere
+    nome_nel_documento: "Guest house o Affittacamere - Categoria 3"
+    importo: 5.00
+    rif: { fonte: delibera, punto: "dispositivo punto 1, Tabella Tariffe del Contributo di soggiorno, pag. 4" }
+
+notti_massime:
+  valore: 10
+  rif: { fonte: delibera, punto: "Tabella Tariffe, colonna 'Numero massimo di pernottamenti (consecutivi nell'anno solare effettuati nella medesima struttura)', pag. 4-5; il regolamento, art. 6 comma 1, rimanda alla delibera di Giunta" }
+
+esenzioni:
+  - descrizione: "Residenti a Roma Capitale: il contributo è dovuto solo da chi non è residente"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1 (pag. 12 del PDF)" }
+  - descrizione: "Minori fino al compimento del decimo anno di età"
+    eta_fino_a: 9
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera a) (pag. 13 del PDF)" }
+  - descrizione: "Chi alloggia nell'enclave di Roma Capitale chiamata 'frazione territoriale di Polline e Martignano'"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera b) (pag. 13 del PDF)" }
+  - descrizione: "Persone che necessitano di cure e chi assiste degenti ricoverati in strutture sanitarie (un accompagnatore per paziente), e genitori che accompagnano minori di 18 anni in cura; serve una dichiarazione sostitutiva (D.P.R. 445/2000)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera b) (pag. 13-14 del PDF)" }
+  - descrizione: "Autisti di pullman e accompagnatori turistici di gruppi organizzati da agenzie di viaggio (un accompagnatore ogni 25 partecipanti), con dichiarazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera c) (pag. 14 del PDF)" }
+  - descrizione: "Polizia di Stato e altre forze armate che pernottano per attività di ordine e sicurezza pubblica, con documentazione dell'organismo di appartenenza"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera d) (pag. 14 del PDF)" }
+  - descrizione: "Personale della struttura che vi lavora"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera e) (pag. 14 del PDF)" }
+  - descrizione: "Persone in assistenza alloggiativa di primo soccorso attivata dalla Protezione Civile per eventi straordinari e imprevedibili"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera f) (pag. 14 del PDF)" }
+  - descrizione: "Persone alloggiate per provvedimenti di autorità pubbliche (situazioni sociali, sanitarie, emergenze, calamità, soccorso umanitario)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera g) (pag. 14 del PDF)" }
+  - descrizione: "Volontari in servizio per eventi calamitosi o straordinari di soccorso umanitario, con dichiarazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera h) (pag. 14 del PDF)" }
+  - descrizione: "Persone con disabilità grave certificata (legge 104/92, art. 3 comma 3, o norme analoghe estere) e il caregiver familiare, con dichiarazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 2, lettera i) (pag. 15 del PDF)" }
+
+# Il regolamento non prevede riduzioni percentuali (vedi note).
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: turismoroma_airbnb, punto: "testo della notizia: convenzione operativa dal 1° luglio 2020, Airbnb riscuote il contributo e lo versa a Roma Capitale ogni trimestre (confermato da airbnb_newsroom_roma)" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia (Parigi, Saint-Barthélemy), Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Comunicazione trimestrale a Roma Capitale sul portale GECOS (ospiti, pernottamenti, esenti, importi), anche se nel trimestre non ci sono ospiti"
+    quando: "Entro il 16° giorno dalla fine di ogni trimestre solare (16 gennaio, 16 aprile, 16 luglio, 16 ottobre)"
+    rif: { fonte: regolamento, punto: "art. 8, comma 1, lettera a) e comma 2 (pag. 16-17 del PDF); date e portale GECOS nell'avviso_scadenze_ottobre_2026" }
+  - cosa: "Versamento del contributo a Roma Capitale (PagoPA tramite le procedure del Comune, oppure F24)"
+    quando: "Entro il 16° giorno dalla fine di ogni trimestre solare"
+    rif: { fonte: regolamento, punto: "art. 9, comma 2 (pag. 17 del PDF)" }
+  - cosa: "Dichiarazione annuale (solo online)"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 8, comma 1, lettera b) e comma 2 (pag. 17 del PDF)" }
+
+verificato_il: 2026-10-29
+
+note: |
+  NOME E TARIFFE
+  - A Roma si chiama "contributo di soggiorno", non "imposta di soggiorno".
+  - Tariffe della delibera di Giunta Capitolina n. 255 del 17/07/2023, in vigore dal 1° ottobre 2023
+    (punto 2 del dispositivo, pag. 5). Il titolo dice "tariffe per l'anno 2023", ma non ho trovato
+    delibere tariffarie successive: la pagina del Comune (ottobre 2026) collega ancora la n. 255/2023
+    e la tabella "dal 01.10.2023". Secondo Turismo Roma le nuove tariffe valgono per le notti dal
+    1/10/2023, anche se la prenotazione è stata fatta prima.
+  - Le locazioni brevi compaiono in due voci, entrambe a 6,00 euro: "Immobili destinati alla locazione
+    breve (art. 4 D.L. 50/2017)" e "Alloggi per uso turistico (Reg. Reg. Lazio 8/2015)". Case vacanza,
+    affittacamere e guest house hanno categorie con tariffe diverse (5,00 / 6,00 / 7,00 euro): la
+    categoria è quella della classificazione regionale della struttura (Reg. Reg. Lazio 8/2015).
+  - Dal 2024 il regolamento non contiene più la tabella delle tariffe (Allegato A eliminato con la
+    DAC 34/2024): tariffe e notti massime le decide la Giunta (art. 6, comma 1).
+
+  STAGIONI E ZONE
+  - Nessuna differenza tra alta e bassa stagione: la delibera ha una sola tabella per tutto l'anno.
+  - Nessuna tariffa diversa per zona. L'unica regola legata al territorio è l'esenzione per la
+    frazione di Polline e Martignano (art. 5, comma 1, lett. b).
+
+  NOTTI MASSIME
+  - 10 pernottamenti "consecutivi nell'anno solare effettuati nella medesima struttura" (tabella della
+    delibera, per tutte le categorie tranne il campeggio, che ha 5).
+  - Per chi pernotta a lungo per studio (corsi attestati) o per lavoro documentato: massimo 10
+    pernottamenti complessivi nell'anno solare, anche non continuativi (regolamento art. 6, comma 2).
+
+  RIDUZIONI
+  - Il regolamento (DAC 34/2024) non prevede riduzioni percentuali, solo esenzioni (art. 5).
+  - L'art. 13-bis prevede un "contributo forfetario" fino all'1,8% del riscosso per i gestori, a
+    copertura delle commissioni bancarie: non è uno sconto per l'ospite. La premessa della DAC 34/2024
+    dice che è per i gestori "in forma imprenditoriale".
+
+  ESENZIONE MINORI
+  - Il regolamento dice "fino al compimento del decimo anno di età": esenti fino a 9 anni compresi
+    (come per Firenze con il dodicesimo anno). Alcuni siti scrivono "sotto i 10 anni": stessa cosa.
+
+  AIRBNB E VRBO
+  - Airbnb: convenzione con Roma Capitale operativa dal 1° luglio 2020 (Turismo Roma, sito di Roma
+    Capitale; comunicato Airbnb del 16/07/2020). Airbnb riscuote alla conferma della prenotazione e
+    versa a Roma Capitale ogni trimestre. Per le prenotazioni fatte prima del 1/7/2020 riscuoteva
+    l'host. Airbnb non applica le esenzioni alla prenotazione: l'ospite chiede il rimborso.
+    Il comunicato del 2020 cita 3,50 euro, la tariffa di allora (oggi 6,00 euro).
+  - Il regolamento (art. 4, comma 1) rende "responsabili del contributo" anche i portali telematici.
+  - DA VERIFICARE: non ho trovato una fonte ufficiale recente che dica come l'host deve indicare su
+    GECOS le notti già riscosse da Airbnb, né se deve comunque fare la comunicazione trimestrale. La
+    pagina di aiuto Airbnb sull'Italia (art. 2287) non nomina Roma: dice solo che dal 1/1/2024 Airbnb
+    riscuote nei comuni che hanno aderito al suo portale e che presenta lei la dichiarazione annuale
+    per le imposte che riscuote. Il comunicato ufficiale Airbnb del 9/2/2024
+    (https://news.airbnb.com/it/airbnb-raccolta-e-versamento-dellimposta-di-soggiorno-in-italia/)
+    annuncia la riscossione dal 15 febbraio 2024 in circa 1.200 comuni, poi negli altri, senza elenco.
+    Per Roma vale la convenzione del 2020; nessuna pagina di comune.roma.it la nomina.
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale Vrbo elenca le località
+    europee dove riscuote (Vienna, Francia, Amsterdam) e l'Italia non c'è. Chi usa Vrbo deve
+    riscuotere e versare da sé. Conferma: Servizio Gestione Contributo di Soggiorno / ChiamaRoma 060606.
+
+  SCADENZE
+  - Comunicazione e versamento trimestrali (non mensili come a Firenze). L'avviso del Comune del
+    16/10/2026 conferma: comunicazione su GECOS e pagamento con PagoPA entro il 16 ottobre 2026 per il
+    III trimestre 2026. Nel 2025 il Comune ha prorogato una scadenza (II trimestre 2025 spostato al
+    23/7/2025) per problemi del portale GECOS (avviso del Comune:
+    https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1417866):
+    le proroghe vanno controllate di volta in volta.
+  - Da controllare a mano: la Deliberazione G.C. n. 62 del 27/02/2026 (PDF troppo grande per gli
+    strumenti) non risulta legata al contributo di soggiorno, ma non è stato possibile escluderlo.
+  - Somme versate arrotondate all'euro (art. 9, comma 3).
+  - Mod. 21 (conto giudiziale): la pagina FAQ del Comune dice che i gestori che riscuotono sono agenti
+    contabili e presentano il Mod. 21 entro il 30 gennaio dell'anno dopo. Non è nel regolamento e non
+    è chiaro se valga ancora per gli host privati di locazioni brevi: non l'ho messo tra le scadenze.
+  - Sanzioni (art. 11): 30% per omesso versamento (15% se il ritardo è entro 90 giorni); dal 100% al
+    200% per dichiarazione annuale omessa o infedele; da 25 a 500 euro per gli altri obblighi.
+
+  2027 E GIUBILEO
+  - Non ho trovato delibere già approvate per il 2027, né tariffe speciali per il Giubileo 2025.
+    Il sindaco ha chiesto più autonomia per alzare il contributo (articoli di stampa del 2026), ma non
+    risulta nessun atto approvato. Da ricontrollare a fine anno con il bilancio di previsione 2027.
+
+  FONTI NON LETTE PER INTERO
+  - Ho letto per intero la delibera G.C. 255/2023, il regolamento (DAC 34/2024) e la tabella tariffe
+    del Comune. La pagina del Comune non mostra una data di aggiornamento.

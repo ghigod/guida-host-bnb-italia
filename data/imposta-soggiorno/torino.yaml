@@ -1,0 +1,178 @@
+# Imposta di soggiorno - Comune di Torino
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. Da controllare con l'agente
+# verificatore-dati e da approvare dal proprietario del sito.
+comune: Torino
+provincia: TO
+regione: Piemonte
+anno: 2026
+valida_dal: 2026-04-01
+stato: verificato
+
+fonti:
+  pagina_comune:
+    titolo: "Città di Torino - Imposta di soggiorno (scheda informativa, aggiornata il 3 marzo 2026)"
+    url: https://www.comune.torino.it/schede-informative/imposta-soggiorno
+  pagina_gestori:
+    titolo: "Città di Torino - Imposta di soggiorno per gestori (aggiornata il 26 maggio 2026)"
+    url: https://www.comune.torino.it/servizi/imposta-soggiorno-per-gestori
+  delibera:
+    titolo: "Deliberazione del Consiglio Comunale DEL 760/2025 del 15/12/2025 - Modifiche al Regolamento comunale n. 349 per l'applicazione dell'imposta di soggiorno. Approvazione"
+    url: https://servizi.comune.torino.it/consiglio/prg/intranet/display_testi.php?doc=T-P202534683
+  regolamento:
+    titolo: "Regolamento n. 349 per l'applicazione dell'imposta di soggiorno - testo con le modifiche in vigore dal 1 aprile 2026"
+    url: https://www.comune.torino.it/media/9175
+  tariffe_comune:
+    titolo: "Città di Torino - Tariffe imposta di soggiorno (prospetto delle tariffe, marzo 2026)"
+    url: https://www.comune.torino.it/media/10202
+  presentazione_comune:
+    titolo: "Città di Torino - Il nuovo Regolamento per l'applicazione dell'Imposta di Soggiorno (presentazione dell'Ufficio Imposta di Soggiorno)"
+    url: https://www.comune.torino.it/media/10413
+  comunicato_consiglio:
+    titolo: "Città di Torino - Comunicato del Consiglio comunale 'Imposta di soggiorno - Imu 2026' (15 dicembre 2025)"
+    url: https://www.comune.torino.it/novita/comunicati/imposta-soggiorno-imu-2026
+  airbnb_torino:
+    titolo: "Airbnb Newsroom - Accordo fra Airbnb e Comune di Torino: ora l'imposta di soggiorno si paga online (8 maggio 2018)"
+    url: https://news.airbnb.com/it/accordo-fra-airbnb-e-comune-di-torino-ora-la-tassa-di-soggiorno-si-paga-online
+  airbnb_italia:
+    titolo: "Airbnb, Centro assistenza: Tourist tax collection and remittance by Airbnb in Italy"
+    url: https://www.airbnb.com/help/article/2287
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# Nessuna stagione: il regolamento ha una sola tabella di tariffe per tutto l'anno (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Locazioni Turistiche e Brevi"
+    importo: 3.80
+    rif: { fonte: regolamento, punto: "Allegato A, tabella 'Modulazione della tariffa' (pag. 10 del testo, pag. 12 del PDF)" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Casa Appartamenti Vacanze / Residence da 2 a 4 stelle"
+    importo: 3.80
+    rif: { fonte: regolamento, punto: "Allegato A, tabella 'Modulazione della tariffa' (pag. 10 del testo, pag. 12 del PDF)" }
+  - categoria: bnb
+    nome_nel_documento: "Bed and Breakfast da 1 a 4 stelle"
+    importo: 3.80
+    rif: { fonte: regolamento, punto: "Allegato A, tabella 'Modulazione della tariffa' (pag. 10 del testo, pag. 12 del PDF)" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere da 1 a 4 stelle"
+    importo: 3.80
+    rif: { fonte: regolamento, punto: "Allegato A, tabella 'Modulazione della tariffa' (pag. 10 del testo, pag. 12 del PDF)" }
+
+notti_massime:
+  valore: 7
+  rif: { fonte: regolamento, punto: "art. 4, comma 2 e Allegato A ('fino ad un massimo di 7 pernottamenti consecutivi'); il conteggio per anno solare è nel prospetto tariffe_comune e nella presentazione_comune, pag. 27 (vedi note)" }
+
+esenzioni:
+  - descrizione: "Residenti a Torino: l'imposta la paga solo chi non è iscritto all'anagrafe del Comune"
+    rif: { fonte: regolamento, punto: "art. 2, comma 1" }
+  - descrizione: "Minori che non hanno compiuto il tredicesimo anno di età (esenti fino a 12 anni compresi)"
+    eta_fino_a: 12
+    rif: { fonte: regolamento, punto: "art. 3, comma 1" }
+  - descrizione: "Autisti di pullman e accompagnatori turistici di gruppi organizzati: ogni autista e un accompagnatore ogni 20 partecipanti"
+    rif: { fonte: regolamento, punto: "art. 3, comma 2" }
+  - descrizione: "Chi si sottopone a cure in strutture sanitarie e chi assiste degenti ricoverati in strutture sanitarie della Città Metropolitana di Torino (due accompagnatori per paziente), con certificazione della struttura e autodichiarazione"
+    rif: { fonte: regolamento, punto: "art. 3, comma 3" }
+  - descrizione: "Scolaresche fino alle secondarie superiori con i docenti accompagnatori, e studenti universitari fuori sede iscritti ad atenei accreditati al MIUR con sedi nella Città Metropolitana di Torino"
+    rif: { fonte: regolamento, punto: "art. 3, comma 4" }
+  - descrizione: "Persone alloggiate per provvedimenti di autorità pubbliche (situazioni sociali, emergenze da calamità, soccorso umanitario)"
+    rif: { fonte: regolamento, punto: "art. 3, comma 5" }
+  - descrizione: "Volontari in servizio in occasione di calamità"
+    rif: { fonte: regolamento, punto: "art. 3, comma 6" }
+  - descrizione: "Dipendenti della struttura ricettiva, presso la struttura del proprio datore di lavoro"
+    rif: { fonte: regolamento, punto: "art. 3, comma 7" }
+  - descrizione: "Persone con disabilità grave certificata (legge 104/92, art. 3 comma 3 e art. 4, o norme analoghe estere) e un loro accompagnatore"
+    rif: { fonte: regolamento, punto: "art. 3, comma 8" }
+  - descrizione: "Polizia di Stato, Vigili del Fuoco e altre Forze Armate che pernottano per attività di ordine e sicurezza pubblica, con documentazione dell'organismo di appartenenza"
+    rif: { fonte: regolamento, punto: "art. 3, comma 9" }
+
+# Il regolamento non prevede riduzioni (solo esenzioni totali).
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: presentazione_comune, punto: "pag. 20 (obbligo di comunicare anche gli ospiti 'tramite piattaforma Airbnb'), pag. 33 e 35 (voci 'Ospiti tramite prenotazione piattaforma AIRBNB' e 'Ospiti paganti - Differenza Airbnb' nell'applicativo Soggiorniamo); base: regolamento art. 5, comma 10 e art. 6, comma 1" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia, Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Registrazione della struttura (o dell'alloggio) sul portale dell'imposta di soggiorno (Soggiorniamo)"
+    quando: "All'inizio dell'attività"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1 ('contestualmente con l'inizio dell'attività')" }
+  - cosa: "Comunicazione trimestrale al Comune (ospiti, pernottamenti, esenti, imposta dovuta), anche nei trimestri senza ospiti"
+    quando: "Entro 15 giorni dalla fine di ogni trimestre: dal 1 al 15 aprile, luglio, ottobre e gennaio"
+    rif: { fonte: regolamento, punto: "art. 5, comma 4 (le date dal 1 al 15 sono sulla pagina_gestori)" }
+  - cosa: "Versamento dell'imposta al Comune (PagoPA)"
+    quando: "Entro 15 giorni dalla fine di ogni trimestre"
+    rif: { fonte: regolamento, punto: "art. 5, comma 6 e art. 6, comma 3" }
+  - cosa: "Dichiarazione annuale (solo online, modello del Ministero dell'Economia)"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 5, comma 3" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE E STAGIONI
+  - Tariffe in vigore dal 1° aprile 2026. Le ha fissate la deliberazione del Consiglio Comunale
+    DEL 760/2025 del 15/12/2025, che sostituisce la tabella dell'Allegato A del regolamento n. 349 e
+    dice che le modifiche "avranno effetto dal 1 aprile 2026" (dispositivo, punto 2, pag. 6).
+    La tabella delle tariffe sta nell'allegato 1 della delibera ("testo comparato"), che NON ho aperto:
+    gli importi vengono dall'Allegato A del regolamento in vigore dal 1/4/2026 (fonte regolamento) e
+    coincidono con il prospetto tariffe_comune, la pagina_comune, la pagina_gestori e la
+    presentazione_comune (pag. 31).
+  - Nessuna differenza tra alta e bassa stagione: una sola tabella per tutto l'anno.
+  - Nomi usati dal Comune: "Locazioni Turistiche e Brevi", "Casa Appartamenti Vacanze / Residence da
+    2 a 4 stelle", "Bed and Breakfast da 1 a 4 stelle", "Affittacamere da 1 a 4 stelle". Tutti 3,80 euro.
+    Non ho inserito "Casa per Ferie" (3,80 euro) perché non è tra le categorie del sito.
+  - Fino al 31/03/2026 la tariffa era 2,30 euro per locazioni brevi, B&B, affittacamere e CAV
+    (presentazione_comune, pag. 30; il comunicato_consiglio lo conferma solo per i B&B).
+  - La tariffa è in euro per persona per notte: non è una percentuale.
+
+  NOTTI MASSIME
+  - 7 pernottamenti consecutivi (regolamento art. 4 comma 2 e Allegato A).
+  - Novità dal 1/4/2026: la delibera ha tolto le parole "per periodo di pagamento (trimestre)". Il
+    prospetto tariffe_comune dice "7 pernottamenti consecutivi per anno solare"; la presentazione del
+    Comune (pag. 27) spiega che un soggiorno a cavallo di due trimestri non riparte da zero e che "Dal
+    mese di Gennaio il conteggio ricomincia". Il testo del regolamento però non scrive "anno solare":
+    da confermare con l'Ufficio (per esempio per un soggiorno a cavallo di Capodanno).
+  - Il comunicato_consiglio parla di conteggio "su base annua e non più trimestrale".
+
+  AIRBNB E VRBO
+  - Airbnb: riscuote e versa a Torino dal 1° maggio 2018 (airbnb_torino, accordo con il Comune).
+    Il regolamento (art. 5 comma 10, art. 6 comma 1) prevede che i portali che incassano i canoni
+    riscuotano e versino "attraverso modalità convenute con la Città di Torino". La presentazione del
+    Comune (2026) conferma: nella comunicazione trimestrale c'è la voce "Ospiti tramite prenotazione
+    piattaforma AIRBNB". L'host deve quindi comunque fare la comunicazione trimestrale, indicando anche
+    gli ospiti Airbnb (presentazione_comune, pag. 20).
+  - Per il 2° trimestre 2026 c'era una voce "Differenza Airbnb": per le prenotazioni Airbnb fatte prima
+    dell'aumento, la differenza di imposta la riscuote il gestore (presentazione_comune, pag. 33 e 35).
+  - Il riferimento più preciso per il 2026 è una presentazione del Comune, non un atto: da
+    verificare. La pagina di aiuto Airbnb sull'Italia (airbnb_italia) non nomina Torino; dice che Airbnb
+    presenta la dichiarazione annuale per i comuni dove riscuote.
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale di Vrbo elenca le località
+    europee dove riscuote (Vienna, Francia, Amsterdam) e l'Italia non c'è; gli atti del Comune nominano
+    solo Airbnb. Chi usa Vrbo deve riscuotere e versare da sé. Conferma: impostadisoggiorno@comune.torino.it.
+
+  DELIBERE PER IL 2027
+  - Non ho trovato delibere già approvate per il 2027 (né sul sito del Comune né nelle ricerche).
+    La pagina del regolamento (aggiornata il 16 aprile 2026) non annuncia altre modifiche.
+
+  ALTRE NOVITÀ E DUBBI DA CONTROLLARE
+  - Sul sito del Comune c'è anche un'altra versione del regolamento (https://www.comune.torino.it/media/9150,
+    datata 23/12/2025) che nell'Allegato A dice ancora "per periodo di pagamento (trimestre)" e chiama
+    "1 stella" tutte le righe delle residenze turistiche alberghiere. La pagina_gestori collega come "in
+    vigore dal 1° aprile 2026" la versione media/9175, che ho usato.
+  - La delibera è "esecutiva dal 3 gennaio 2026" ma le modifiche hanno effetto dal 1° aprile 2026.
+  - La pagina_gestori mostra insieme "Attivo" e "Momentaneamente sospeso": incoerenza del sito.
+  - Esenzioni ampliate dal 1/4/2026: minori fino a 12 anni compresi (prima "entro il dodicesimo
+    anno"), disabilità grave e accompagnatore, forze dell'ordine in servizio; cure e università estese
+    a tutta la Città Metropolitana. Tutte le esenzioni richiedono il "Modulo unico di esenzione"
+    consegnato al gestore (pagina_comune).
+  - Dalla presentazione del Comune (pag. 23): chi gestisce locazioni brevi o turistiche con più di 2
+    unità abitative deve presentare una SCIA imprenditoriale. Non riguarda le tariffe.
+  - Sanzioni (regolamento art. 8): registrazione mancata 50-300 euro; comunicazione trimestrale
+    omessa, tardiva o infedele 80-500 euro; dichiarazione annuale omessa 100-200% dell'imposta.

@@ -22,6 +22,9 @@ const giorno = z.string().regex(/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, 'Data
 /** Solo le strutture che interessano agli host privati: niente alberghi. */
 export const CATEGORIE = ['locazione_turistica', 'casa_vacanze', 'bnb', 'affittacamere'] as const;
 
+/** Notti massime: un numero, nessun limite, oppure non trovato (per non inventare). */
+const valoreNotti = z.union([z.number().int().min(1).max(365), z.literal('nessun_limite'), z.literal('non_trovato')]);
+
 /** Se la piattaforma riscuote e versa l'imposta al posto dell'host. */
 export const RISCOSSIONE = ['riscuote_e_versa', 'no', 'non_verificato'] as const;
 
@@ -77,8 +80,12 @@ export const schemaImposta = z
      * "non_trovato" serve a non inventare: si spiega in note e il comune resta in bozza.
      */
     notti_massime: z.object({
-      valore: z.union([z.number().int().min(1).max(365), z.literal('nessun_limite'), z.literal('non_trovato')]),
+      valore: valoreNotti,
       rif: rif.optional(),
+      /** Facoltativo: tipi di struttura con un massimo diverso (es. B&B senza limite). */
+      eccezioni: z
+        .array(z.object({ categorie: z.array(z.enum(CATEGORIE)).min(1), valore: valoreNotti, rif }))
+        .default([]),
     }),
 
     esenzioni: z
@@ -164,6 +171,12 @@ export const schemaImposta = z
     } else {
       controlla(d.notti_massime.rif, ['notti_massime']);
     }
+    d.notti_massime.eccezioni.forEach((e, i) => {
+      controlla(e.rif, ['notti_massime', 'eccezioni', i]);
+      if (e.valore === 'non_trovato' && d.stato === 'verificato') {
+        ctx.addIssue({ code: 'custom', path: ['notti_massime', 'eccezioni', i], message: 'Un comune verificato non può avere notti massime "non_trovato"' });
+      }
+    });
     d.esenzioni.forEach((e, i) => controlla(e.rif, ['esenzioni', i]));
     d.riduzioni.forEach((r, i) => controlla(r.rif, ['riduzioni', i]));
     for (const p of ['airbnb', 'vrbo'] as const) {
