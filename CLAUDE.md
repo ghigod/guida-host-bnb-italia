@@ -34,6 +34,10 @@ Il proprietario non è un programmatore.
 2. Agente `verificatore-dati`: controlla ogni valore sulle fonti, senza vedere il lavoro del primo.
 3. Il proprietario guarda le righe DIVERSO / NON TROVATO e apre almeno la delibera.
 4. Solo lui decide il passaggio a `stato: verificato`. Pull request, poi merge.
+5. Se restano dubbi, prepara subito, senza aspettare che te lo chieda, le bozze dei messaggi per
+   chi può scioglierli (ufficio del comune, assistenza Airbnb, assistenza Vrbo): una domanda
+   numerata per dubbio, con articolo o delibera. Le bozze restano in chat, senza dati personali,
+   e non si inviano mai senza il suo ok.
 
 ## Codice
 
