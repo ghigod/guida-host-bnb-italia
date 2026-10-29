@@ -1,0 +1,207 @@
+# Imposta di soggiorno - Comune di Castiglione della Pescaia
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. BOZZA: da controllare con
+# l'agente verificatore-dati e da approvare dal proprietario del sito.
+comune: Castiglione della Pescaia
+provincia: GR
+regione: Toscana
+anno: 2026
+valida_dal: 2026-01-01
+stato: bozza
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Castiglione della Pescaia - Sportello telematico - Versare l'imposta di soggiorno (IDS)"
+    url: https://sportellotelematico.comune.castiglionedellapescaia.gr.it/action:s_italia:imposta.soggiorno
+  pagina_documenti:
+    titolo: "Comune di Castiglione della Pescaia - Documenti relativi imposta di soggiorno (pagina aggiornata il 28/07/2026)"
+    url: https://www.comune.castiglionedellapescaia.gr.it/it/documenti_pubblici/documenti-relativi-imposta-di-soggiorno
+  delibera:
+    titolo: "Deliberazione della Giunta Comunale n. 358 del 20/11/2025 - Approvazione tariffe imposta di soggiorno anno 2026 (allegato 'Tariffe 2026')"
+    url: https://www.comune.castiglionedellapescaia.gr.it/s3/1791/allegati/modulistica/imposta-di-soggirono/tariffe-2026.pdf
+  regolamento:
+    titolo: "Regolamento imposta di soggiorno (allegato 'Regolamento 2025'): C.C. n. 7 del 28/02/2022, modificato con C.C. n. 110 del 29/12/2022, n. 9 del 04/03/2024 e n. 71 del 28/11/2024"
+    url: https://www.comune.castiglionedellapescaia.gr.it/s3/1791/allegati/modulistica/imposta-di-soggirono/regolamento-imposta-di-soggiorno-2025.pdf
+  regolamento_testo_2024:
+    titolo: "Regolamento imposta di soggiorno - testo precedente (fino alla modifica C.C. n. 9 del 04/03/2024), vecchio sito del Comune"
+    url: https://old.comune.castiglionedellapescaia.gr.it/wp-content/uploads/2022/03/REGOLAMENTO-IMPOSTA-DI-SOGGIORNO-2024.pdf
+  adempimenti_locazioni:
+    titolo: "Comune di Castiglione della Pescaia - Adempimenti ai fini delle locazioni turistiche brevi (dal 26/06/2026)"
+    url: https://www.comune.castiglionedellapescaia.gr.it/s3/1791/allegati/condizioni-di-servizio/adempimenti-locazioni-turistiche-brevi-dal-26-06-2026.pdf
+  airbnb_italia:
+    titolo: "Airbnb, Centro assistenza: riscossione e versamento dell'imposta di soggiorno da parte di Airbnb in Italia (articolo 2287)"
+    url: https://www.airbnb.it/help/article/2287
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# L'imposta si paga SOLO dal 1° aprile al 31 ottobre (regolamento, art. 4, comma 1).
+# Dal 1° novembre al 31 marzo non si paga. Le tariffe non cambiano tra alta e bassa
+# stagione (delibera, dispositivo punto 3): c'è un solo periodo, quello in cui si paga.
+stagioni:
+  - nome: periodo di applicazione
+    periodi:
+      - { dal: "04-01", al: "10-31" }
+    rif: { fonte: regolamento, punto: "art. 4, comma 1 (stesso testo nel regolamento precedente)" }
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Affitti uso turistico – Strutture ricettive extra-alberghiere con le caratteristiche della civile abitazione"
+    importo: 1.00
+    stagione: periodo di applicazione
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella, ultima riga, pag. 4 del PDF (stessa tabella nelle premesse, pag. 3)" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "RTA – CAV – Residence – Case per Ferie – Residenze d'epoca"
+    importo: 2.00
+    stagione: periodo di applicazione
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella, pag. 4 del PDF" }
+  - categoria: bnb
+    nome_nel_documento: "Affittacamere – BB - Foresterie"
+    importo: 2.00
+    stagione: periodo di applicazione
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella, pag. 4 del PDF" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere – BB - Foresterie"
+    importo: 2.00
+    stagione: periodo di applicazione
+    rif: { fonte: delibera, punto: "dispositivo punto 2, tabella, pag. 4 del PDF" }
+
+notti_massime:
+  valore: 21
+  rif: { fonte: regolamento, punto: "art. 4, comma 4 (\"ventuno\" pernottamenti consecutivi a persona; nel testo precedente erano 14)" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Castiglione della Pescaia (iscritti all'anagrafe)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera a)" }
+  - descrizione: "Minori entro il quattordicesimo anno di età (vedi note: l'età esatta va chiarita)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera b)" }
+  - descrizione: "Chi soggiorna in strutture ricettive e appartamenti per locazioni turistiche nei centri abitati di Buriano, Tirli e Vetulonia"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera h)" }
+  - descrizione: "Autisti di pullman e accompagnatori turistici di gruppi organizzati da agenzie di viaggio di almeno 25 partecipanti (ogni autista e un accompagnatore ogni 25 partecipanti)"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera c)" }
+  - descrizione: "Volontari in servizio per manifestazioni ed eventi organizzati da Comune, Provincia o Regione, o per emergenze ambientali, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera d) e comma 2" }
+  - descrizione: "Forze di polizia statali e locali e vigili del fuoco che soggiornano per servizio, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera e) e comma 2" }
+  - descrizione: "Lavoratori dipendenti che soggiornano per lavoro da svolgere nel Comune, con certificazione del datore di lavoro o del lavoratore e autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera f) e comma 2" }
+  - descrizione: "Persone con handicap non autosufficienti e il loro accompagnatore, con autocertificazione"
+    rif: { fonte: regolamento, punto: "art. 5, comma 1, lettera g) e comma 2" }
+
+# Nessuna riduzione percentuale nel regolamento.
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: non_verificato
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote in Europa: Austria (Vienna), Francia, Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Registrazione come dichiarante presso l'Ufficio Tributi (modulo 'Registrazione dichiarante' con documento d'identità, via e-mail, PEC o a mano), poi accesso al portale StayTour con SPID o CIE"
+    quando: "All'inizio dell'attività"
+    rif: { fonte: regolamento, punto: "art. 6, comma 2 (\"in concomitanza con l'inizio dell'attività\"); procedura nel documento adempimenti_locazioni, sezione Imposta di soggiorno" }
+  - cosa: "Versamento al Comune (pagoPA) dell'imposta di aprile, maggio e giugno"
+    quando: "Entro il 10 luglio"
+    rif: { fonte: regolamento, punto: "art. 7, commi 2 e 4" }
+  - cosa: "Versamento al Comune (pagoPA) dell'imposta di luglio, agosto e settembre"
+    quando: "Entro il 10 ottobre"
+    rif: { fonte: regolamento, punto: "art. 7, commi 2 e 4" }
+  - cosa: "Versamento al Comune (pagoPA) dell'imposta di ottobre"
+    quando: "Entro il 10 novembre"
+    rif: { fonte: regolamento, punto: "art. 7, commi 2 e 4" }
+  - cosa: "Solo per gli alloggi in locazione breve: possibilità di versare tutta l'imposta dell'anno in un'unica volta"
+    quando: "Entro il 10 novembre"
+    rif: { fonte: regolamento, punto: "art. 7, comma 3" }
+  - cosa: "Comunicazione periodica al Comune sul portale (ospiti, pernottamenti, esenti), anche senza ospiti"
+    quando: "Alle stesse scadenze del versamento (10 luglio, 10 ottobre, 10 novembre)"
+    rif: { fonte: regolamento, punto: "art. 6, comma 4, lettera c) (rimanda alle scadenze dell'art. 7)" }
+  - cosa: "Dichiarazione annuale all'Agenzia delle Entrate (solo online), anche senza pernottamenti"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 6, comma 4, lettera d)" }
+
+verificato_il: 2026-10-29
+
+note: |
+  PERIODO IN CUI SI PAGA (IMPORTANTE)
+  - L'imposta si paga solo per le notti dal 1° aprile al 31 ottobre (regolamento, art. 4, comma 1).
+    Dal 1° novembre al 31 marzo non si paga. La sezione "stagioni" descrive questo periodo.
+  - Dentro il periodo non ci sono alta e bassa stagione: la delibera dice di "non apportare
+    variazioni alle tariffe sulla base della stagionalità" (premesse pag. 3 e dispositivo punto 3).
+  - Il periodo non cambia di anno in anno: è scritto nel regolamento ("di ogni anno").
+
+  TARIFFE
+  - Delibera di Giunta n. 358 del 20/11/2025: conferma per il 2026 le tariffe dell'anno prima,
+    in vigore dal 1° gennaio 2026 (dispositivo punto 4). Le tariffe 2025 erano della delibera di
+    Giunta n. 319 del 25/11/2024: non ho aperto quel documento, quindi non ho confrontato i numeri.
+  - Le locazioni brevi sono nella riga "Affitti uso turistico – Strutture ricettive extra-alberghiere
+    con le caratteristiche della civile abitazione": 1,00 euro a persona a notte.
+  - Case vacanza (CAV, nella riga con RTA, Residence, Case per Ferie, Residenze d'epoca) e
+    "Affittacamere – BB - Foresterie": 2,00 euro.
+  - DUBBIO: il regolamento (art. 2, comma 3) chiama "strutture ricettive extra-alberghiere con le
+    caratteristiche della civile abitazione" proprio affittacamere, B&B, case vacanza, residenze
+    d'epoca e residence. La delibera però mette CAV e affittacamere/B&B a 2,00 euro e la riga
+    "...con le caratteristiche della civile abitazione" a 1,00 euro. Non è chiaro se, per esempio,
+    un B&B o un affittacamere non imprenditoriale paghi 1,00 o 2,00 euro. Ho usato 2,00 euro per
+    B&B, affittacamere e CAV perché sono nominati in modo esplicito. Da chiedere all'Ufficio Tributi.
+  - Tariffe in euro per persona per notte: nessuna conversione.
+
+  ZONE
+  - Non ci sono tariffe diverse per zona. Ma chi dorme nei centri abitati di Buriano, Tirli e
+    Vetulonia è esente (regolamento, art. 5, comma 1, lettera h). Non è indicato il confine preciso
+    dei "centri abitati": chi ha casa vicino a queste frazioni deve chiedere al Comune.
+
+  NOTTI MASSIME
+  - 21 notti consecutive a persona (art. 4, comma 4, testo con la modifica C.C. n. 71 del 28/11/2024).
+    Nel testo precedente (C.C. n. 9 del 04/03/2024) erano 14 notti. Per l'art. 15, comma 2, le
+    modifiche valgono dal primo giorno del secondo mese dopo la pubblicazione sul sito del MEF: non
+    ho verificato la data esatta di pubblicazione, ma il Comune mette questo testo come "Regolamento
+    2025", quindi vale almeno dalla stagione 2025.
+
+  ESENZIONI
+  - Minori: il testo in vigore dice "entro il quattordicesimo anno di età" (il testo precedente
+    diceva "entro il sedicesimo anno di età per l'anno 2024"). Non è chiaro se un ragazzo di 14 anni
+    sia esente o no: per questo non ho indicato un'età precisa. Da chiedere all'Ufficio Tributi.
+  - Per le esenzioni d), e), f), g) serve un'autocertificazione dell'ospite al gestore (art. 5, c. 2).
+    Sul sito del Comune ci sono i moduli "autocertificazione per esenzione" (non li ho aperti).
+  - Nessuna riduzione percentuale.
+
+  AIRBNB E VRBO
+  - Airbnb: NON VERIFICATO. Il regolamento (art. 3, comma 4 e art. 8) dice che le piattaforme
+    possono riscuotere e versare l'imposta con una convenzione con il Comune, ma non nomina Airbnb.
+    La pagina di aiuto Airbnb (articolo 2287) dice che Airbnb riscuote nei comuni che hanno aderito
+    al suo sistema, ma non ha un elenco e non nomina Castiglione della Pescaia: l'host deve
+    controllare nel proprio annuncio (Modifica preferenze > Tasse). Nessun documento del Comune
+    parla di Airbnb. Siti non ufficiali (es. Hostaway) parlano di una riscossione Airbnb estesa
+    a molti comuni italiani dal 2026, ma non sono una fonte valida. Da chiedere al Comune
+    (impostasoggiorno@comune.castiglionedellapescaia.gr.it).
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale di Vrbo elenca dove
+    riscuote in Europa e l'Italia non c'è; gli atti del Comune non nominano Vrbo. Chi usa Vrbo
+    deve riscuotere e versare da sé.
+
+  SCADENZE
+  - Versamenti: 10 luglio (aprile-giugno), 10 ottobre (luglio-settembre), 10 novembre (ottobre).
+    Le locazioni brevi possono versare tutto in un'unica volta entro il 10 novembre (art. 7, c. 3).
+    ATTENZIONE: oggi (29/10/2026) la scadenza del 10 novembre 2026 è vicina.
+  - Comunicazione periodica: il regolamento dice che va fatta "entro le scadenze indicate all'art. 7"
+    e la chiama "trimestrale" (art. 6, c. 4, lett. d). Non è scritto se chi versa in un'unica volta
+    il 10 novembre debba comunque fare le comunicazioni di luglio e ottobre: da chiarire.
+  - Portale del Comune: StayTour (https://imposta-soggiorno.org/castiglionedellapescaia/), accesso
+    con SPID o CIE dopo la registrazione all'Ufficio Tributi (documento adempimenti_locazioni).
+  - Dal 26/06/2026 (L.R. Toscana 61/2024 modificata dalla L.R. 9/2026) chi fa locazioni turistiche
+    non imprenditoriali deve prima comunicare l'inizio attività al SUAP sul portale regionale STAR,
+    poi ottenere il CIN. Non riguarda le tariffe.
+
+  2027
+  - Non ho trovato una delibera già approvata per le tariffe 2027. Se la Giunta non ne approva una,
+    restano valide le tariffe dell'anno prima (regolamento, art. 4, comma 3).
+
+  ALTRI DUBBI
+  - La pagina dello sportello telematico collega una copia del "Regolamento 2025" e delle "Tariffe
+    2025" su un altro indirizzo (storage.googleapis.com): non l'ho aperta, ho usato i PDF della
+    pagina documenti del Comune.
+  - Non ho controllato sul portale del federalismo fiscale del MEF se esistono modifiche al
+    regolamento approvate nel 2025 o nel 2026. La pagina documenti del Comune (aggiornata il
+    28/07/2026) mette come regolamento in vigore il "Regolamento 2025".
+  - Nel regolamento l'art. 15, comma 1 dice ancora "entrano in vigore il 1° aprile 2024": è il
+    testo del 2024 non aggiornato, non cambia i dati.

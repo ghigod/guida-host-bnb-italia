@@ -16,7 +16,11 @@ export async function getStaticPaths() {
 interface Props { voce: CollectionEntry<'impostaSoggiorno'> }
 const d = Astro.props.voce.data;
 
-const conStagioni = d.stagioni.length > 0;
+// Una sola "stagione" vuol dire che l'imposta si paga solo in quel periodo dell'anno;
+// due o più sono tariffe diverse (es. alta e bassa stagione).
+const soloUnPeriodo = d.stagioni.length === 1;
+const conStagioni = d.stagioni.length > 1;
+const periodoUnico = soloUnPeriodo ? d.stagioni[0].periodi.map(periodoLeggibile).join(' e ') : '';
 const principali = tariffePrincipali(d);
 const nm = d.notti_massime.valore;
 const testoNotti =
@@ -47,7 +51,7 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 		<div class="big-grid">
 			{principali.map((t) => (
 				<div class="panel big-card">
-					<span class="lbl">{NOME_CATEGORIA[t.categoria]}{t.stagione && <>, stagione {t.stagione}</>}</span>
+					<span class="lbl">{NOME_CATEGORIA[t.categoria]}{conStagioni && t.stagione && <>, stagione {t.stagione}</>}</span>
 					<span class="big">{euro(t.importo)}</span>
 					<span class="sub">a persona, a notte</span>
 				</div>
@@ -59,7 +63,9 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 			</div>
 		</div>
 
-		{conStagioni ? (
+		{soloUnPeriodo ? (
+			<p class="sec-note"><b>Si paga solo {periodoUnico}.</b> Nel resto dell'anno l'imposta non è dovuta.</p>
+		) : conStagioni ? (
 			<div class="panel">
 				<h3>Le stagioni</h3>
 				<ul class="plain">
@@ -78,7 +84,7 @@ const titolo = `Imposta di soggiorno ${d.comune} ${d.anno}`;
 		<div class="notes">
 			{esempi.map((e) => (
 				<div class="note">
-					<h3>{e.corto.persone} persone per {e.corto.notti} notti{e.stagione && <> in stagione {e.stagione}</>}</h3>
+					<h3>{e.corto.persone} persone per {e.corto.notti} notti{conStagioni && e.stagione && <> in stagione {e.stagione}</>}</h3>
 					<p class="calc">{e.corto.persone} × {e.corto.tassate} notti × {euro(e.importo)} = <b>{euro(e.corto.totale)}</b></p>
 				</div>
 			))}
