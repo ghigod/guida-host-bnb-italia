@@ -34,7 +34,7 @@ const airbnb = (v: string) => (v === 'riscuote_e_versa' ? 'Sì' : v === 'no' ? '
 				<tbody>
 					{comuni.map((c) => (
 						<tr data-nome={c.data.comune.toLowerCase()}>
-							<td class="case"><a href={`/imposta-di-soggiorno/${c.id}/`}>{c.data.comune}</a> <span class="muted">({c.data.provincia})</span>{c.data.stagioni.length > 0 && <span class="badge">Stagioni</span>}</td>
+							<td class="case"><a href={`/imposta-di-soggiorno/${c.id}/`}>{c.data.comune}</a> <span class="muted">({c.data.provincia})</span>{c.data.stagioni.length === 1 && <span class="badge">Solo parte dell'anno</span>}{c.data.stagioni.length > 1 && <span class="badge">Stagioni</span>}</td>
 							<td data-label="A persona a notte" class="num">{tariffaInBreve(c.data)}</td>
 							<td data-label="Notti massime" class="num">{notti(c.data.notti_massime.valore)}</td>
 							<td data-label="Airbnb la riscuote">{airbnb(c.data.riscossione.airbnb.valore)}</td>

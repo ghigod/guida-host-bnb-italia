@@ -1,0 +1,162 @@
+# Imposta di soggiorno - Comune di Fiesole
+# Compilato dall'agente ricercatore-imposta il 2026-10-29. Da controllare con l'agente
+# verificatore-dati e da approvare dal proprietario del sito.
+comune: Fiesole
+provincia: FI
+regione: Toscana
+anno: 2026
+valida_dal: 2020-01-01
+stato: bozza
+
+fonti:
+  pagina_comune:
+    titolo: "Comune di Fiesole - Imposta di soggiorno (pagina servizio, ultimo aggiornamento 12/08/2026)"
+    url: https://www.comune.fiesole.fi.it/servizi/tributi-finanze-e-contravvenzioni/imposta-di-soggiorno
+  delibera:
+    titolo: "Deliberazione della Giunta Comunale n. 196 del 19/11/2019 - Imposta di soggiorno, determinazione delle tariffe per l'anno 2020 (copia pubblicata sul portale del Dipartimento delle Finanze)"
+    url: https://www1.finanze.gov.it/finanze2/dipartimentopolitichefiscali/fiscalitalocale/nuova_at/download_lib.php?key=0900f2308052a0d3&nome=272045_DIMUNIC-16fi20d575d.pdf
+  tabella_tariffe:
+    titolo: "Comune di Fiesole - Tariffe Imposta di Soggiorno (tabella allegata alla pagina del Comune, stessa tabella dell'Allegato A della delibera)"
+    url: https://www.comune.fiesole.fi.it/sites/default/files/nuove_tariffe_imposta_di_soggiorno_2020.pdf
+  regolamento:
+    titolo: "Regolamento Imposta di Soggiorno Comune di Fiesole (delibera C.C. n. 51 del 25/10/2018, modificato con delibera C.C. n. 16 del 24/02/2022)"
+    url: https://www.comune.fiesole.fi.it/sites/default/files/2023-02/90%20regolamento-imposta-soggiorno-2022.pdf
+  pagina_regolamento:
+    titolo: "Comune di Fiesole - Regolamento imposta di soggiorno (scheda dell'atto normativo)"
+    url: https://www.comune.fiesole.fi.it/amministrazione/documenti-e-dati/atto-normativo/regolamento-imposta-di-soggiorno-comune-di-fiesole
+  vrbo_tasse_europa:
+    titolo: "Vrbo, Centro assistenza: tasse di soggiorno in Europa riscosse da Vrbo"
+    url: https://help.vrbo.com/articles/vrbo-stay-taxes-lodging-taxes-europe
+
+# Nessuna stagione: la delibera ha una sola tabella per tutto l'anno (vedi note).
+stagioni: []
+
+tariffe:
+  - categoria: locazione_turistica
+    nome_nel_documento: "Locazioni brevi turistiche"
+    importo: 2.00
+    rif: { fonte: delibera, punto: "dispositivo punti 2 e 3; Allegato A, tabella d) Strutture extra alberghiere con caratteristiche di civile abitazione, pag. 4 del PDF" }
+  - categoria: casa_vacanze
+    nome_nel_documento: "Case vacanze"
+    importo: 2.00
+    rif: { fonte: delibera, punto: "Allegato A, tabella d), pag. 4 del PDF" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere professionali"
+    importo: 2.00
+    rif: { fonte: delibera, punto: "Allegato A, tabella d), pag. 4 del PDF" }
+  - categoria: affittacamere
+    nome_nel_documento: "Affittacamere non professionali"
+    importo: 2.00
+    rif: { fonte: delibera, punto: "Allegato A, tabella d), pag. 4 del PDF" }
+
+notti_massime:
+  valore: 10
+  rif: { fonte: regolamento, punto: "art. 2, comma 2 (fino ad un massimo di 10 notti consecutive); la pagina del Comune dice: dall'11esimo giorno di permanenza consecutiva nella stessa struttura l'imposta non è dovuta" }
+
+esenzioni:
+  - descrizione: "Residenti nel Comune di Fiesole: l'imposta è dovuta solo da chi non è residente"
+    rif: { fonte: regolamento, punto: "art. 2, comma 2" }
+  - descrizione: "Minori fino al compimento di 12 anni (età limite da verificare: vedi note)"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1, lettera a)" }
+  - descrizione: "Malati e chi assiste persone ricoverate in ospedali pubblici o strutture di cura private della Città Metropolitana, anche in day hospital: massimo 2 accompagnatori per paziente, con certificazione della struttura sanitaria"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1, lettera b)" }
+  - descrizione: "Ricercatori, relatori e rappresentanti ospitati dall'Istituto Universitario Europeo per attività istituzionali, alle condizioni del regolamento e con comunicazione preventiva dell'Istituto"
+    rif: { fonte: regolamento, punto: "art. 3, comma 1, lettera c)" }
+  - descrizione: "Persone alloggiate dal Comune per emergenze, calamità o soccorso umanitario, e chi presta servizio di soccorso in questi casi (non sono soggetti passivi)"
+    rif: { fonte: regolamento, punto: "art. 2, comma 3, lettera a)" }
+  - descrizione: "Dipendenti della struttura che vi lavorano (non sono soggetti passivi)"
+    rif: { fonte: regolamento, punto: "art. 2, comma 3, lettera b)" }
+
+# Il regolamento non prevede riduzioni percentuali.
+riduzioni: []
+
+riscossione:
+  airbnb:
+    valore: riscuote_e_versa
+    rif: { fonte: pagina_comune, punto: "sezione Come fare, paragrafo sulla locazione turistica: l'imposta può essere riscossa al momento della prenotazione tramite la piattaforma AirBnB, che si occupa anche del riversamento al Comune; resta al gestore la dichiarazione mensile" }
+  vrbo:
+    valore: "no"
+    rif: { fonte: vrbo_tasse_europa, punto: "elenco delle località dove Vrbo riscuote: Austria (Vienna), Francia, Paesi Bassi (Amsterdam); l'Italia non c'è" }
+
+scadenze:
+  - cosa: "Registrazione della struttura sul portale dell'imposta di soggiorno del Comune"
+    quando: "All'inizio dell'attività"
+    rif: { fonte: regolamento, punto: "art. 6, comma 1 (in concomitanza con l'inizio dell'attività)" }
+  - cosa: "Dichiarazione mensile al Comune (esenti, imposta dovuta, estremi del versamento), online con SPID, CIE o CNS, anche nei mesi senza ospiti"
+    quando: "Entro il 15 del mese successivo"
+    rif: { fonte: regolamento, punto: "art. 6, commi 3 e 4; la pagina del Comune (sezione Tempi e scadenze) aggiunge: anche senza ospiti" }
+  - cosa: "Versamento al Comune dell'imposta riscossa (procedura online del Comune)"
+    quando: "Entro 15 giorni dalla fine di ogni mese"
+    rif: { fonte: regolamento, punto: "art. 7, comma 2" }
+  - cosa: "Dichiarazione annuale, solo online sul portale dell'Agenzia delle Entrate"
+    quando: "Entro il 30 giugno dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 6, comma 6; confermato dalla pagina del Comune, sezione Tempi e scadenze" }
+  - cosa: "Conto giudiziale della gestione, da consegnare al Comune"
+    quando: "Entro il 31 gennaio dell'anno successivo"
+    rif: { fonte: regolamento, punto: "art. 6, comma 6, ultimo periodo" }
+
+verificato_il: 2026-10-29
+
+note: |
+  TARIFFE E STAGIONI
+  - Tariffe della delibera di Giunta n. 196 del 19/11/2019, Allegato A, in vigore dal 1° gennaio 2020
+    (punto 3 del dispositivo). La pagina del Comune (aggiornata il 12/08/2026) cita ancora questa
+    delibera come ultima variazione e collega la stessa tabella. Non ho trovato delibere tariffarie più
+    recenti, né delibere già approvate per il 2027. Non sono riuscito a consultare l'albo pretorio del
+    Comune né l'elenco degli atti di Fiesole sul portale del Dipartimento delle Finanze (la ricerca per
+    codice D575 non ha restituito risultati): conviene una conferma all'Ufficio Entrate
+    (servizio.entrate@comune.fiesole.fi.it, tel. 055 5961603).
+  - Nessuna differenza tra alta e bassa stagione: l'Allegato A ha una sola tabella per tutto l'anno.
+    Il regolamento (art. 9 bis, comma 4) prevede per le piattaforme convenzionate una tariffa unica
+    "senza vincoli di stagionalità".
+  - La delibera chiama le locazioni brevi "Locazioni brevi turistiche" (tabella d) "Strutture extra
+    alberghiere con caratteristiche di civile abitazione"). Il regolamento (art. 2, comma 1) parla di
+    "locazione turistica breve, di cui all'art. 4 del D.L. 50/2017"; la pagina del Comune di
+    "locazione turistica". Tutte le voci della tabella d) pagano 2,00 euro per persona per notte.
+  - B&B: la tabella NON ha una voce "Bed and breakfast". Non ho inserito una tariffa B&B per non
+    dedurla. In Toscana il B&B potrebbe ricadere tra gli affittacamere (2,00 euro), ma va confermato
+    con il Comune o con la legge regionale.
+
+  NOTTI MASSIME
+  - 10 notti consecutive (regolamento art. 2, comma 2). La pagina del Comune lo dice in giorni: "fino
+    ad un massimo di 10 giorni di permanenza consecutiva presso la stessa struttura" e "dall'11esimo
+    giorno ... l'imposta non è dovuta". Il senso coincide.
+
+  AIRBNB E VRBO
+  - Airbnb: la pagina del Comune dice che per la locazione turistica l'imposta "può essere riscossa"
+    tramite AirBnB al momento della prenotazione e che AirBnB la riversa al Comune; l'host deve
+    comunque fare la dichiarazione mensile. La pagina di aiuto Airbnb (https://www.airbnb.it/help/article/2287)
+    dice che Airbnb riscuote solo nei comuni che hanno aderito, senza un elenco: Fiesole non è nominata.
+    La stessa pagina dice che la dichiarazione annuale per queste notti la presenta Airbnb: da verificare
+    per Fiesole. Il regolamento (art. 9 bis) prevede le convenzioni con le piattaforme; non ho trovato il
+    testo della convenzione con Airbnb. Le esenzioni, con le piattaforme, si applicano con un rimborso
+    chiesto dall'ospite esente (art. 9 bis, comma 6).
+  - Vrbo: "no" è dedotto, non scritto in modo esplicito. La pagina ufficiale di Vrbo elenca le località
+    europee dove riscuote (Vienna, Francia, Amsterdam) e l'Italia non c'è; il Comune nomina solo AirBnB.
+    Chi usa Vrbo deve quindi riscuotere e versare da sé.
+
+  DUBBI DA CONTROLLARE
+  - Età dei minori esenti: il regolamento dice "fino al compimento di 12 anni" (esenti fino a 11 anni
+    compresi), la pagina del Comune "fino al dodicesimo anno di età già compiuto" (che potrebbe
+    includere chi ha 12 anni). Le due formule non coincidono: non ho compilato eta_fino_a.
+  - Numeri delle delibere istitutive in contrasto tra le fonti del Comune: la pagina servizio cita
+    C.C. n. 82 del 29/11/2011 e C.C. n. 61 del 28/09/2017; la scheda del regolamento cita C.C. n. 51 del
+    25/10/2018 e C.C. n. 16 del 24/02/2022; la premessa della delibera G.C. 196/2019 cita invece C.C. n. 44
+    del 28/06/2011, C.C. n. 16 del 28/03/2019, G.C. n. 146 del 19/09/2017 e G.C. n. 35 del 26/02/2019.
+    Non cambia le tariffe, ma va chiarito con il Comune.
+  - La tabella sul sito del Comune non riporta numero né data della delibera; la corrispondenza con
+    l'Allegato A della delibera 196/2019 l'ho controllata confrontando i valori (identici).
+  - Il PDF del regolamento è la versione "corretta 2022" (file del 13/04/2022): non ho trovato modifiche
+    successive.
+  - Dal 26/06/2026 per le locazioni turistiche non imprenditoriali serve una CIA sul portale STAR
+    (pagina del Comune, con rimando alla Regione Toscana). Non riguarda le tariffe.
+
+  BLOCCANTE PRIMA DI VERIFICARE (dal verificatore, 29/10/2026)
+  - Esiste un NUOVO regolamento dell'imposta di soggiorno: delibera C.C. n. 25 del 28/04/2026,
+    pubblicata sul portale del Dipartimento delle Finanze l'08/05/2026 (elenco "Regolamenti" 2026,
+    codice D575). Il testo non è scaricabile senza codice di accesso e non è sul sito del Comune.
+    Potrebbe cambiare notti massime, esenzioni, età dei minori, scadenze o regole per le piattaforme.
+    Va chiesto all'Ufficio Entrate (servizio.entrate@comune.fiesole.fi.it, tel. 055 5961603)
+    prima di passare a "verificato". I rif al "regolamento" in questo file sono al testo 2022.
+  - Airbnb: la pagina del Comune dice che l'imposta "può essere riscossa" tramite Airbnb
+    (condizionale); la convenzione prevista dall'art. 9 bis non è pubblica.
