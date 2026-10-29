@@ -68,7 +68,8 @@ export function nottiTassate(notti: number, d: ImpostaSoggiorno): number {
 
 /** Le eccezioni al massimo di notti, in parole: "B&B e affittacamere: nessun limite". */
 export function eccezioniNotti(d: ImpostaSoggiorno): string[] {
-  return d.notti_massime.eccezioni.map((e) => {
+  // "?? []": con dati letti prima che esistesse il campo (cache di Astro su Cloudflare) può mancare.
+  return (d.notti_massime.eccezioni ?? []).map((e) => {
     const nomi = e.categorie.map((c) => NOME_CATEGORIA[c]).join(' e ');
     const v = typeof e.valore === 'number' ? `al massimo ${e.valore} notti` : e.valore === 'nessun_limite' ? 'nessun limite' : 'massimo non indicato nelle fonti';
     return `${nomi}: ${v}`;
